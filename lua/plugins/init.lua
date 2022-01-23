@@ -232,4 +232,12 @@ return packer.startup(function()
             require("core.mappings").telescope()
         end,
     })
+
+    ---------------- [ Language-Specific ] ----------------
+    use({
+        "davidgranstrom/scnvim",
+        config = function()
+            require("plugins.configs.others").scnvim()
+        end,
+    })
 end)

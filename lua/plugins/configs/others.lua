@@ -77,6 +77,8 @@ M.luasnip = function()
 
         require("luasnip/loaders/from_vscode").load({ paths = "" })
         require("luasnip/loaders/from_vscode").load()
+        -- For scnvim snippets
+        require("luasnip").snippets.supercollider = require("scnvim/utils").get_snippets()
     end
 end
 
@@ -116,6 +118,12 @@ M.gitsigns = function()
             },
         })
     end
+end
+
+M.scnvim = function()
+    vim.g.sccnvim_snippet_format = "luasnip"
+    -- Automatically open post window on a SC error
+    vim.g.scnvim_postwin_auto_toggle = 1
 end
 
 return M
