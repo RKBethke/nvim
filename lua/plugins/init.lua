@@ -88,6 +88,7 @@ return packer.startup(function()
    use {
       "neovim/nvim-lspconfig",
       opt = true,
+      after = "nvim-cmp",
       setup = function()
          require("core.utils").packer_lazy_load "nvim-lspconfig"
          -- reload the current file so lsp actually starts for it
