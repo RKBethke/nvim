@@ -31,7 +31,7 @@ M.blankline = function()
             "lspinfo",
             "TelescopePrompt",
             "TelescopeResults",
-            "nvchad_cheatsheet",
+            "lsp-installer",
             "",
         },
         buftype_exclude = { "terminal" },

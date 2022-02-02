@@ -72,6 +72,9 @@ M.defaults = function()
     map("n", "<leader>w", ":execute 'terminal' | let b:term_type = 'wind' | startinsert <CR>") --  new window
     map("t", ":q!", "<C-\\><C-n>:q!<CR>") -- :q quits terminal
 
+    -- [ General Commands ] --
+    cmd("silent! command CopyPath let @+ = expand('%:p')")
+
     -- [ Packer Commands ] --
     -- Add Packer commands because we are not loading it at startup
     cmd("silent! command PackerClean lua require 'plugins' require('packer').clean()")
