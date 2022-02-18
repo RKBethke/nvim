@@ -12,6 +12,8 @@ local sources = {
          return utils.root_has_file { "stylua.toml", ".stylua.toml" }
       end,
    },
+   -- b.formatting.stylua,
+   b.diagnostics.luacheck.with { extra_args = { "--global vim" } },
 
    -- Shell
    --

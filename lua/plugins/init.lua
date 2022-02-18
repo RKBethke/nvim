@@ -47,7 +47,7 @@ return packer.startup(function()
             require("core.mappings").bufferline()
         end,
     })
-    
+
     use({
         "lukas-reineke/indent-blankline.nvim",
         event = "BufRead",
@@ -85,21 +85,25 @@ return packer.startup(function()
     })
 
     ---------------- [ Lsp ] ----------------
-   use {
-      "neovim/nvim-lspconfig",
-      opt = true,
-      after = "nvim-cmp",
-      setup = function()
-         require("core.utils").packer_lazy_load "nvim-lspconfig"
-         -- reload the current file so lsp actually starts for it
-         vim.defer_fn(function()
-            vim.cmd 'if &ft == "packer" | echo "" | else | silent! e %'
-         end, 0)
-      end,
-      config = function()
-          require("plugins.configs.lspconfig")
-      end,
-   }
+    use({
+        "p00f/clangd_extensions.nvim",
+    })
+
+    use({
+        "neovim/nvim-lspconfig",
+        opt = true,
+        after = "nvim-cmp",
+        setup = function()
+            require("core.utils").packer_lazy_load("nvim-lspconfig")
+            -- reload the current file so lsp actually starts for it
+            vim.defer_fn(function()
+                vim.cmd('if &ft == "packer" | echo "" | else | silent! e %')
+            end, 0)
+        end,
+        config = function()
+            require("plugins.configs.lspconfig")
+        end,
+    })
 
     use({
         "ray-x/lsp_signature.nvim",
@@ -114,7 +118,7 @@ return packer.startup(function()
         "jose-elias-alvarez/null-ls.nvim",
         after = "nvim-lspconfig",
         config = function()
-            require("plugins.configs.null-ls")
+            require("plugins.configs._null-ls").setup()
         end,
     })
 
