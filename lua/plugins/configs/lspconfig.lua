@@ -3,6 +3,30 @@ if not ok then
     return
 end
 
+local M = {}
+
+-------------- [ Commands ] ------------
+function M.enable_format_on_save()
+    vim.cmd([[
+    augroup format_on_save
+      au!
+      au BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 2000)
+    augroup end
+  ]])
+end
+
+function M.toggle_format_on_save()
+    if vim.fn.exists("#format_on_save#BufWritePre") == 0 then
+        M.enable_format_on_save()
+        vim.notify("Enabled format on save")
+    else
+        vim.cmd("au! format_on_save")
+        vim.notify("Disabled format on save")
+    end
+end
+
+vim.cmd("command! LSPToggleAutoFormat lua require('plugins.configs.lspconfig').toggle_format_on_save()")
+
 -------------- [ UI ] ------------
 local function lspSymbol(name, icon)
     local hl = "DiagnosticSign" .. name
@@ -40,13 +64,11 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
     max_height = max_height,
 })
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = false,
     underline = true,
     signs = true,
-  }
-)
+})
 
 -- suppress error messages from lang servers
 vim.notify = function(msg, log_level)
@@ -96,22 +118,22 @@ local servers = {
 
 -- Setup servers with defaults
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-     on_attach = on_attach,
-     capabilities = capabilities,
-     flags = {},
-  }
+    lspconfig[lsp].setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        flags = {},
+    })
 end
 
 ------------- [ Lua Lsp ] ------------
-local sumneko_binary_path = vim.fn.exepath "lua-language-server"
+local sumneko_binary_path = vim.fn.exepath("lua-language-server")
 local sumneko_root_path = vim.fn.fnamemodify(sumneko_binary_path, ":h:h:h")
 
 local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-lspconfig.sumneko_lua.setup {
+lspconfig.sumneko_lua.setup({
     -- on_attach = on_attach,
     on_attach = function(client, bufnr)
         client.resolved_capabilities.document_formatting = false
@@ -123,41 +145,41 @@ lspconfig.sumneko_lua.setup {
     flags = {},
     cmd = { sumneko_binary_path, "-E", sumneko_root_path .. "/main.lua" },
     settings = {
-     Lua = {
-        runtime = {
-           -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-           version = "LuaJIT",
-           -- Setup your lua path
-           path = runtime_path,
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = "LuaJIT",
+                -- Setup your lua path
+                path = runtime_path,
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { "vim", "use" },
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = {
+                    vim.api.nvim_get_runtime_file("", true),
+                },
+                maxPreload = 100000,
+                preloadFileSize = 10000,
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false,
+            },
         },
-        diagnostics = {
-           -- Get the language server to recognize the `vim` global
-           globals = { "vim" , "use"},
-        },
-        workspace = {
-           -- Make the server aware of Neovim runtime files
-           library = {
-              vim.api.nvim_get_runtime_file("", true),
-           },
-           maxPreload = 100000,
-           preloadFileSize = 10000,
-        },
-        -- Do not send telemetry data containing a randomized but unique identifier
-        telemetry = {
-           enable = false,
-        },
-     },
-  },
-}
+    },
+})
 
-
-require("clangd_extensions").setup {
+------------- [ Clangd Setup ] ------------
+require("clangd_extensions").setup({
     server = {
         -- options to pass to nvim-lspconfig
         -- i.e. the arguments to require("lspconfig").clangd.setup({})
-         on_attach = on_attach,
-         capabilities = capabilities,
-         flags = {},
+        on_attach = on_attach,
+        capabilities = capabilities,
+        flags = {},
     },
     extensions = {
         -- defaults:
@@ -218,6 +240,8 @@ require("clangd_extensions").setup {
             highlights = {
                 detail = "Comment",
             },
-        }
-    }
-}
+        },
+    },
+})
+
+return M
