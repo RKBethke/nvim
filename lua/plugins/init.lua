@@ -133,7 +133,7 @@ return packer.startup(function()
     ---------------- [ Luasnips + Cmp ] ----------------
     use({
         "rafamadriz/friendly-snippets",
-        event = "InsertEnter",
+        event = "InsertCharPre",
     })
 
     use({
@@ -181,7 +181,7 @@ return packer.startup(function()
     ---------------- [ Misc Plugins ] ----------------
     use({
         "max397574/better-escape.nvim",
-        event = "InsertEnter",
+        event = "InsertCharPre",
         config = function()
             require("plugins.configs.others").better_escape()
         end,
@@ -198,6 +198,7 @@ return packer.startup(function()
     use({
         "numToStr/Comment.nvim",
         module = "Comment",
+        event = "BufRead",
         config = require("plugins.configs.others").comment(),
         setup = function()
             require("core.mappings").comment()
