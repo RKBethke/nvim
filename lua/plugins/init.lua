@@ -240,9 +240,13 @@ return packer.startup(function()
 
     ---------------- [ Language-Specific ] ----------------
     use({
-        "davidgranstrom/scnvim",
+        "madskjeldgaard/supercollider-h4x-nvim",
         config = function()
-            require("plugins.configs.others").scnvim()
+            require("supercollider-h4x").setup()
         end,
+        after = { "scnvim" },
+        requires = {
+            "davidgranstrom/scnvim",
+        },
     })
 end)
