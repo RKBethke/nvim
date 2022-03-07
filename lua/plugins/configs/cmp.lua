@@ -35,9 +35,9 @@ cmp.setup {
       ["<C-e>"] = cmp.mapping.close(),
       ["<CR>"] = cmp.mapping.confirm {
          behavior = cmp.ConfirmBehavior.Replace,
-         select = true,
+         select = false, -- hitting <CR> when nothing is selected, does nothing
       },
-      ["<Tab>"] = function(fallback)
+      ["<Tab>"] = cmp.mapping(function(fallback)
          if cmp.visible() then
             cmp.select_next_item()
          elseif require("luasnip").expand_or_jumpable() then
@@ -45,8 +45,8 @@ cmp.setup {
          else
             fallback()
          end
-      end,
-      ["<S-Tab>"] = function(fallback)
+      end, { "i", "s" }),
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
          if cmp.visible() then
             cmp.select_prev_item()
          elseif require("luasnip").jumpable(-1) then
@@ -54,12 +54,18 @@ cmp.setup {
          else
             fallback()
          end
-      end,
+      end, { "i", "s" }),
    },
    sources = {
-      { name = "nvim_lsp" },
-      { name = "luasnip" },
-      { name = "buffer" },
+      { name = "nvim_lsp", max_item_count = 5 },
+      { name = "luasnip", max_item_count = 5 },
+      { name = "buffer",
+        option = { -- Use all open buffers
+                get_bufnrs = function()
+                    return vim.api.nvim_list_bufs()
+                end
+        }
+      },
       { name = "nvim_lua" },
       { name = "path" },
    },
