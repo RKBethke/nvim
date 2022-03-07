@@ -11,9 +11,12 @@ opt.smartcase = true
 opt.mouse = "a"
 
 -- Indentline
-opt.expandtab = true
-opt.shiftwidth = 4
+opt.expandtab = false
+opt.shiftwidth = 8
 opt.smartindent = true
+
+-- Folds
+opt.foldmethod = "marker"
 
 -- disable tilde on end of buffer: https://github.com/neovim/neovim/pull/8546#issuecomment-643643758
 opt.fillchars = { eob = " " }
