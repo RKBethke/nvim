@@ -18,14 +18,14 @@ end
 function M.toggle_format_on_save()
     if vim.fn.exists("#format_on_save#BufWritePre") == 0 then
         M.enable_format_on_save()
-        vim.notify("Enabled format on save")
+        vim.notify("LSP: Format On Save - Enabled")
     else
         vim.cmd("au! format_on_save")
-        vim.notify("Disabled format on save")
+        vim.notify("LSP: Format On Save - Disabled")
     end
 end
 
-vim.cmd("command! LSPToggleAutoFormat lua require('plugins.configs.lspconfig').toggle_format_on_save()")
+vim.cmd("command! LSPToggleFormatOnSave lua require('plugins.configs.lspconfig').toggle_format_on_save()")
 
 -------------- [ UI ] ------------
 local function lspSymbol(name, icon)
@@ -91,6 +91,9 @@ local function on_attach(_, bufnr)
     buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
     require("core.mappings").lspconfig()
+        
+    -- Toggle auto format by default
+    M.toggle_format_on_save()
 end
 
 ----------------- [ Setup ] -----------------
@@ -112,8 +115,10 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 -------------- [ Default Servers ] ------------
+---- servers with default config
 local servers = {
     "rust_analyzer",
+    "tsserver",
 }
 
 -- Setup servers with defaults
