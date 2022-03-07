@@ -70,6 +70,7 @@ return packer.startup(function()
         config = function()
             require("plugins.configs.treesitter")
         end,
+        run = ":TSUpdate",
     })
 
     ---------------- [ Git ] ----------------
