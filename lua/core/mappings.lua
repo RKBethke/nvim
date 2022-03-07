@@ -35,7 +35,7 @@ M.defaults = function()
     map("n", "Y", "yg$")
 
     -- Do not copy the replaced text after pasting in visual mode
-    map("v", "p", '"_dP')
+    map("v", "p", 'p:let @+=@0<CR>')
 
     -- Do not yank text on cut ( x )
     -- map({ "n", "v" }, "x", '"_x')
@@ -96,6 +96,8 @@ end
 M.bufferline = function()
     map("n", "L", ":BufferLineCycleNext <CR>")
     map("n", "H", ":BufferLineCyclePrev <CR>")
+    map("n", "<A-L>", ":BufferLineMoveNext <CR>")
+    map("n", "<A-H>", ":BufferLineMovePrev <CR>")
 end
 
 M.comment = function()
@@ -123,7 +125,7 @@ M.lspconfig = function()
     map("n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>")
     map("n", "<leader>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>")
 
-    map("n", "<leader>af", ":LSPToggleAutoFormat <CR>")
+    map("n", "<leader>fs", ":LSPToggleFormatOnSave <CR>")
 end
 
 M.nvimtree = function()
