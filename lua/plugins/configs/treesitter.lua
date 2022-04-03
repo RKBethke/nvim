@@ -8,6 +8,7 @@ ts_config.setup {
    ensure_installed = {
       "lua",
       "vim",
+      "comment",
    },
    highlight = {
       enable = true,
