@@ -11,7 +11,7 @@ local M = {}
 -- Will only be called during init
 --------------------------------------
 M.defaults = function()
-    -- [ General ] --
+    -- [ General ] -- {{{
     -- Easy quit
     map("n", "<leader>qa", "<cmd>qall<CR>")
 
@@ -19,8 +19,8 @@ M.defaults = function()
     -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
     -- empty mode is same as using :map
     -- also don't use g[j|k] when in operator pending mode, so it doesn't alter d, y or c behaviour
-    map("", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
-    map("", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
+    map({"n", "x", "o"}, "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
+    map({"n", "x", "o"}, "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
     map("", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
     map("", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
 
@@ -28,11 +28,14 @@ M.defaults = function()
     map("n", "<Esc>", ":noh <CR>")
 
     -- center cursor when moving (goto_definition)
-    -- map("n", "n", "nzzzv")
-    -- map("n", "N", "Nzzzv")
+    map("n", "n", "nzzzv")
+    map("n", "N", "Nzzzv")
+
+    -- copy entire file
+    map("n", "<c-y>", ":%y+ <CR>")
 
     -- yank from current cursor to end of line
-    map("n", "Y", "yg$")
+    map("n", "Y", "y$")
 
     -- Do not copy the replaced text after pasting in visual mode
     map("v", "p", 'p:let @+=@0<CR>')
@@ -43,7 +46,9 @@ M.defaults = function()
     -- Do not yank text on delete ( dd )
     map({ "n", "v" }, "d", '"_d')
 
-    -- [ Navigation within insert mode ] --
+    -- }}}
+    -- [ Navigation ] -- {{{
+    -- [ Within insert mode ]
     map("i", "<C-h>", "<Left>")
     map("i", "<C-l>", "<Right>")
     map("i", "<C-j>", "<Down>")
@@ -51,31 +56,33 @@ M.defaults = function()
     map("i", "<C-e>", "<End>") -- end of line
     map("i", "<C-a>", "<ESC>^i") -- beginning of line
 
-    -- [ Navigation between windows ] --
+    -- [ Between windows ] --
     map("n", "<C-h>", "<C-w>h")
     map("n", "<C-l>", "<C-w>l")
     map("n", "<C-k>", "<C-w>k")
     map("n", "<C-j>", "<C-w>j")
 
-    map("n", "<C-x>", ":lua require('core.utils').close_buffer() <CR>") -- close buffer
-    map("n", "<leader>ca", ":%y+ <CR>") -- copy whole file content
+    map("n", "<leader>x", ":lua require('core.utils').close_buffer() <CR>") -- close buffer
     map("n", "<S-t>", ":enew <CR>") -- new buffer
     map("n", "<C-t>b", ":tabnew <CR>") -- new tabs
     map("n", "<leader>n", ":set nu! <CR>") -- toggle line number
 
-    -- [ Terminal mappings ] --
+    -- [ Misc ] --
+    map("n", "gx", ":!xdg-open <c-r><c-a><CR>") -- open url under cursor
+
+    -- }}}
+    -- [ Terminal] -- {{{
     map("t", "jk", "<C-\\><C-n>") -- escape terminal mode
     map("t", "JK", "<C-\\><C-n> :lua require('core.utils').close_buffer() <CR>") -- hide a termingal from within terminal mode
-    map("n", "<leader>W", ":Telescope terms <CR>") -- Pick terminal
-    map("n", "<leader>h", ":execute 15 .. 'new +terminal' | let b:term_type = 'hori' | startinsert <CR>") -- new horizontal
-    map("n", "<leader>v", ":execute 'vnew +terminal' | let b:term_type = 'vert' | startinsert <CR>") -- new vertical
-    map("n", "<leader>w", ":execute 'terminal' | let b:term_type = 'wind' | startinsert <CR>") --  new window
+    map("n", "<leader>H", ":execute 15 .. 'new +terminal' | let b:term_type = 'hori' | startinsert <CR>") -- new horizontal
+    map("n", "<leader>V", ":execute 'vnew +terminal' | let b:term_type = 'vert' | startinsert <CR>") -- new vertical
+    map("n", "<leader>W", ":execute 'terminal' | let b:term_type = 'wind' | startinsert <CR>") --  new window
     map("t", ":q!", "<C-\\><C-n>:q!<CR>") -- :q quits terminal
-
-    -- [ General Commands ] --
+    -- }}}
+    -- [ Commands ] -- {{{
     cmd("silent! command CopyPath let @+ = expand('%:p')")
 
-    -- [ Packer Commands ] --
+    -- [ Packer ] --
     -- Add Packer commands because we are not loading it at startup
     cmd("silent! command PackerClean lua require 'plugins' require('packer').clean()")
     cmd("silent! command PackerCompile lua require 'plugins' require('packer').compile()")
@@ -84,9 +91,10 @@ M.defaults = function()
     cmd("silent! command PackerSync lua require 'plugins' require('packer').sync()")
     cmd("silent! command PackerUpdate lua require 'plugins' require('packer').update()")
 
-    -- [ Update Command ] --
+    -- [ Update ] --
     cmd("silent! command! NvChadUpdate lua require('nvchad').update_nvchad()")
     map("n", "<leader>uu", ":NvChadUpdate <CR>")
+    -- }}}
 end
 
 -------------------------------------
