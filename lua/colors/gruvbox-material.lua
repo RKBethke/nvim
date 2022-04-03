@@ -34,22 +34,4 @@ M.colors = {
     },
 }
 
--- Override certain colors
--- function M.overrides()
---   vim.cmd [[
---     hi NormalFloat guibg=#1d2021
---     hi TelescopeSelection guibg=#282828 guifg=#89b482 gui=bold
---     hi NvimTreeFolderIcon guifg=#7daea3
---     hi NvimTreeFolderName guifg=#7daea3
---     hi FloatBorder guifg=#89b482
---     hi TabLineSel guibg=#282828 guifg=#ddc7a1
---     hi TabLineNorm guibg=#1d2021 guifg=#a89984
---     hi TabLineFill guibg=#1d2021
---     hi TSKeywordFunction gui=italic guifg=#ea6962
---     hi TSConditional gui=italic guifg=#ea6962
---     hi TSRepeat gui=italic guifg=#ea6962
---     hi TelescopeTitle guifg=#928374
---     hi TelescopeBorder guifg=#303030
---   ]]
--- end
 return M
