@@ -32,7 +32,7 @@ M.defaults = function()
     map("n", "N", "Nzzzv")
 
     -- copy entire file
-    map("n", "<c-y>", ":%y+ <CR>")
+    map("n", "<C-c>", ":%y+ <CR>")
 
     -- yank from current cursor to end of line
     map("n", "Y", "y$")
