@@ -9,6 +9,7 @@ opt.hidden = true
 opt.ignorecase = true
 opt.smartcase = true
 opt.mouse = "a"
+opt.laststatus = 3
 
 -- Indentline
 opt.expandtab = false
