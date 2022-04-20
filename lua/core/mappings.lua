@@ -93,10 +93,6 @@ M.defaults = function()
     cmd("silent! command PackerStatus lua require 'plugins' require('packer').status()")
     cmd("silent! command PackerSync lua require 'plugins' require('packer').sync()")
     cmd("silent! command PackerUpdate lua require 'plugins' require('packer').update()")
-
-    -- [ Update ] --
-    cmd("silent! command! NvChadUpdate lua require('nvchad').update_nvchad()")
-    map("n", "<leader>uu", ":NvChadUpdate <CR>")
     -- }}}
 end
 
