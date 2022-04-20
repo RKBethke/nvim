@@ -66,6 +66,9 @@ M.defaults = function()
     map("n", "<S-t>", ":enew <CR>") -- new buffer
     map("n", "<C-t>b", ":tabnew <CR>") -- new tabs
     map("n", "<leader>n", ":set nu! <CR>") -- toggle line number
+    
+    map("n", "<leader>h", "<C-w>s") -- horizontal split
+    map("n", "<leader>v", "<C-w>v") -- vertical split
 
     -- [ Misc ] --
     map("n", "gx", ":!xdg-open <c-r><c-a><CR>") -- open url under cursor
