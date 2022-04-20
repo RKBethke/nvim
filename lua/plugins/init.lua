@@ -216,6 +216,11 @@ return packer.startup(function()
         end,
     })
 
+    use({
+	"ggandor/lightspeed.nvim",
+	event = "BufRead",
+    })
+
     ---------------- [ File managing , Picker etc. ] ----------------
     use({
         "kyazdani42/nvim-tree.lua",
