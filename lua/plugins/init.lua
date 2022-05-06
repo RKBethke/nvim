@@ -77,7 +77,7 @@ return packer.startup(function()
     ---------------- [ Git ] ----------------
     use({
         "lewis6991/gitsigns.nvim",
-        opt = true,
+	opt = true,
         config = function()
             require("plugins.configs.others").gitsigns()
         end,
@@ -93,7 +93,8 @@ return packer.startup(function()
 
     use({
         "neovim/nvim-lspconfig",
-        opt = true,
+	module = "lspconfig",
+	opt = true,
         after = "nvim-cmp",
         setup = function()
             require("core.utils").packer_lazy_load("nvim-lspconfig")
@@ -126,7 +127,7 @@ return packer.startup(function()
 
     use({
         "andymass/vim-matchup",
-        opt = true,
+	opt = true,
         setup = function()
             require("core.utils").packer_lazy_load("vim-matchup") -- Load plugin after entering vim ui
         end,
@@ -200,11 +201,14 @@ return packer.startup(function()
     use({
         "numToStr/Comment.nvim",
         module = "Comment",
-        event = "BufRead",
-        config = require("plugins.configs.others").comment(),
+	keys = { "gc", "gb" },
         setup = function()
             require("core.mappings").comment()
         end,
+
+	config = function()
+	    require("plugins.configs.others").comment()
+	end,
     })
 
     -- Helpful plugin dealing with surrounding symbols
@@ -236,13 +240,13 @@ return packer.startup(function()
 
     use({
         "nvim-telescope/telescope.nvim",
-        module = "telescope",
         cmd = "Telescope",
-        config = function()
-            require("plugins.configs.telescope")
-        end,
         setup = function()
             require("core.mappings").telescope()
+        end,
+        
+	config = function()
+            require("plugins.configs.telescope")
         end,
     })
 
