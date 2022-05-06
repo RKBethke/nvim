@@ -87,13 +87,10 @@ local function on_attach(_, bufnr)
         vim.api.nvim_buf_set_option(bufnr, ...)
     end
 
-    -- Enable completion triggered by <c-x><c-o>
-    buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
     require("core.mappings").lspconfig()
         
     -- Toggle auto format by default
-    M.toggle_format_on_save()
+    -- M.toggle_format_on_save()
 end
 
 ----------------- [ Setup ] -----------------
@@ -143,7 +140,6 @@ lspconfig.sumneko_lua.setup({
     on_attach = function(client, bufnr)
         client.resolved_capabilities.document_formatting = false
         client.resolved_capabilities.document_range_formatting = false
-        -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", {})
         require("core.mappings").lspconfig()
     end,
     capabilities = capabilities,
