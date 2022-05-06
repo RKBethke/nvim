@@ -149,6 +149,7 @@ M.telescope = function()
     map("n", "<leader>fh", ":Telescope help_tags <CR>")
     map("n", "<leader>fw", ":Telescope live_grep <CR>")
     map("n", "<leader>fo", ":Telescope oldfiles <CR>")
+    map("n", "<leader>tk", ":Telescope keymaps <CR>")
 end
 
 return M
