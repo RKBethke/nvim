@@ -1,6 +1,8 @@
 local opt = vim.opt
 local g = vim.g
 
+opt.confirm = true
+opt.laststatus = 3
 opt.title = true
 opt.clipboard = "unnamedplus" -- To ALWAYS use the clipboard for ALL operations
 opt.cmdheight = 1
@@ -9,7 +11,6 @@ opt.hidden = true
 opt.ignorecase = true
 opt.smartcase = true
 opt.mouse = "a"
-opt.laststatus = 3
 
 -- Indentline
 opt.expandtab = false
