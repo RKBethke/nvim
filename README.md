@@ -21,7 +21,7 @@ git clone https://github.com/RKBethke/nvim ~/.config/nvim
 2. Open neovim and install packages.
 
 ```
-nvim +'hi NormalFloat guibg=#665c54' +PackerSync
+nvim +PackerSync
 ```
 
 ## License
