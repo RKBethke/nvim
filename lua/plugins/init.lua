@@ -39,7 +39,7 @@ return packer.startup(function()
 
     use({
         "akinsho/bufferline.nvim",
-	branch = "main",
+        branch = "main",
         after = "nvim-web-devicons",
         config = function()
             require("plugins.configs.bufferline")
@@ -77,7 +77,7 @@ return packer.startup(function()
     ---------------- [ Git ] ----------------
     use({
         "lewis6991/gitsigns.nvim",
-	opt = true,
+        opt = true,
         config = function()
             require("plugins.configs.others").gitsigns()
         end,
@@ -88,22 +88,23 @@ return packer.startup(function()
 
     ---------------- [ Lsp ] ----------------
     use({
-        "p00f/clangd_extensions.nvim",
-    })
-
-    use({
-        "neovim/nvim-lspconfig",
-	module = "lspconfig",
-	opt = true,
-        after = "nvim-cmp",
+        "williamboman/nvim-lsp-installer",
+        opt = true,
         setup = function()
-            require("core.utils").packer_lazy_load("nvim-lspconfig")
+            require("core.utils").packer_lazy_load("nvim-lsp-installer")
             -- reload the current file so lsp actually starts for it
             vim.defer_fn(function()
                 vim.cmd('if &ft == "packer" | echo "" | else | silent! e %')
             end, 0)
         end,
+    })
+
+    use({
+        "neovim/nvim-lspconfig",
+        after = "nvim-lsp-installer",
+        module = "lspconfig",
         config = function()
+            require("plugins.configs.lsp_installer")
             require("plugins.configs.lspconfig")
         end,
     })
@@ -127,7 +128,7 @@ return packer.startup(function()
 
     use({
         "andymass/vim-matchup",
-	opt = true,
+        opt = true,
         setup = function()
             require("core.utils").packer_lazy_load("vim-matchup") -- Load plugin after entering vim ui
         end,
@@ -201,14 +202,14 @@ return packer.startup(function()
     use({
         "numToStr/Comment.nvim",
         module = "Comment",
-	keys = { "gc", "gb" },
+        keys = { "gc", "gb" },
         setup = function()
             require("core.mappings").comment()
         end,
 
-	config = function()
-	    require("plugins.configs.others").comment()
-	end,
+        config = function()
+            require("plugins.configs.others").comment()
+        end,
     })
 
     -- Helpful plugin dealing with surrounding symbols
@@ -221,8 +222,8 @@ return packer.startup(function()
     })
 
     use({
-	"ggandor/lightspeed.nvim",
-	event = "BufRead",
+        "ggandor/lightspeed.nvim",
+        event = "BufRead",
     })
 
     ---------------- [ File managing , Picker etc. ] ----------------
@@ -244,8 +245,7 @@ return packer.startup(function()
         setup = function()
             require("core.mappings").telescope()
         end,
-        
-	config = function()
+        config = function()
             require("plugins.configs.telescope")
         end,
     })
