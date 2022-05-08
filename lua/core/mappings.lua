@@ -19,8 +19,8 @@ M.defaults = function()
     -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
     -- empty mode is same as using :map
     -- also don't use g[j|k] when in operator pending mode, so it doesn't alter d, y or c behaviour
-    map({"n", "x", "o"}, "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
-    map({"n", "x", "o"}, "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
+    map({ "n", "x", "o" }, "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
+    map({ "n", "x", "o" }, "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
     map("", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
     map("", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
 
@@ -34,11 +34,9 @@ M.defaults = function()
     -- copy entire file
     map("n", "<C-c>", ":%y+ <CR>")
 
-    -- yank from current cursor to end of line
-    map("n", "Y", "y$")
-
     -- Do not copy the replaced text after pasting in visual mode
-    map("v", "p", 'p:let @+=@0<CR>')
+    -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
+    map("v", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { silent = true })
 
     -- Do not yank text on cut ( x )
     -- map({ "n", "v" }, "x", '"_x')
@@ -66,7 +64,7 @@ M.defaults = function()
     map("n", "<S-t>", ":enew <CR>") -- new buffer
     map("n", "<C-t>b", ":tabnew <CR>") -- new tabs
     map("n", "<leader>n", ":set nu! <CR>") -- toggle line number
-    
+
     map("n", "<leader>h", "<C-w>s") -- horizontal split
     map("n", "<leader>v", "<C-w>v") -- vertical split
 
