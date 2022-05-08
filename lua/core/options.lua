@@ -14,7 +14,7 @@ opt.mouse = "a"
 
 -- Indentline
 opt.expandtab = false
-opt.shiftwidth = 8
+opt.shiftwidth = 4
 opt.smartindent = true
 
 -- Folds
@@ -35,7 +35,7 @@ opt.shortmess:append("sI")
 opt.signcolumn = "yes"
 opt.splitbelow = true
 opt.splitright = true
-opt.tabstop = 8
+opt.tabstop = 4
 opt.termguicolors = true
 opt.timeoutlen = 400
 opt.undofile = true
