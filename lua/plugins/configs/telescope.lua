@@ -39,9 +39,12 @@ telescope.setup({
                 ["<ESC>"] = require("telescope.actions").close,
                 ["<C-j>"] = require("telescope.actions").move_selection_next,
                 ["<C-k>"] = require("telescope.actions").move_selection_previous,
-                ["<C-q>"] = require("telescope.actions").send_to_qflist
+                ["<C-q>"] = require("telescope.actions").send_to_qflist,
             },
-            n = { ["<ESC>"] = require("telescope.actions").close },
+            n = {
+                ["<ESC>"] = require("telescope.actions").close,
+                ["q"] = require("telescope.actions").close,
+            },
         },
         file_sorter = require("telescope.sorters").get_fuzzy_file,
         file_ignore_patterns = { "node_modules" },
