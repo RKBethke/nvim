@@ -1,8 +1,8 @@
-local M = {}
+_G.rb = {}
 
 local cmd = vim.cmd
 
-M.close_buffer = function(force)
+rb.close_buffer = function(force)
    if vim.bo.buftype == "terminal" then
       vim.api.nvim_win_hide(0)
       return
@@ -24,7 +24,7 @@ M.close_buffer = function(force)
    vim.cmd(close_cmd)
 end
 
-M.map = function(mode, keys, command, opt)
+rb.map = function(mode, keys, command, opt)
     local options = { noremap = true, silent = true }
     if opt then
         options = vim.tbl_extend("force", options, opt)
@@ -81,7 +81,7 @@ M.map = function(mode, keys, command, opt)
 end
 
 -- load plugin after entering vim ui
-M.packer_lazy_load = function(plugin, timer)
+rb.packer_lazy_load = function(plugin, timer)
     if plugin then
         timer = timer or 0
         vim.defer_fn(function()
@@ -96,14 +96,14 @@ end
 -- @param group Group
 -- @param color Color
 
-M.bg = function(group, col)
+rb.bg = function(group, col)
     cmd("hi " .. group .. " guibg=" .. col)
 end
 
 -- Define fg color
 -- @param group Group
 -- @param color Color
-M.fg = function(group, col)
+rb.fg = function(group, col)
     cmd("hi " .. group .. " guifg=" .. col)
 end
 
@@ -111,8 +111,6 @@ end
 -- @param group Group
 -- @param fgcol Fg Color
 -- @param bgcol Bg Color
-M.fg_bg = function(group, fgcol, bgcol)
+rb.fg_bg = function(group, fgcol, bgcol)
     cmd("hi " .. group .. " guifg=" .. fgcol .. " guibg=" .. bgcol)
 end
-
-return M

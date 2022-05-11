@@ -83,7 +83,7 @@ return packer.startup(function()
             require("plugins.configs.others").gitsigns()
         end,
         setup = function()
-            require("core.utils").packer_lazy_load("gitsigns.nvim")
+            rb.packer_lazy_load("gitsigns.nvim")
         end,
     })
 
@@ -92,7 +92,7 @@ return packer.startup(function()
         "williamboman/nvim-lsp-installer",
         opt = true,
         setup = function()
-            require("core.utils").packer_lazy_load("nvim-lsp-installer")
+            rb.packer_lazy_load("nvim-lsp-installer")
             -- reload the current file so lsp actually starts for it
             vim.defer_fn(function()
                 vim.cmd('if &ft == "packer" | echo "" | else | silent! e %')
@@ -131,7 +131,7 @@ return packer.startup(function()
         "andymass/vim-matchup",
         opt = true,
         setup = function()
-            require("core.utils").packer_lazy_load("vim-matchup") -- Load plugin after entering vim ui
+            rb.packer_lazy_load("vim-matchup") -- Load plugin after entering vim ui
         end,
     })
 

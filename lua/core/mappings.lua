@@ -1,7 +1,4 @@
-local utils = require("core.utils")
-
-local map = utils.map
-
+local map = rb.map
 local cmd = vim.cmd
 
 local M = {}
@@ -60,7 +57,7 @@ M.defaults = function()
     map("n", "<C-k>", "<C-w>k")
     map("n", "<C-j>", "<C-w>j")
 
-    map("n", "<leader>x", ":lua require('core.utils').close_buffer() <CR>") -- close buffer
+    map("n", "<leader>x", ":lua rb.close_buffer() <CR>") -- close buffer
     map("n", "<S-t>", ":enew <CR>") -- new buffer
     map("n", "<C-t>b", ":tabnew <CR>") -- new tabs
     map("n", "<leader>n", ":set nu! <CR>") -- toggle line number
@@ -74,7 +71,7 @@ M.defaults = function()
     -- }}}
     -- [ Terminal] -- {{{
     map("t", "jk", "<C-\\><C-n>") -- escape terminal mode
-    map("t", "JK", "<C-\\><C-n> :lua require('core.utils').close_buffer() <CR>") -- hide a termingal from within terminal mode
+    map("t", "JK", "<C-\\><C-n> :lua rb.close_buffer() <CR>") -- hide a termingal from within terminal mode
     map("n", "<leader>H", ":execute 15 .. 'new +terminal' | let b:term_type = 'hori' | startinsert <CR>") -- new horizontal
     map("n", "<leader>V", ":execute 'vnew +terminal' | let b:term_type = 'vert' | startinsert <CR>") -- new vertical
     map("n", "<leader>W", ":execute 'terminal' | let b:term_type = 'wind' | startinsert <CR>") --  new window
