@@ -34,6 +34,15 @@ vim.cmd([[ au TermOpen term://* setlocal nonumber norelativenumber | setfiletype
 --       vim.opt_local.softtabstop = 4
 --    end,
 -- })
+autocmd("Filetype", {
+   pattern = "markdown",
+   callback = function()
+      vim.opt_local.expandtab = true
+      vim.opt_local.tabstop = 4
+      vim.opt_local.shiftwidth = 4
+      vim.opt_local.softtabstop = 4
+   end,
+})
 -- 
 -- Highlight yanked text
 -- autocmd("TextYankPost", {
