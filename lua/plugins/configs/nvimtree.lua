@@ -3,43 +3,6 @@ if not present then
    return
 end
 
-local g = vim.g
-
-g.nvim_tree_add_trailing = 0 -- append a trailing slash to folder names
-g.nvim_tree_git_hl = 1 -- git status
-g.nvim_tree_highlight_opened_files = 0
-
-g.nvim_tree_show_icons = {
-   folders = 1,
-   files = 1,
-   git = 1, -- git status
-   folder_arrows = 1,
-}
-
-g.nvim_tree_icons = {
-   default = "",
-   symlink = "",
-   git = {
-      deleted = "",
-      ignored = "◌",
-      renamed = "➜ ",
-      staged = "✓",
-      unmerged = "",
-      unstaged = "✗",
-      untracked = "★ ",
-   },
-   folder = {
-      default = "",
-      empty = "",
-      empty_open = "",
-      open = "",
-      symlink = "",
-      symlink_open = "",
-      arrow_open = "",
-      arrow_closed = "",
-   },
-}
-
 nvimtree.setup {
    filters = {
       dotfiles = false,
@@ -71,7 +34,42 @@ nvimtree.setup {
    },
    renderer = {
       indent_markers = {
-         enable = false,
+         enable = true,
       },
-   },
+	  add_trailing = false,
+	  highlight_git = true,
+	  highlight_opened_files = "none",
+	  icons = {
+	  	show = {
+		   folder = true,
+		   file = true,
+		   git = true, -- git status
+		   folder_arrow = true,
+		},
+		glyphs = {
+		   default = "",
+		   symlink = "",
+		   git = {
+			  deleted = "",
+			  ignored = "◌",
+			  renamed = "➜ ",
+			  staged = "✓",
+			  unmerged = "",
+			  unstaged = "✗",
+			  untracked = "★ ",
+		   },
+		   folder = {
+			  default = "",
+			  empty = "",
+			  empty_open = "",
+			  open = "",
+			  symlink = "",
+			  symlink_open = "",
+			  arrow_open = "",
+			  arrow_closed = "",
+		   },
+		},
+	  },
+
+	  },
 }
