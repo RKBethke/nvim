@@ -77,7 +77,7 @@ M.luasnip = function()
         updateevents = "TextChanged,TextChangedI",
     })
 
-        require("luasnip/loaders/from_vscode").lazy_load()
+    require("luasnip/loaders/from_vscode").lazy_load()
 end
 
 M.signature = function()
@@ -116,15 +116,6 @@ M.gitsigns = function()
             },
         })
     end
-end
-
-M.scnvim = function()
-    vim.g.sccnvim_snippet_format = "luasnip"
-    -- Automatically open post window on a SC error
-    vim.g.scnvim_postwin_auto_toggle = 1
-    
-    -- For scnvim snippets
-    require("luasnip").snippets.supercollider = require("scnvim/utils").get_snippets()
 end
 
 return M
