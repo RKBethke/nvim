@@ -23,7 +23,16 @@ local icons = {
    Struct = "פּ",
    Event = "",
    Operator = "",
-   TypeParameter = "",
+   TypeParameter = "",
+   Table = " ",
+   Object = "",
+   Tag = " ",
+   Array = " ",
+   Boolean = "蘒",
+   Number = "",
+   String = "",
+   Calendar = " ",
+   Watch = "",
 }
 
 return icons
