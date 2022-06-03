@@ -138,7 +138,7 @@ return packer.startup(function()
     ---------------- [ Luasnips + Cmp ] ----------------
     use({
         "rafamadriz/friendly-snippets",
-        event = "InsertCharPre",
+        event = "InsertEnter"
     })
 
     use({
@@ -186,7 +186,7 @@ return packer.startup(function()
     ---------------- [ Misc Plugins ] ----------------
     use({
         "max397574/better-escape.nvim",
-        event = "InsertCharPre",
+        event = "InsertEnter",
         config = function()
             require("plugins.configs.others").better_escape()
         end,
