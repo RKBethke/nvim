@@ -75,7 +75,7 @@ local shortline = true
 
 local main_icon = {
     provider = function()
-        return "  " .. mode_colors[vim.fn.mode()][1] .. " "
+        return statusline_style.main_icon .. mode_colors[vim.fn.mode()][1] .. " "
     end,
 
     hl = function()
@@ -103,9 +103,9 @@ local dir_name = {
         local extension = vim.fn.expand("%:e")
         local icon = require("nvim-web-devicons").get_icon(filename, extension)
         if icon == nil then
-            icon = " "
+            icon = ""
         end
-        return " " .. icon .. " " .. dir_name .. " "
+        return icon .. " " .. dir_name .. " "
     end,
 
     hl = {
@@ -254,14 +254,14 @@ local current_line = {
         local current_col = vim.fn.col(".")
         local total_line = vim.fn.line("$")
 
-        if current_col < 10 then
-            current_col = " " .. current_col
-        end
+        -- if current_col < 10 then
+        --     current_col = " " .. current_col
+        -- end
 
         if current_line == 1 then
-            return "  " .. current_line .. ":" .. current_col .. "/" .. "Top "
+            return "  " .. current_line .. ":" .. current_col .. "|" .. "Top "
         elseif current_line == vim.fn.line("$") then
-            return "  " .. current_line .. ":" .. current_col .. "/" .. "Bot "
+            return "  " .. current_line .. ":" .. current_col .. "|" .. "Bot "
         end
         local result, _ = math.modf((current_line / total_line) * 100)
 
@@ -269,7 +269,7 @@ local current_line = {
             result = " " .. result
         end
 
-        return "  " .. current_line .. ":" .. current_col .. "/" .. result .. "%% "
+        return "  " .. current_line .. ":" .. current_col .. "|" .. result .. "%% "
     end,
 
     hl = {
