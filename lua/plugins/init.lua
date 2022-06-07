@@ -40,7 +40,7 @@ return packer.startup(function()
 
     use({
         "akinsho/bufferline.nvim",
-        branch = "main",
+        tag = "v2.*",
         after = "nvim-web-devicons",
         config = function()
             require("plugins.configs.bufferline")
@@ -138,7 +138,7 @@ return packer.startup(function()
     ---------------- [ Luasnips + Cmp ] ----------------
     use({
         "rafamadriz/friendly-snippets",
-        event = "InsertEnter"
+        event = "InsertEnter",
     })
 
     use({
