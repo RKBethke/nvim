@@ -10,7 +10,7 @@ function M.enable_format_on_save()
     vim.cmd([[
     augroup format_on_save
       au!
-      au BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 2000)
+      au BufWritePre * lua vim.lsp.buf.format({ timeout_ms = 2000 })
     augroup end
   ]])
 end
@@ -189,8 +189,8 @@ end
 ------------- [ Lua Lsp ] ------------
 lspconfig.sumneko_lua.setup({
     on_attach = function(client, _)
-        client.server_capabilities.document_formatting = false
-        client.server_capabilities.document_range_formatting = false
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormatting = false
         require("core.mappings").lspconfig()
     end,
     capabilities = capabilities,
