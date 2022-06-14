@@ -66,7 +66,7 @@ local shortline = true
 local main_icon = {
 	provider = function()
 		local m = vim.api.nvim_get_mode().mode
-		return statusline_style.main_icon .. mode_colors[m][1] .. " "
+		return " " .. mode_colors[m][1] .. " "
 	end,
 
 	hl = function()
