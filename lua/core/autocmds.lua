@@ -25,9 +25,14 @@ local autocmd = vim.api.nvim_create_autocmd
 -- TODO: switch to use new autocmd api
 vim.cmd([[ au TermOpen term://* setlocal nonumber norelativenumber | setfiletype terminal ]])
 
--- Highlight yanked text
--- autocmd("TextYankPost", {
---    callback = function()
---       vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
---    end,
--- })
+-- Fix luasnip jumping erratically when not in insert mode
+autocmd("InsertLeave", {
+    callback = function()
+        if
+            require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+            and not require("luasnip").session.jump_active
+        then
+            require("luasnip").unlink_current()
+        end
+    end,
+})
