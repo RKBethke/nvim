@@ -27,12 +27,12 @@ vim.cmd([[ au TermOpen term://* setlocal nonumber norelativenumber | setfiletype
 
 -- Fix luasnip jumping erratically when not in insert mode
 autocmd("InsertLeave", {
-    callback = function()
-        if
-            require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-            and not require("luasnip").session.jump_active
-        then
-            require("luasnip").unlink_current()
-        end
-    end,
+	callback = function()
+		if
+			require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+			and not require("luasnip").session.jump_active
+		then
+			require("luasnip").unlink_current()
+		end
+	end,
 })

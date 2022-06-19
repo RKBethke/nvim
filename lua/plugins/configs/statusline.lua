@@ -13,8 +13,8 @@ local sep_styles = {
 	},
 
 	block = {
-      	left = "█",
-      	right = "█",
+		left = "█",
+		right = "█",
 	},
 
 	round = {
@@ -36,9 +36,9 @@ local mode_colors = {
 	["no"] = { "N-PENDING", colors.red },
 	["i"] = { "INSERT", colors.magenta },
 	["ic"] = { "INSERT", colors.magenta },
-    ["ix"] = { "INSERT completion", colors.magenta },
+	["ix"] = { "INSERT completion", colors.magenta },
 	["t"] = { "TERMINAL", colors.red },
-    ["nt"] = { "NTERMINAL", colors.red },
+	["nt"] = { "NTERMINAL", colors.red },
 	["v"] = { "VISUAL", colors.cyan },
 	["V"] = { "V-LINE", colors.cyan },
 	[""] = { "V-BLOCK", colors.cyan },

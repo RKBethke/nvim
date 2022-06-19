@@ -1,5 +1,5 @@
 vim.filetype.add({
-  extension = {
-    nix = "nix",
-  },
+	extension = {
+		nix = "nix",
+	},
 })

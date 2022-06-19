@@ -1,13 +1,13 @@
 local ok, lspconfig = pcall(require, "lspconfig")
 if not ok then
-    return
+	return
 end
 
 local M = {}
 
 -------------- [ Commands ] ------------
 function M.enable_format_on_save()
-    vim.cmd([[
+	vim.cmd([[
     augroup format_on_save
       au!
       au BufWritePre * lua vim.lsp.buf.format({ timeout_ms = 2000 })
@@ -16,21 +16,21 @@ function M.enable_format_on_save()
 end
 
 function M.toggle_format_on_save()
-    if vim.fn.exists("#format_on_save#BufWritePre") == 0 then
-        M.enable_format_on_save()
-        vim.notify("LSP: Format On Save - Enabled")
-    else
-        vim.cmd("au! format_on_save")
-        vim.notify("LSP: Format On Save - Disabled")
-    end
+	if vim.fn.exists("#format_on_save#BufWritePre") == 0 then
+		M.enable_format_on_save()
+		vim.notify("LSP: Format On Save - Enabled")
+	else
+		vim.cmd("au! format_on_save")
+		vim.notify("LSP: Format On Save - Disabled")
+	end
 end
 
 vim.cmd("command! LSPToggleFormatOnSave lua require('plugins.configs.lspconfig').toggle_format_on_save()")
 
 -------------- [ UI ] ------------
 local function lspSymbol(name, icon)
-    local hl = "DiagnosticSign" .. name
-    vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
+	local hl = "DiagnosticSign" .. name
+	vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
 end
 
 lspSymbol("Error", "")
@@ -39,117 +39,117 @@ lspSymbol("Hint", "")
 lspSymbol("Warn", "")
 
 vim.diagnostic.config({
-    severity_sort = true,
-    signs = true,
-    underline = true,
-    update_in_insert = false,
-    virtual_text = false,
-    -- virtual_text = {
-    --    prefix = "",
-    -- },
+	severity_sort = true,
+	signs = true,
+	underline = true,
+	update_in_insert = false,
+	virtual_text = false,
+	-- virtual_text = {
+	--    prefix = "",
+	-- },
 })
 
 local max_width = math.max(math.floor(vim.o.columns * 0.7), 100)
 local max_height = math.max(math.floor(vim.o.lines * 0.3), 30)
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "single",
-    max_width = max_width,
-    max_height = max_height,
+	border = "single",
+	max_width = max_width,
+	max_height = max_height,
 })
 
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = "single",
-    max_width = max_width,
-    max_height = max_height,
+	border = "single",
+	max_width = max_width,
+	max_height = max_height,
 })
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false,
-    underline = true,
-    signs = true,
+	virtual_text = false,
+	underline = true,
+	signs = true,
 })
 
 -- suppress error messages from lang servers
 vim.notify = function(msg, log_level)
-    if msg:match("exit code") then
-        return
-    end
-    if log_level == vim.log.levels.ERROR then
-        vim.api.nvim_err_writeln(msg)
-    else
-        vim.api.nvim_echo({ { msg } }, true, {})
-    end
+	if msg:match("exit code") then
+		return
+	end
+	if log_level == vim.log.levels.ERROR then
+		vim.api.nvim_err_writeln(msg)
+	else
+		vim.api.nvim_echo({ { msg } }, true, {})
+	end
 end
 
 -- credits to @Malace : https://www.reddit.com/r/neovim/comments/ql4iuj/rename_hover_including_window_title_and/
-   -- This is modified version of the above snippet
-   vim.lsp.buf.rename = {
-      float = function()
-         local currName = vim.fn.expand "<cword>" .. " "
+-- This is modified version of the above snippet
+vim.lsp.buf.rename = {
+	float = function()
+		local currName = vim.fn.expand("<cword>") .. " "
 
-         local win = require("plenary.popup").create(currName, {
-            title = "Rename",
-            style = "minimal",
-            borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-            relative = "cursor",
-            borderhighlight = "RenamerBorder",
-            titlehighlight = "RenamerTitle",
-            focusable = true,
-            width = 25,
-            height = 1,
-            line = "cursor+2",
-            col = "cursor-1",
-         })
+		local win = require("plenary.popup").create(currName, {
+			title = "Rename",
+			style = "minimal",
+			borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+			relative = "cursor",
+			borderhighlight = "RenamerBorder",
+			titlehighlight = "RenamerTitle",
+			focusable = true,
+			width = 25,
+			height = 1,
+			line = "cursor+2",
+			col = "cursor-1",
+		})
 
-         local map_opts = { noremap = true, silent = true }
+		local map_opts = { noremap = true, silent = true }
 
-         vim.cmd "normal w"
-         vim.cmd "startinsert"
+		vim.cmd("normal w")
+		vim.cmd("startinsert")
 
-         vim.api.nvim_buf_set_keymap(0, "i", "<Esc>", "<cmd>stopinsert | q!<CR>", map_opts)
-         vim.api.nvim_buf_set_keymap(0, "n", "<Esc>", "<cmd>stopinsert | q!<CR>", map_opts)
+		vim.api.nvim_buf_set_keymap(0, "i", "<Esc>", "<cmd>stopinsert | q!<CR>", map_opts)
+		vim.api.nvim_buf_set_keymap(0, "n", "<Esc>", "<cmd>stopinsert | q!<CR>", map_opts)
 
-         vim.api.nvim_buf_set_keymap(
-            0,
-            "i",
-            "<CR>",
-            "<cmd>stopinsert | lua vim.lsp.buf.rename.apply(" .. currName .. "," .. win .. ")<CR>",
-            map_opts
-         )
+		vim.api.nvim_buf_set_keymap(
+			0,
+			"i",
+			"<CR>",
+			"<cmd>stopinsert | lua vim.lsp.buf.rename.apply(" .. currName .. "," .. win .. ")<CR>",
+			map_opts
+		)
 
-         vim.api.nvim_buf_set_keymap(
-            0,
-            "n",
-            "<CR>",
-            "<cmd>stopinsert | lua vim.lsp.buf.rename.apply(" .. currName .. "," .. win .. ")<CR>",
-            map_opts
-         )
-      end,
+		vim.api.nvim_buf_set_keymap(
+			0,
+			"n",
+			"<CR>",
+			"<cmd>stopinsert | lua vim.lsp.buf.rename.apply(" .. currName .. "," .. win .. ")<CR>",
+			map_opts
+		)
+	end,
 
-      apply = function(curr, win)
-         local newName = vim.trim(vim.fn.getline ".")
-         vim.api.nvim_win_close(win, true)
+	apply = function(curr, win)
+		local newName = vim.trim(vim.fn.getline("."))
+		vim.api.nvim_win_close(win, true)
 
-         if #newName > 0 and newName ~= curr then
-            local params = vim.lsp.util.make_position_params()
-            params.newName = newName
+		if #newName > 0 and newName ~= curr then
+			local params = vim.lsp.util.make_position_params()
+			params.newName = newName
 
-            vim.lsp.buf_request(0, "textDocument/rename", params)
-         end
-      end,
-   }
+			vim.lsp.buf_request(0, "textDocument/rename", params)
+		end
+	end,
+}
 
 local function on_attach(_, bufnr)
-    local function buf_set_option(...)
-        vim.api.nvim_buf_set_option(bufnr, ...)
-    end
+	local function buf_set_option(...)
+		vim.api.nvim_buf_set_option(bufnr, ...)
+	end
 
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-    require("core.mappings").lspconfig()
-    -- Toggle auto format by default
-    -- M.toggle_format_on_save()
+	require("core.mappings").lspconfig()
+	-- Toggle auto format by default
+	-- M.toggle_format_on_save()
 end
 
 ----------------- [ Setup ] -----------------
@@ -163,63 +163,63 @@ capabilities.textDocument.completion.completionItem.deprecatedSupport = true
 capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
 capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
 capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {
-        "documentation",
-        "detail",
-        "additionalTextEdits",
-    },
+	properties = {
+		"documentation",
+		"detail",
+		"additionalTextEdits",
+	},
 }
 
 -------------- [ Default Servers ] ------------
 ---- Servers with default config
 local servers = {
-    "rust_analyzer",
-    "clangd",
+	"rust_analyzer",
+	"clangd",
 }
 
 -- Setup servers with defaults
 for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        flags = {},
-    })
+	lspconfig[lsp].setup({
+		on_attach = on_attach,
+		capabilities = capabilities,
+		flags = {},
+	})
 end
 
 ------------- [ Lua Lsp ] ------------
 lspconfig.sumneko_lua.setup({
-    on_attach = function(client, _)
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormatting = false
-        require("core.mappings").lspconfig()
-    end,
-    capabilities = capabilities,
-    flags = {},
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = "LuaJIT",
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = { "vim", "use" },
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = {
-                    vim.api.nvim_get_runtime_file("", true),
-                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-                },
-                maxPreload = 100000,
-                preloadFileSize = 10000,
-            },
-            telemetry = {
-                enable = false,
-            },
-        },
-    },
+	on_attach = function(client, _)
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.documentRangeFormatting = false
+		require("core.mappings").lspconfig()
+	end,
+	capabilities = capabilities,
+	flags = {},
+	settings = {
+		Lua = {
+			runtime = {
+				-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+				version = "LuaJIT",
+			},
+			diagnostics = {
+				-- Get the language server to recognize the `vim` global
+				globals = { "vim", "use" },
+			},
+			workspace = {
+				-- Make the server aware of Neovim runtime files
+				library = {
+					vim.api.nvim_get_runtime_file("", true),
+					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+					[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+				},
+				maxPreload = 100000,
+				preloadFileSize = 10000,
+			},
+			telemetry = {
+				enable = false,
+			},
+		},
+	},
 })
 
 ------------- [ Clangd Setup ] ------------
