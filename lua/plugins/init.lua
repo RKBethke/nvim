@@ -9,7 +9,11 @@ local use = packer.use
 return packer.startup(function()
     -- this is arranged on the basis of when a plugin starts
     ---------------- [ Core ]----------------
-    use("nvim-lua/plenary.nvim")
+    use({
+	    "nvim-lua/plenary.nvim",
+	    module = "plenary",
+	})
+	
     use("lewis6991/impatient.nvim")
 
     use({
