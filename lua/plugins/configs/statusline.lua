@@ -98,11 +98,11 @@ local dir_name = {
 		if icon == nil then
 			icon = ""
 		end
-		return icon .. " " .. dir_name .. " "
+		return " " .. dir_name
 	end,
 
 	hl = {
-		fg = colors.fgfaded,
+		fg = colors.grey,
 		bg = colors.bg_statusline,
 	},
 }
@@ -241,6 +241,23 @@ local lsp_icon = {
 	hl = { fg = colors.grey, bg = colors.bg_statusline },
 }
 
+local file_icon = {
+	provider = function()
+		local filename = vim.fn.expand("%:t")
+		local extension = vim.fn.expand("%:e")
+		local icon = require("nvim-web-devicons").get_icon(filename, extension)
+		if icon == nil then
+			return ""
+		end
+		return icon .. " "
+	end,
+
+	hl = {
+		fg = colors.grey,
+		bg = colors.bg_statusline,
+	},
+}
+
 local current_line = {
 	provider = function()
 		local current_line = vim.fn.line(".")
@@ -307,6 +324,7 @@ add_table(right, diagnostic.warning)
 add_table(right, diagnostic.hint)
 add_table(right, diagnostic.info)
 add_table(right, lsp_icon)
+add_table(right, file_icon)
 add_table(right, current_line)
 
 -- Initialize the components table
