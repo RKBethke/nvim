@@ -20,6 +20,9 @@ opt.smartindent = true
 -- Folds
 opt.foldmethod = "marker"
 
+-- Show whitespace
+opt.list = true
+
 -- disable tilde on end of buffer: https://github.com/neovim/neovim/pull/8546#issuecomment-643643758
 opt.fillchars = { eob = " " }
 
