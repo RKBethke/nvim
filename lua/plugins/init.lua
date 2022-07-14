@@ -79,6 +79,13 @@ return packer.startup(function()
 		run = ":TSUpdate",
 	})
 
+	use({
+		"nvim-treesitter/nvim-treesitter-context",
+		after = "nvim-treesitter",
+		event = "BufRead",
+		-- Config handled by nvim-treesitter
+	})
+
 	---------------- [ Git ] ----------------
 	use({
 		"lewis6991/gitsigns.nvim",
