@@ -12,6 +12,7 @@ local sources = {
 		end,
 	}),
 	b.diagnostics.luacheck.with({ extra_args = { "--global vim" } }),
+	b.code_actions.gitsigns, -- Enable gitsigns code actions
 }
 
 local M = {}
