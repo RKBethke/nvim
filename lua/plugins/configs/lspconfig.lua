@@ -150,8 +150,7 @@ local function on_attach(_, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	require("core.mappings").lspconfig()
-	-- Toggle auto format by default
-	-- M.toggle_format_on_save()
+	-- M.toggle_format_on_save() -- Toggle auto format by default
 end
 
 ----------------- [ Setup ] -----------------
@@ -177,6 +176,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 local servers = {
 	"rust_analyzer",
 	"clangd",
+	"hls",
 }
 
 -- Setup servers with defaults
