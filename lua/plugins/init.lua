@@ -89,7 +89,7 @@ return packer.startup(function()
 	---------------- [ Git ] ----------------
 	use({
 		"lewis6991/gitsigns.nvim",
-		opt = true,
+		ft = "gitcommit",
 		config = function()
 			require("plugins.configs.others").gitsigns()
 		end,

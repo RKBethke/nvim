@@ -22,7 +22,6 @@ end
 M.blankline = function()
 	require("indent_blankline").setup({
 		indentLine_enabled = 1,
-		char = "▏",
 		filetype_exclude = {
 			"help",
 			"terminal",
