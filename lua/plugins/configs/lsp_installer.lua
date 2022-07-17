@@ -5,11 +5,11 @@ if not present then
 end
 
 local options = {
-	-- ensure_installed is not needed as automatic_installation is enabled
+	-- ensure_installed is not needed if automatic_installation is enabled
 	-- then any lsp server you setup by lspconfig is going to get installed automatically!
 
 	-- ensure_installed = { "lua" },
-	automatic_installation = true,
+	automatic_installation = false,
 
 	ui = {
 		icons = {
