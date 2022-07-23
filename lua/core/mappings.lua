@@ -131,6 +131,10 @@ M.lspconfig = function()
 	map("n", "<leader>fs", ":LSPToggleFormatOnSave <CR>")
 end
 
+M.lsp_lines = function()
+	map("n", "<leader>l", ":lua require('lsp_lines').toggle()<CR>")
+end
+
 M.nvimtree = function()
 	map("n", "<C-n>", ":NvimTreeToggle <CR>")
 	map("n", "<leader>e", ":NvimTreeFocus <CR>")

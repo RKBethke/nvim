@@ -134,7 +134,18 @@ return packer.startup(function()
 		"jose-elias-alvarez/null-ls.nvim",
 		after = "nvim-lspconfig",
 		config = function()
-			require("plugins.configs._null-ls").setup()
+			require("plugins.configs.null-ls").setup()
+		end,
+	})
+
+	use({
+		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+		after = "nvim-lspconfig",
+		setup = function()
+			require("core.mappings").lsp_lines()
+		end,
+		config = function()
+			require("lsp_lines").setup()
 		end,
 	})
 
@@ -218,7 +229,6 @@ return packer.startup(function()
 		setup = function()
 			require("core.mappings").comment()
 		end,
-
 		config = function()
 			require("plugins.configs.others").comment()
 		end,
