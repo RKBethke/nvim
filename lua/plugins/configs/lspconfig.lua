@@ -174,7 +174,6 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 -------------- [ Default Servers ] ------------
 ---- Servers with default config
 local servers = {
-	"rust_analyzer",
 	"clangd",
 	"hls",
 }
@@ -188,7 +187,20 @@ for _, lsp in ipairs(servers) do
 	})
 end
 
-------------- [ Lua Lsp ] ------------
+------------- [ Rust-Analyzer ] ------------
+lspconfig.rust_analyzer.setup({
+    on_attach=on_attach,
+	capabilities = capabilities,
+    settings = {
+        ["rust-analyzer"] = {
+			checkOnSave = {
+				allTargets = false,
+			},
+        }
+    }
+})
+
+------------- [ Sumneko Lua ] ------------
 lspconfig.sumneko_lua.setup({
 	on_attach = function(client, _)
 		client.server_capabilities.documentFormattingProvider = false
