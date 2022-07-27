@@ -10,16 +10,16 @@ autocmd("TermOpen", {
 })
 
 -- Fix luasnip jumping erratically when not in insert mode
-autocmd("InsertLeave", {
-	callback = function()
-		if
-			require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-			and not require("luasnip").session.jump_active
-		then
-			require("luasnip").unlink_current()
-		end
-	end,
-})
+-- autocmd("InsertLeave", {
+-- 	callback = function()
+-- 		if
+-- 			require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+-- 			and not require("luasnip").session.jump_active
+-- 		then
+-- 			require("luasnip").unlink_current()
+-- 		end
+-- 	end,
+-- })
 
 -- Uncomment this if you want to open nvim with a dir
 -- autocmd("BufEnter", {
