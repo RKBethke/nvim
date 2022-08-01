@@ -153,4 +153,15 @@ M.telescope = function()
 	map("n", "<leader><leader>", ":Telescope resume <CR>")
 end
 
+M.align = function()
+	local NS = {noremap = true, silent = true}
+
+	-- Aligns to 1 character, looking left
+	vim.keymap.set('x', 'aa', function() require'align'.align_to_char(1, true)             end, NS) -- Aligns to 1 character, looking left
+	-- Aligns to a string, looking left and with previews
+	vim.keymap.set('x', 'aw', function() require'align'.align_to_string(false, true, true) end, NS) -- Aligns to a string, looking left and with previews
+	-- Aligns to a Lua pattern, looking left and with previews
+	vim.keymap.set('x', 'ap', function() require'align'.align_to_string(true, true, true)  end, NS) -- Aligns to a Lua pattern, looking left and with previews
+end
+
 return M

@@ -248,6 +248,14 @@ return packer.startup(function()
 		event = "BufRead",
 	})
 
+	use({
+		"Vonr/align.nvim",
+		event = "InsertEnter",
+		setup = function()
+			require("core.mappings").align()
+		end,
+	})
+
 	---------------- [ File managing , Picker etc. ] ----------------
 	use({
 		"kyazdani42/nvim-tree.lua",
