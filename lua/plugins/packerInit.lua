@@ -29,10 +29,14 @@ end
 
 packer.init({
 	display = {
+		working_sym = "ﲊ",
+		error_sym = "✗ ",
+		done_sym = " ",
+		removed_sym = " ",
+		moved_sym = "",
 		open_fn = function()
 			return require("packer.util").float({ border = "single" })
 		end,
-		prompt_border = "single",
 	},
 	git = {
 		clone_timeout = 6000, -- seconds
