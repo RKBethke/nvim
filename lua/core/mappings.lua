@@ -66,7 +66,7 @@ M.defaults = function()
 	map("n", "<leader>v", "<C-w>v") -- vertical split
 
 	-- [ Misc ] --
-	map("n", "gx", ":!xdg-open <c-r><c-a><CR>") -- open url under cursor
+	map("n", "gx", ":!$BROWSER <c-r><c-a><CR>") -- open url under cursor
 
 	-- }}}
 	-- [ Terminal] -- {{{
