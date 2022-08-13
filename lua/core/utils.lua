@@ -91,28 +91,3 @@ rb.packer_lazy_load = function(plugin, timer)
 		end, timer)
 	end
 end
-
--- Highlights functions
-
--- Define bg color
--- @param group Group
--- @param color Color
-
-rb.bg = function(group, col)
-	cmd("hi " .. group .. " guibg=" .. col)
-end
-
--- Define fg color
--- @param group Group
--- @param color Color
-rb.fg = function(group, col)
-	cmd("hi " .. group .. " guifg=" .. col)
-end
-
--- Define bg and fg color
--- @param group Group
--- @param fgcol Fg Color
--- @param bgcol Bg Color
-rb.fg_bg = function(group, fgcol, bgcol)
-	cmd("hi " .. group .. " guifg=" .. fgcol .. " guibg=" .. bgcol)
-end
