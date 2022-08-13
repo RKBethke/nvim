@@ -46,94 +46,94 @@ bufferline.setup({
 
 	highlights = {
 		background = {
-			guifg = colors.fgfaded,
-			guibg = colors.lightbg,
+			fg = colors.fgfaded,
+			bg = colors.lightbg,
 		},
 
 		-- buffers
 		buffer_selected = {
-			guifg = colors.fg,
-			guibg = colors.bg,
-			gui = "bold",
+			fg = colors.fg,
+			bg = colors.bg,
+			bold = true,
 		},
 
 		buffer_visible = {
-			guifg = colors.fgfaded,
-			guibg = colors.lightbg,
+			fg = colors.fgfaded,
+			bg = colors.lightbg,
 		},
 
 		-- for diagnostics = "nvim_lsp"
 		error = {
-			guifg = colors.fgfaded,
-			guibg = colors.lightbg,
+			fg = colors.fgfaded,
+			bg = colors.lightbg,
 		},
 		error_diagnostic = {
-			guifg = colors.fgfaded,
-			guibg = colors.lightbg,
+			fg = colors.fgfaded,
+			bg = colors.lightbg,
 		},
 
 		-- close buttons
 		close_button = {
-			guifg = colors.fgfaded,
-			guibg = colors.lightbg,
+			fg = colors.fgfaded,
+			bg = colors.lightbg,
 		},
 		close_button_visible = {
-			guifg = colors.fgfaded,
-			guibg = colors.lightbg,
+			fg = colors.fgfaded,
+			bg = colors.lightbg,
 		},
 		close_button_selected = {
-			guifg = colors.red,
-			guibg = colors.bg,
+			fg = colors.red,
+			bg = colors.bg,
 		},
 		fill = {
-			guifg = colors.grey_fg,
-			guibg = colors.lightbg,
+			fg = colors.grey_fg,
+			bg = colors.lightbg,
 		},
 		indicator_selected = {
-			guifg = colors.bg,
-			guibg = colors.bg,
+			fg = colors.bg,
+			bg = colors.bg,
 		},
 
 		-- modified
 		modified = {
-			guifg = colors.red,
-			guibg = colors.lightbg,
+			fg = colors.red,
+			bg = colors.lightbg,
 		},
 		modified_visible = {
-			guifg = colors.red,
-			guibg = colors.lightbg,
+			fg = colors.red,
+			bg = colors.lightbg,
 		},
 		modified_selected = {
-			guifg = colors.green,
-			guibg = colors.bg,
+			fg = colors.green,
+			bg = colors.bg,
 		},
 
 		-- separators
 		separator = {
-			guifg = colors.lightbg,
-			guibg = colors.lightbg,
+			fg = colors.lightbg,
+			bg = colors.lightbg,
 		},
 		separator_visible = {
-			guifg = colors.lightbg,
-			guibg = colors.lightbg,
+			fg = colors.lightbg,
+			bg = colors.lightbg,
 		},
 		separator_selected = {
-			guifg = colors.lightbg,
-			guibg = colors.lightbg,
+			fg = colors.lightbg,
+			bg = colors.lightbg,
 		},
 
 		-- tabs
 		tab = {
-			guifg = colors.light_grey,
-			guibg = colors.bg,
+			fg = colors.light_grey,
+			bg = colors.bg,
 		},
 		tab_selected = {
-			guifg = colors.lightbg,
-			guibg = colors.blue,
+			fg = colors.lightbg,
+			bg = colors.blue,
 		},
 		tab_close = {
-			guifg = colors.red,
-			guibg = colors.bg,
+			fg = colors.red,
+			bg = colors.bg,
 		},
 	},
 })
