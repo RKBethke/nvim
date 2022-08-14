@@ -28,6 +28,12 @@ opt.foldmethod = "marker"
 
 -- Show whitespace
 opt.list = true
+opt.listchars = {
+	trail = '@',
+	tab = '> ',
+	extends = '◣',
+	precedes = '◢'
+}
 
 -- disable tilde on end of buffer: https://github.com/neovim/neovim/pull/8546#issuecomment-643643758
 opt.fillchars = { eob = " " }
