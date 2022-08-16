@@ -244,7 +244,7 @@ return packer.startup(function()
 	})
 
 	use({
-		"ggandor/lightspeed.nvim",
+		"ggandor/leap.nvim",
 		event = "BufRead",
 	})
 
