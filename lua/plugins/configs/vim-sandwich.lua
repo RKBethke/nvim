@@ -1,7 +1,5 @@
--- Use vim surround-like keybindings
-vim.api.nvim_command("runtime macros/sandwich/keymap/surround.vim")
 -- '{' will insert space, '}' will not
-vim.g["sandwich#recipes"] = vim.list_extend(vim.g["sandwich#recipes"], {
+vim.g["sandwich#recipes"] = vim.list_extend(vim.g["sandwich#default_recipes"], {
 	{
 		buns = { "{ ", " }" },
 		nesting = 1,
