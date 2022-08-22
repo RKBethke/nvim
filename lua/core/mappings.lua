@@ -154,14 +154,43 @@ M.telescope = function()
 end
 
 M.align = function()
-	local NS = {noremap = true, silent = true}
+	local NS = { noremap = true, silent = true }
 
 	-- Aligns to 1 character, looking left
-	vim.keymap.set('x', 'aa', function() require'align'.align_to_char(1, true)             end, NS) -- Aligns to 1 character, looking left
+	vim.keymap.set("x", "aa", function()
+		require("align").align_to_char(1, true)
+	end, NS) -- Aligns to 1 character, looking left
 	-- Aligns to a string, looking left and with previews
-	vim.keymap.set('x', 'aw', function() require'align'.align_to_string(false, true, true) end, NS) -- Aligns to a string, looking left and with previews
+	vim.keymap.set("x", "aw", function()
+		require("align").align_to_string(false, true, true)
+	end, NS) -- Aligns to a string, looking left and with previews
 	-- Aligns to a Lua pattern, looking left and with previews
-	vim.keymap.set('x', 'ap', function() require'align'.align_to_string(true, true, true)  end, NS) -- Aligns to a Lua pattern, looking left and with previews
+	vim.keymap.set("x", "ap", function()
+		require("align").align_to_string(true, true, true)
+	end, NS) -- Aligns to a Lua pattern, looking left and with previews
+end
+
+M.leap = function()
+	for _, _1_ in ipairs({
+		{ "n", "<leader>s", "<Plug>(leap-forward)" },
+		{ "n", "<leader>S", "<Plug>(leap-backward)" },
+		{ "x", "<leader>s", "<Plug>(leap-forward)" },
+		{ "x", "<leader>S", "<Plug>(leap-backward)" },
+		{ "o", "<leader>s", "<Plug>(leap-forward)" },
+		{ "o", "<leader>S", "<Plug>(leap-backward)" },
+		{ "o", "<leader>x", "<Plug>(leap-forward-x)" },
+		{ "o", "<leader>X", "<Plug>(leap-backward-x)" },
+		-- { "n", "gs", "<Plug>(leap-cross-window)" },
+		-- { "x", "gs", "<Plug>(leap-cross-window)" },
+		-- { "o", "gs", "<Plug>(leap-cross-window)" },
+	}) do
+		local _each_2_ = _1_
+		local mode = _each_2_[1]
+		local lhs = _each_2_[2]
+		local rhs = _each_2_[3]
+		-- TODO: Switch to use nvim mapping api
+		vim.keymap.set(mode, lhs, rhs, { silent = true })
+	end
 end
 
 return M

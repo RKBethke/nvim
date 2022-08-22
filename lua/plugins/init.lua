@@ -246,6 +246,9 @@ return packer.startup(function()
 	use({
 		"ggandor/leap.nvim",
 		event = "BufRead",
+		setup = function()
+			require("core.mappings").leap()
+		end,
 	})
 
 	use({
