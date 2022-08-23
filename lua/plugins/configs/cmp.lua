@@ -64,7 +64,7 @@ cmp.setup({
 		}),
 		["<C-j>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
-				cmp.select_next_item(cmp.SelectBehavior.Select)
+				cmp.select_next_item()
 			else
 				fallback()
 			end
@@ -74,7 +74,7 @@ cmp.setup({
 		}),
 		["<C-k>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
-				cmp.select_prev_item(cmp.SelectBehavior.Select)
+				cmp.select_prev_item()
 			else
 				fallback()
 			end
