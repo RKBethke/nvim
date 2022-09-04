@@ -66,6 +66,9 @@ opt.updatetime = 250
 -- the line.
 opt.whichwrap:append("<>[]")
 
+-- auto-wrap comments, don't auto insert comment on o/O and enter
+opt.formatoptions:remove "cro"
+
 -- Global editor variables:
 g.mapleader = " "
 
