@@ -9,6 +9,20 @@ autocmd("TermOpen", {
 	end,
 })
 
+autocmd("BufWritePre", {
+	callback = function()
+		-- Keep the cursor position and these marks:
+		local original_cursor = vim.fn.getcurpos()
+		local first_changed = vim.fn.getpos("'[")
+		local last_changed = vim.fn.getpos("']")
+		vim.cmd("silent exe '%s/\\v\\s+$//e'")
+
+		vim.fn.setpos("']", last_changed)
+		vim.fn.setpos("'[", first_changed)
+		vim.fn.setpos('.', original_cursor)
+	end,
+})
+
 -- Fix luasnip jumping erratically when not in insert mode
 -- autocmd("InsertLeave", {
 -- 	callback = function()
