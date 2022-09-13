@@ -32,24 +32,35 @@ cmp_window.info = function(self)
 	return info
 end
 
+local menu_tags = {
+	nvim_lsp = "[LSP]",
+	nvim_lua = "[api]",
+	path = "[path]",
+	luasnip = "[snip]",
+}
+
 cmp.setup({
-	window = {
-		completion = {
-			border = border("CmpBorder"),
-		},
-		documentation = {
-			border = border("CmpDocBorder"),
-		},
+	experimental = {
+		ghost_text = true,
 	},
+	-- window = {
+	-- 	completion = {
+	-- 		border = border("CmpBorder"),
+	-- 	},
+	-- 	documentation = {
+	-- 		border = border("CmpDocBorder"),
+	-- 	},
+	-- },
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
 		end,
 	},
 	formatting = {
-		format = function(_, vim_item)
+		format = function(entry, vim_item)
 			local icons = require("plugins.configs.lspkind_icons")
 			vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
+			vim_item.menu = menu_tags[entry.source.name]
 
 			return vim_item
 		end,
@@ -57,11 +68,26 @@ cmp.setup({
 	mapping = {
 		["<C-d>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-e>"] = cmp.mapping.close(),
-		["<CR>"] = cmp.mapping.confirm({
-			select = true,
-		}),
+		["<C-y>"] = cmp.mapping(
+			cmp.mapping.confirm {
+				behavior = cmp.ConfirmBehavior.Insert,
+				select = true,
+			},
+			{ "i", "c" }
+		),
+		["<C-space>"] = cmp.mapping {
+			i = cmp.mapping.complete(),
+			c = function( _ --[[fallback]])
+				if cmp.visible() then
+					if not cmp.confirm { select = true } then
+						return
+					end
+				else
+					cmp.complete()
+				end
+			end,
+		},
 		["<C-j>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
@@ -84,18 +110,19 @@ cmp.setup({
 		}),
 	},
 	sources = {
-		{ name = "luasnip", max_item_count = 5 },
-		{ name = "nvim_lsp", max_item_count = 5 },
+		{ name = "nvim_lua" },
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
 		{
 			name = "buffer",
 			max_item_count = 5,
+			keyword_length = 5,
 			option = { -- Use all open buffers
 				get_bufnrs = function()
 					return vim.api.nvim_list_bufs()
 				end,
 			},
 		},
-		{ name = "nvim_lua" },
 		{ name = "path" },
 	},
 	-- preselect = cmp.PreselectMode.None,
