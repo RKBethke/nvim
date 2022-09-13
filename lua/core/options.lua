@@ -29,7 +29,7 @@ opt.foldmethod = "marker"
 -- Show whitespace
 opt.list = true
 opt.listchars = {
-	trail = '@',
+	trail = '~',
 	tab = '> ',
 	extends = '◣',
 	precedes = '◢'
