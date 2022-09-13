@@ -19,16 +19,16 @@ ls.config.set_config({
 
 require("luasnip/loaders/from_vscode").lazy_load()
 
--- <c-k> is my expansion key
--- this will expand the current item or jump to the next item within the snippet.
+-- Expansion Key:
+-- Expand the current item or jump to the next item within the snippet.
 vim.keymap.set({ "i", "s" }, "<M-j>", function()
 	if ls.expand_or_jumpable() then
 		ls.expand_or_jump()
 	end
 end, { silent = true })
 
--- <c-j> is my jump backwards key.
--- this always moves to the previous item within the snippet
+-- Jump backwards key:
+-- Moves to the previous item within the snippet
 vim.keymap.set({ "i", "s" }, "<M-k>", function()
 	if ls.jumpable(-1) then
 		ls.jump(-1)
