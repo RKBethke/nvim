@@ -9,6 +9,7 @@ ts_config.setup({
 		"lua",
 		"vim",
 		"comment",
+		"nix",
 	},
 	highlight = {
 		enable = true,
