@@ -176,6 +176,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 local servers = {
 	"clangd",
 	"hls",
+	"nil_ls",
 }
 
 -- Setup servers with defaults
@@ -196,6 +197,16 @@ lspconfig.rust_analyzer.setup({
 			checkOnSave = {
 				allTargets = false,
 			},
+		},
+	},
+})
+
+lspconfig.hls.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+	settings = {
+		haskell = {
+			formattingProvider = "fourmolu",
 		},
 	},
 })
