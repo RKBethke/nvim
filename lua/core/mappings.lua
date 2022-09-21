@@ -126,7 +126,12 @@ M.lspconfig = function()
 	map("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
 	map("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>")
 	map("n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>")
-	map("n", "<leader>fm", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>")
+
+	if vim.version().minor > 7 then
+		map("n", "<leader>fm", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>")
+	else
+		map("n", "<leader>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+	end
 
 	map("n", "<leader>fs", ":LSPToggleFormatOnSave <CR>")
 end
