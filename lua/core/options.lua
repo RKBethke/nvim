@@ -51,6 +51,7 @@ opt.shortmess:append("sI")
 opt.smd = false
 
 opt.signcolumn = "yes"
+opt.colorcolumn = "100,120"
 opt.splitbelow = true
 opt.splitright = true
 opt.tabstop = 4
