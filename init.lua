@@ -1,13 +1,9 @@
-local present, impatient = pcall(require, "impatient")
+--[[
+	init.lua
+	The entry point into my neovim configuration.
+--]]
 
-if present then
-	impatient.enable_profile()
-end
-
--- experimental filetype.lua
--- This will exclusively use filetype.lua for filetype matching
-vim.g.do_filetype_lua = 1
-vim.g.did_load_filetypes = 0
+require("impatient")
 
 local ok, err = pcall(require, "core")
 
