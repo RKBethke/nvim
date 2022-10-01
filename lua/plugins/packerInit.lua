@@ -29,9 +29,9 @@ end
 
 packer.init({
 	display = {
-		working_sym = "ﲊ",
-		error_sym = "✗ ",
-		done_sym = " ",
+		working_sym = '',
+		error_sym = '✗',
+		done_sym = '',
 		removed_sym = " ",
 		moved_sym = "",
 		open_fn = function()
@@ -43,7 +43,9 @@ packer.init({
 	},
 	auto_clean = true,
 	compile_on_sync = true,
-	compile_path = vim.fn.stdpath("data") .. "/site/pack/loader/start/packer.nvim/plugin/packer.lua", -- Move packer_compiled.lua to data directory
+
+	 -- Move packer_compiled.lua to data directory
+	compile_path = vim.fn.stdpath("data") .. "/site/pack/loader/start/packer.nvim/plugin/packer.lua",
 })
 
 return packer
