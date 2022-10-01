@@ -1,5 +1,5 @@
-local present, cmp = pcall(require, "cmp")
-if not present then
+local cmp_present, cmp = pcall(require, "cmp")
+if not cmp_present then
 	return
 end
 
@@ -8,23 +8,9 @@ if not luasnip_present then
 	return
 end
 
-vim.opt.completeopt = "menuone,noselect"
-
-local function border(hl_name)
-	return {
-		{ "╭", hl_name },
-		{ "─", hl_name },
-		{ "╮", hl_name },
-		{ "│", hl_name },
-		{ "╯", hl_name },
-		{ "─", hl_name },
-		{ "╰", hl_name },
-		{ "│", hl_name },
-	}
-end
+vim.opt.completeopt = "menuone,noselect,preview"
 
 local cmp_window = require("cmp.utils.window")
-
 cmp_window.info_ = cmp_window.info
 cmp_window.info = function(self)
 	local info = self:info_()
@@ -43,14 +29,6 @@ cmp.setup({
 	experimental = {
 		ghost_text = true,
 	},
-	-- window = {
-	-- 	completion = {
-	-- 		border = border("CmpBorder"),
-	-- 	},
-	-- 	documentation = {
-	-- 		border = border("CmpDocBorder"),
-	-- 	},
-	-- },
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
@@ -76,38 +54,30 @@ cmp.setup({
 			},
 			{ "i", "c" }
 		),
-		["<C-space>"] = cmp.mapping {
-			i = cmp.mapping.complete(),
-			c = function( _ --[[fallback]])
-				if cmp.visible() then
-					if not cmp.confirm { select = true } then
-						return
-					end
-				else
-					cmp.complete()
-				end
-			end,
-		},
+		["<C-space>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.confirm({
+					behavior = cmp.ConfirmBehavior.Insert,
+					select = true,
+				})
+			else
+				cmp.complete()
+			end
+		end, { "i", "s" }),
 		["<C-j>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
 			else
 				fallback()
 			end
-		end, {
-			"i",
-			"s",
-		}),
+		end, { "i", "s" }),
 		["<C-k>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
 			else
 				fallback()
 			end
-		end, {
-			"i",
-			"s",
-		}),
+		end, { "i", "s" }),
 	},
 	sources = {
 		{ name = "nvim_lua" },
