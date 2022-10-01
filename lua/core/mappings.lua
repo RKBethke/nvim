@@ -126,12 +126,7 @@ M.lspconfig = function()
 	map("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
 	map("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>")
 	map("n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>")
-
-	if vim.version().minor > 7 then
-		map("n", "<leader>fm", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>")
-	else
-		map("n", "<leader>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>")
-	end
+	map("n", "<leader>fm", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>")
 
 	map("n", "<leader>fs", ":LSPToggleFormatOnSave <CR>")
 end
@@ -142,7 +137,7 @@ end
 
 M.nvimtree = function()
 	map("n", "<C-n>", ":NvimTreeToggle <CR>")
-	map("n", "<leader>e", ":NvimTreeFocus <CR>")
+	map("n", "<leader>tf", ":NvimTreeFindFile <CR>")
 end
 
 M.telescope = function()
@@ -162,21 +157,15 @@ M.align = function()
 	local NS = { noremap = true, silent = true }
 
 	-- Aligns to 1 character, looking left
-	vim.keymap.set("x", "aa", function()
-		require("align").align_to_char(1, true)
-	end, NS) -- Aligns to 1 character, looking left
+	vim.api.nvim_set_keymap("x", "aa", ":lua require('align').align_to_char(1, true)<CR>", NS)
 	-- Aligns to a string, looking left and with previews
-	vim.keymap.set("x", "aw", function()
-		require("align").align_to_string(false, true, true)
-	end, NS) -- Aligns to a string, looking left and with previews
+	vim.api.nvim_set_keymap("x", "aw", ":lua require('align').align_to_string(false, true, true)<CR>", NS)
 	-- Aligns to a Lua pattern, looking left and with previews
-	vim.keymap.set("x", "ap", function()
-		require("align").align_to_string(true, true, true)
-	end, NS) -- Aligns to a Lua pattern, looking left and with previews
+	vim.api.nvim_set_keymap("x", "ap", ":lua require('align').align_to_string(true, true, true)<CR>", NS)
 end
 
 M.leap = function()
-	for _, _1_ in ipairs({
+	for _, mapping in ipairs({
 		{ "n", "<leader>s", "<Plug>(leap-forward)" },
 		{ "n", "<leader>S", "<Plug>(leap-backward)" },
 		{ "x", "<leader>s", "<Plug>(leap-forward)" },
@@ -189,12 +178,10 @@ M.leap = function()
 		-- { "x", "gs", "<Plug>(leap-cross-window)" },
 		-- { "o", "gs", "<Plug>(leap-cross-window)" },
 	}) do
-		local _each_2_ = _1_
-		local mode = _each_2_[1]
-		local lhs = _each_2_[2]
-		local rhs = _each_2_[3]
-		-- TODO: Switch to use nvim mapping api
-		vim.keymap.set(mode, lhs, rhs, { silent = true })
+		local mode = mapping[1]
+		local lhs = mapping[2]
+		local rhs = mapping[3]
+		vim.api.nvim_set_keymap(mode, lhs, rhs, { silent = true })
 	end
 end
 
