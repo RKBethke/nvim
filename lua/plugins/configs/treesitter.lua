@@ -15,10 +15,12 @@ ts_config.setup({
 		enable = true,
 		use_languagetree = true,
 	},
-
 	indent = {
 		enable = true,
 	},
+	matchup = {
+		enable = true,
+	}
 })
 
 local present_context, ts_context = pcall(require, "treesitter-context")
