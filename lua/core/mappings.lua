@@ -3,9 +3,8 @@ local cmd = vim.cmd
 
 local M = {}
 
---------------------------------------
 ------------ [ Defaults ] ------------
--- Will only be called during init
+-- Called during init
 --------------------------------------
 M.defaults = function()
 	-- [ General ] -- {{{
@@ -92,7 +91,6 @@ M.defaults = function()
 	-- }}}
 end
 
--------------------------------------
 ------------ [ Plugins ] ------------
 -- All plugin related mappings
 -------------------------------------
