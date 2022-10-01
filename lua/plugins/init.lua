@@ -7,7 +7,7 @@ end
 local use = packer.use
 
 return packer.startup(function()
-	-- this is arranged on the basis of when a plugin starts
+	-- Arranged on the basis of when a plugin starts
 	---------------- [ Core ]----------------
 	use({
 		"nvim-lua/plenary.nvim",
@@ -94,7 +94,9 @@ return packer.startup(function()
 			require("plugins.configs.others").gitsigns()
 		end,
 		setup = function()
-			rb.packer_lazy_load("gitsigns.nvim")
+			vim.schedule(function()
+				require("packer").loader("gitsigns.nvim")
+			end)
 		end,
 	})
 
@@ -141,7 +143,9 @@ return packer.startup(function()
 		"andymass/vim-matchup",
 		opt = true,
 		setup = function()
-			rb.packer_lazy_load("vim-matchup") -- Load plugin after entering vim ui
+			vim.schedule(function()
+				require("packer").loader("vim-matchup")
+			end)
 		end,
 	})
 
