@@ -1,4 +1,5 @@
 local ok, lspconfig = pcall(require, "lspconfig")
+
 if not ok then
 	return
 end
@@ -143,31 +144,29 @@ vim.lsp.buf.rename = {
 }
 
 local function on_attach(_, bufnr)
-	local function buf_set_option(...)
-		vim.api.nvim_buf_set_option(bufnr, ...)
-	end
-
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	require("core.mappings").lspconfig()
-	-- M.toggle_format_on_save() -- Toggle auto format by default
+	M.toggle_format_on_save() -- Toggle auto format by default
 end
 
 ----------------- [ Setup ] -----------------
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.preselectSupport = true
-capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
-capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-	properties = {
-		"documentation",
-		"detail",
-		"additionalTextEdits",
+capabilities.textDocument.completion.completionItem = {
+	documentationFormat = { "markdown", "plaintext" },
+	snippetSupport = true,
+	preselectSupport = true,
+	insertReplaceSupport = true,
+	labelDetailsSupport = true,
+	deprecatedSupport = true,
+	commitCharactersSupport = true,
+	tagSupport = { valueSet = { 1 } },
+	resolveSupport = {
+		properties = {
+			"documentation",
+			"detail",
+			"additionalTextEdits",
+		},
 	},
 }
 
@@ -175,7 +174,6 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 ---- Servers with default config
 local servers = {
 	"clangd",
-	"hls",
 	"nil_ls",
 }
 
@@ -213,11 +211,7 @@ lspconfig.hls.setup({
 
 ------------- [ Sumneko Lua ] ------------
 lspconfig.sumneko_lua.setup({
-	on_attach = function(client, _)
-		client.server_capabilities.documentFormattingProvider = false
-		client.server_capabilities.documentRangeFormatting = false
-		require("core.mappings").lspconfig()
-	end,
+	on_attach = on_attach,
 	capabilities = capabilities,
 	flags = {},
 	settings = {

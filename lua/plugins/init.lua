@@ -93,11 +93,6 @@ return packer.startup(function()
 		config = function()
 			require("plugins.configs.others").gitsigns()
 		end,
-		setup = function()
-			vim.schedule(function()
-				require("packer").loader("gitsigns.nvim")
-			end)
-		end,
 	})
 
 	---------------- [ Lsp ] ----------------
@@ -105,7 +100,6 @@ return packer.startup(function()
 		"neovim/nvim-lspconfig",
 		module = "lspconfig",
 		config = function()
-			require("plugins.configs.lsp_installer")
 			require("plugins.configs.lspconfig")
 		end,
 	})
@@ -142,11 +136,6 @@ return packer.startup(function()
 	use({
 		"andymass/vim-matchup",
 		opt = true,
-		setup = function()
-			vim.schedule(function()
-				require("packer").loader("vim-matchup")
-			end)
-		end,
 	})
 
 	---------------- [ Luasnips + Cmp ] ----------------
