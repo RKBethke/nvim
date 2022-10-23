@@ -183,4 +183,55 @@ M.leap = function()
 	end
 end
 
+M.gitsigns = function(bufnr)
+	local gs = package.loaded.gitsigns
+
+	local function buf_map(mode, l, r, opts)
+		opts = opts or {}
+		opts.buffer = bufnr
+		vim.keymap.set(mode, l, r, opts)
+	end
+
+	-- Navigation
+	buf_map("n", "]c", function()
+		if vim.wo.diff then
+			return "]c"
+		end
+		vim.schedule(function()
+			gs.next_hunk()
+		end)
+		return "<Ignore>"
+	end, { expr = true })
+
+	buf_map("n", "[c", function()
+		if vim.wo.diff then
+			return "[c"
+		end
+		vim.schedule(function()
+			gs.prev_hunk()
+		end)
+		return "<Ignore>"
+	end, { expr = true })
+
+	-- Actions
+	buf_map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>")
+	buf_map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>")
+	buf_map("n", "<leader>hS", gs.stage_buffer)
+	buf_map("n", "<leader>hu", gs.undo_stage_hunk)
+	buf_map("n", "<leader>hR", gs.reset_buffer)
+	buf_map("n", "<leader>hp", gs.preview_hunk)
+	buf_map("n", "<leader>hb", function()
+		gs.blame_line({ full = true })
+	end)
+	buf_map("n", "<leader>tb", gs.toggle_current_line_blame)
+	buf_map("n", "<leader>hd", gs.diffthis)
+	buf_map("n", "<leader>hD", function()
+		gs.diffthis("~")
+	end)
+	buf_map("n", "<leader>td", gs.toggle_deleted)
+
+	-- Text object
+	buf_map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+end
+
 return M

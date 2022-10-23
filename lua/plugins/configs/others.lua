@@ -36,7 +36,7 @@ M.blankline = function()
 		buftype_exclude = { "terminal" },
 		show_trailing_blankline_indent = false,
 		show_first_indent_level = false,
-		char = "▎"
+		char = "▎",
 	})
 end
 
@@ -101,6 +101,9 @@ M.gitsigns = function()
 				topdelete = { hl = "DiffDelete", text = "‾", numhl = "GitSignsDeleteNr" },
 				changedelete = { hl = "DiffChangeDelete", text = "~", numhl = "GitSignsChangeNr" },
 			},
+			on_attach = function(bufnr)
+				require("core.mappings").gitsigns(bufnr)
+			end,
 		})
 	end
 end
