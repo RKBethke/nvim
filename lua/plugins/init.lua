@@ -89,7 +89,7 @@ return packer.startup(function()
 	---------------- [ Git ] ----------------
 	use({
 		"lewis6991/gitsigns.nvim",
-		ft = "gitcommit",
+		-- ft = "gitcommit",
 		config = function()
 			require("plugins.configs.others").gitsigns()
 		end,
@@ -98,7 +98,6 @@ return packer.startup(function()
 	---------------- [ Lsp ] ----------------
 	use({
 		"neovim/nvim-lspconfig",
-		module = "lspconfig",
 		config = function()
 			require("plugins.configs.lspconfig")
 		end,
