@@ -23,15 +23,15 @@ if not present then
 	if present then
 		print("Packer cloned successfully.")
 	else
-		error("Couldn't clone packer !\nPacker path: " .. packer_path .. "\n" .. packer)
+		error("Couldn't clone packer!\nPacker path: " .. packer_path .. "\n" .. packer)
 	end
 end
 
 packer.init({
 	display = {
-		working_sym = '',
-		error_sym = '✗',
-		done_sym = '',
+		working_sym = "",
+		error_sym = "✗",
+		done_sym = "",
 		removed_sym = " ",
 		moved_sym = "",
 		open_fn = function()
@@ -44,7 +44,7 @@ packer.init({
 	auto_clean = true,
 	compile_on_sync = true,
 
-	 -- Move packer_compiled.lua to data directory
+	-- Move packer_compiled.lua to data directory
 	compile_path = vim.fn.stdpath("data") .. "/site/pack/loader/start/packer.nvim/plugin/packer.lua",
 })
 
