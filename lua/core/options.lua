@@ -19,7 +19,7 @@ opt.smartcase = true
 opt.mouse = "a"
 
 -- Indentline
-opt.expandtab = false
+opt.expandtab = true
 opt.shiftwidth = 4
 opt.smartindent = true
 
