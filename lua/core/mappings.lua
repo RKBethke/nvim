@@ -67,9 +67,9 @@ M.defaults = function()
 	-- [ Misc ] --
 	-- open url under cursor
 	if (vim.loop.os_uname().sysname == "Darwin") then
-		map("n", "gx", ":!open <c-r><c-a><CR><CR>")
+		map("n", "gx", ":execute 'silent! !open ' . shellescape(expand('<cWORD>'), 1)<cr>")
 	else
-		map("n", "gx", ":!$BROWSER <c-r><c-a><CR><CR>")
+		map("n", "gx", ":execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<cr>")
 	end
 
 	-- }}}
