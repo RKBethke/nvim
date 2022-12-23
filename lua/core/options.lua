@@ -4,7 +4,7 @@ local g = vim.g
 opt.confirm = true
 opt.laststatus = 3
 opt.title = true
-opt.clipboard = "unnamedplus" -- To ALWAYS use the clipboard for ALL operations
+opt.clipboard = "unnamedplus" -- Use the clipboard for all operations
 
 if vim.version().minor > 7 then
 	opt.cmdheight = 0
@@ -20,6 +20,8 @@ opt.mouse = "a"
 
 -- Indentline
 opt.expandtab = false
+opt.tabstop = 8
+opt.softtabstop = 4
 opt.shiftwidth = 4
 opt.smartindent = true
 
@@ -29,11 +31,12 @@ opt.foldmethod = "marker"
 -- Show whitespace
 opt.list = true
 opt.listchars = {
-	trail = '~',
-	tab = '> ',
+	trail = '_',
+	tab = '» ',
 	extends = '◣',
 	precedes = '◢'
 }
+opt.showbreak = "↪ "
 
 -- disable tilde on end of buffer: https://github.com/neovim/neovim/pull/8546#issuecomment-643643758
 opt.fillchars = { eob = " " }
@@ -54,7 +57,8 @@ opt.signcolumn = "yes"
 opt.colorcolumn = "100,120"
 opt.splitbelow = true
 opt.splitright = true
-opt.tabstop = 4
+opt.scrolloff = 8
+
 opt.termguicolors = true
 opt.timeoutlen = 400
 opt.undofile = true
