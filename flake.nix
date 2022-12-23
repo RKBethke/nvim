@@ -17,6 +17,7 @@
           buildInputs = with pkgs; [
             sumneko-lua-language-server
             stylua
+            nil
           ];
         };
       });
