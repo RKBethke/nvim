@@ -1,8 +1,12 @@
-local M = {}
-local cmd = vim.cmd
+local M = {
+	"sainnhe/gruvbox-material",
+}
 
-function M.setup()
-	vim.g.background = "dark"
+function M.init()
+	vim.cmd("colorscheme gruvbox-material")
+end
+
+function M.config()
 	vim.g.gruvbox_material_background = "hard"
 	vim.g.gruvbox_material_enable_bold = 1
 	vim.g.gruvbox_material_enable_italic = 1
@@ -10,7 +14,6 @@ function M.setup()
 	vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
 	vim.g.gruvbox_material_better_performance = 1
 	vim.g.gruvbox_material_ui_contrast = "high"
-	cmd("colorscheme gruvbox-material")
 end
 
 M.colors = {

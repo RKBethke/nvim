@@ -1,4 +1,4 @@
-local map = rb.map
+local map = require("util").map
 local cmd = vim.cmd
 
 local M = {}
@@ -25,7 +25,7 @@ M.defaults = function()
 
 	-- center cursor when moving (goto_definition)
 	map("n", "<C-u>", "<C-u>zz")
-	map("n","<C-d>", "<C-d>zz")
+	map("n", "<C-d>", "<C-d>zz")
 	map("n", "n", "nzzzv")
 	map("n", "N", "Nzzzv")
 
@@ -45,10 +45,10 @@ M.defaults = function()
 	-- }}}
 	-- [ Navigation ] -- {{{
 	-- [ Within insert mode ]
-	map("i", "<C-h>", "<Left>")
-	map("i", "<C-l>", "<Right>")
-	map("i", "<C-j>", "<Down>")
-	map("i", "<C-k>", "<Up>")
+	-- map("i", "<C-h>", "<Left>")
+	-- map("i", "<C-l>", "<Right>")
+	-- map("i", "<C-j>", "<Down>")
+	-- map("i", "<C-k>", "<Up>")
 	map("i", "<C-e>", "<End>") -- end of line
 	map("i", "<C-a>", "<ESC>^i") -- beginning of line
 
@@ -58,7 +58,7 @@ M.defaults = function()
 	map("n", "<C-k>", "<C-w>k")
 	map("n", "<C-j>", "<C-w>j")
 
-	map("n", "<leader>x", ":lua rb.close_buffer() <CR>") -- close buffer
+	map("n", "<leader>x", ":lua require('util').close_buffer()<CR>") -- close buffer
 	map("n", "<S-t>", ":enew <CR>") -- new buffer
 	map("n", "<C-t>b", ":tabnew <CR>") -- new tabs
 	map("n", "<leader>n", ":set nu! <CR>") -- toggle line number
@@ -68,7 +68,7 @@ M.defaults = function()
 
 	-- [ Misc ] --
 	-- open url under cursor
-	if (vim.loop.os_uname().sysname == "Darwin") then
+	if vim.loop.os_uname().sysname == "Darwin" then
 		map("n", "gx", ":execute 'silent! !open ' . shellescape(expand('<cWORD>'), 1)<cr>")
 	else
 		map("n", "gx", ":execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<cr>")
@@ -113,7 +113,7 @@ M.comment = function()
 	map("v", "<leader>/", ":lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
 end
 
-M.lspconfig = function()
+M.lsp = function(_, _) -- (client, bufnr)
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
 	map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
@@ -133,11 +133,7 @@ M.lspconfig = function()
 	map("n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>")
 	map("n", "<leader>fm", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>")
 
-	map("n", "<leader>fs", ":LSPToggleFormatOnSave <CR>")
-end
-
-M.lsp_lines = function()
-	map("n", "<leader>l", ":lua require('lsp_lines').toggle()<CR>")
+	map("n", "<leader>fs", "<cmd>lua require('config.plugins.lsp.formatting').toggle()<CR>")
 end
 
 M.nvimtree = function()
@@ -156,17 +152,6 @@ M.telescope = function()
 	map("n", "<leader>fo", ":Telescope oldfiles <CR>")
 	map("n", "<leader>tk", ":Telescope keymaps <CR>")
 	map("n", "<leader><leader>", ":Telescope resume <CR>")
-end
-
-M.align = function()
-	local NS = { noremap = true, silent = true }
-
-	-- Aligns to 1 character, looking left
-	vim.api.nvim_set_keymap("x", "aa", ":lua require('align').align_to_char(1, true)<CR>", NS)
-	-- Aligns to a string, looking left and with previews
-	vim.api.nvim_set_keymap("x", "aw", ":lua require('align').align_to_string(false, true, true)<CR>", NS)
-	-- Aligns to a Lua pattern, looking left and with previews
-	vim.api.nvim_set_keymap("x", "ap", ":lua require('align').align_to_string(true, true, true)<CR>", NS)
 end
 
 M.leap = function()
