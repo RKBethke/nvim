@@ -1,10 +1,7 @@
-local M = {
+return {
 	"ggandor/leap.nvim",
 	event = "BufReadPost",
+	config = function()
+		require("config.mappings").leap()
+	end,
 }
-
-function M.config()
-	require("config.mappings").leap()
-end
-
-return M

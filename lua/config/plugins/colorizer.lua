@@ -1,11 +1,7 @@
-local M = {
+return {
 	"NvChad/nvim-colorizer.lua",
 	event = "BufReadPre",
-}
-
-function M.config()
-	local colorizer = require("colorizer")
-	colorizer.setup({
+	opts = {
 		filetypes = { "*" },
 		user_default_options = {
 			RGB = true, -- #RGB hex codes
@@ -23,7 +19,5 @@ function M.config()
 		},
 		-- all the sub-options of filetypes apply to buftypes
 		buftypes = {},
-	})
-end
-
-return M
+	},
+}

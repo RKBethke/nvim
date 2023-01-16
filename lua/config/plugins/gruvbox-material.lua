@@ -1,20 +1,18 @@
 local M = {
 	"sainnhe/gruvbox-material",
+	priority = 1000,
+	lazy = false,
+	config = function()
+		vim.g.gruvbox_material_background = "hard"
+		vim.g.gruvbox_material_enable_bold = 1
+		vim.g.gruvbox_material_enable_italic = 1
+		vim.g.gruvbox_material_sign_column_background = "none"
+		vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
+		vim.g.gruvbox_material_better_performance = 1
+		vim.g.gruvbox_material_ui_contrast = "high"
+		vim.cmd([[colorscheme gruvbox-material]])
+	end,
 }
-
-function M.init()
-	vim.cmd("colorscheme gruvbox-material")
-end
-
-function M.config()
-	vim.g.gruvbox_material_background = "hard"
-	vim.g.gruvbox_material_enable_bold = 1
-	vim.g.gruvbox_material_enable_italic = 1
-	vim.g.gruvbox_material_sign_column_background = "none"
-	vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
-	vim.g.gruvbox_material_better_performance = 1
-	vim.g.gruvbox_material_ui_contrast = "high"
-end
 
 M.colors = {
 	fg = "#ddc7a1",

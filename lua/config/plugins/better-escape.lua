@@ -1,10 +1,8 @@
 return {
 	"max397574/better-escape.nvim",
 	event = "InsertEnter",
-	config = function()
-		require("better_escape").setup({
-			mapping = "jk",
-			timeout = 300,
-		})
-	end,
+	opts = {
+		mapping = "jk",
+		timeout = 300,
+	},
 }
