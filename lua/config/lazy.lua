@@ -20,8 +20,11 @@ local opts = {
 	},
 	performance = {
 		rtp = {
+			paths = {
+				"~/.local/share/nvim/site",
+			},
 			disabled_plugins = {
-				"2html_plugin",
+				"2html",
 				"getscript",
 				"getscriptPlugin",
 				"gzip",
@@ -34,7 +37,8 @@ local opts = {
 				"tar",
 				"tarPlugin",
 				"rrhelper",
-				"spellfile_plugin",
+				"spellfile",
+				"fzf",
 				"vimball",
 				"vimballPlugin",
 				"zip",
