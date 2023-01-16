@@ -23,12 +23,6 @@ M.defaults = function()
 	-- use ESC to turn off search highlighting
 	map("n", "<Esc>", ":noh <CR>")
 
-	-- center cursor when moving (goto_definition)
-	map("n", "<C-u>", "<C-u>zz")
-	map("n", "<C-d>", "<C-d>zz")
-	map("n", "n", "nzzzv")
-	map("n", "N", "Nzzzv")
-
 	-- copy entire file
 	map("n", "<C-c>", ":%y+ <CR>")
 
@@ -36,11 +30,12 @@ M.defaults = function()
 	-- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
 	map("v", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { silent = true })
 
-	-- Do not yank text on cut ( x )
-	-- map({ "n", "v" }, "x", '"_x')
-
 	-- Do not yank text on delete ( dd )
 	map({ "n", "v" }, "d", '"_d')
+
+	-- Reselect after indent
+	map("v", "<", "<gv")
+	map("v", ">", ">gv")
 
 	-- }}}
 	-- [ Navigation ] -- {{{
@@ -51,6 +46,10 @@ M.defaults = function()
 	-- map("i", "<C-k>", "<Up>")
 	map("i", "<C-e>", "<End>") -- end of line
 	map("i", "<C-a>", "<ESC>^i") -- beginning of line
+
+	-- [ Within non-insert mode ]
+	map({ "n", "v" }, "gh", "^") -- beginning of line
+	map({ "n", "v" }, "gl", "$") -- end of line
 
 	-- [ Between windows ] --
 	map("n", "<C-h>", "<C-w>h")
@@ -65,6 +64,12 @@ M.defaults = function()
 
 	map("n", "<leader>h", "<C-w>s") -- horizontal split
 	map("n", "<leader>v", "<C-w>v") -- vertical split
+
+	-- center cursor when moving (goto_definition)
+	map("n", "<C-u>", "<C-u>zz")
+	map("n", "<C-d>", "<C-d>zz")
+	map("n", "n", "nzzzv")
+	map("n", "N", "Nzzzv")
 
 	-- [ Misc ] --
 	-- open url under cursor
@@ -85,16 +90,6 @@ M.defaults = function()
 	-- }}}
 	-- [ Commands ] -- {{{
 	cmd("silent! command CopyPath let @+ = expand('%:p')")
-
-	-- [ Packer ] --
-	-- Add Packer commands because we are not loading it at startup
-	cmd("silent! command PackerClean lua require 'plugins' require('packer').clean()")
-	cmd("silent! command -nargs=* PackerCompile lua require 'plugins' require('packer').compile(<q-args>)")
-	cmd("silent! command PackerProfile lua require 'plugins' require('packer').profile_output()")
-	cmd("silent! command PackerInstall lua require 'plugins' require('packer').install()")
-	cmd("silent! command PackerStatus lua require 'plugins' require('packer').status()")
-	cmd("silent! command PackerSync lua require 'plugins' require('packer').sync()")
-	cmd("silent! command PackerUpdate lua require 'plugins' require('packer').update()")
 	-- }}}
 end
 
@@ -155,24 +150,10 @@ M.telescope = function()
 end
 
 M.leap = function()
-	for _, mapping in ipairs({
-		{ "n", "<leader>s", "<Plug>(leap-forward)" },
-		{ "n", "<leader>S", "<Plug>(leap-backward)" },
-		{ "x", "<leader>s", "<Plug>(leap-forward)" },
-		{ "x", "<leader>S", "<Plug>(leap-backward)" },
-		{ "o", "<leader>s", "<Plug>(leap-forward)" },
-		{ "o", "<leader>S", "<Plug>(leap-backward)" },
-		{ "o", "<leader>x", "<Plug>(leap-forward-x)" },
-		{ "o", "<leader>X", "<Plug>(leap-backward-x)" },
-		-- { "n", "gs", "<Plug>(leap-cross-window)" },
-		-- { "x", "gs", "<Plug>(leap-cross-window)" },
-		-- { "o", "gs", "<Plug>(leap-cross-window)" },
-	}) do
-		local mode = mapping[1]
-		local lhs = mapping[2]
-		local rhs = mapping[3]
-		vim.api.nvim_set_keymap(mode, lhs, rhs, { silent = true })
-	end
+	map({ "n", "x", "o" }, "<leader>s", "<Plug>(leap-forward)")
+	map({ "n", "x", "o" }, "<leader>S", "<Plug>(leap-backward)")
+	map("x", "<leader>x", "<Plug>(leap-forward-x)")
+	map("x", "<leader>X", "<Plug>(leap-backward-x)")
 end
 
 M.gitsigns = function(bufnr)
