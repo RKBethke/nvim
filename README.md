@@ -1,27 +1,28 @@
 # Neovim Config
 
-My personal neovim configuration.
+My personal Neovim configuration.
 
 ## Getting Started
 
 ### Dependencies
 
-*  [neovim (v0.7+)](https://github.com/neovim/neovim/releases/tag/v0.7.0)
+*  [neovim (v0.8+)](https://github.com/neovim/neovim/releases/tag/v0.8.0)
 *  [Nerd Font](https://www.nerdfonts.com/)
 *  [ripgrep](https://github.com/BurntSushi/ripgrep)
 
-### Installing
+### Installation
 
 1. Clone this repository. _WARNING: This will overwrite any previous configuration_
 
 ```
+mv ~/.config/nvim ~/.config/nvim.bak
 git clone https://github.com/RKBethke/nvim ~/.config/nvim
 ```
 
-2. Open neovim and install packages.
+2. Open neovim. Packages should be installed automatically.
 
 ```
-nvim +PackerSync
+nvim
 ```
 
 ## License
@@ -31,5 +32,4 @@ This project is licensed under the GNU General Public License - see the [LICENSE
 ## Acknowledgments
 A huge thanks to the following individuals and groups:
 
-*  This configuration is largely based off of [NvChad](https://github.com/NvChad/NvChad) created by [siduck](https://github.com/siduck)
-*  The wonderful neovim project and its contributors
+*  The wonderful Neovim project and its contributors
