@@ -61,6 +61,8 @@ M.defaults = function()
 	map("n", "<S-t>", ":enew <CR>") -- new buffer
 	map("n", "<C-t>b", ":tabnew <CR>") -- new tabs
 	map("n", "<leader>n", ":set nu! <CR>") -- toggle line number
+	map("n", "H", ":bprev<CR>") -- previous buffer
+	map("n", "L", ":bnext<CR>") -- next buffer
 
 	map("n", "<leader>h", "<C-w>s") -- horizontal split
 	map("n", "<leader>v", "<C-w>v") -- vertical split
@@ -96,13 +98,6 @@ end
 ------------ [ Plugins ] ------------
 -- All plugin related mappings
 -------------------------------------
-M.bufferline = function()
-	map("n", "L", ":BufferLineCycleNext <CR>")
-	map("n", "H", ":BufferLineCyclePrev <CR>")
-	map("n", "<A-L>", ":BufferLineMoveNext <CR>")
-	map("n", "<A-H>", ":BufferLineMovePrev <CR>")
-end
-
 M.comment = function()
 	map("n", "<leader>/", ":lua require('Comment.api').toggle.linewise.current()<CR>")
 	map("v", "<leader>/", ":lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
