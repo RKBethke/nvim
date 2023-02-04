@@ -1,11 +1,7 @@
-local M = {
+return {
 	"lukas-reineke/indent-blankline.nvim",
 	event = "BufReadPre",
-}
-
-function M.config()
-	local indent_blankline = require("indent_blankline")
-	indent_blankline.setup({
+	opts = {
 		filetype_exclude = {
 			"help",
 			"terminal",
@@ -21,8 +17,8 @@ function M.config()
 		buftype_exclude = { "terminal", "nofile" },
 		show_trailing_blankline_indent = false,
 		show_first_indent_level = true,
+		show_end_of_line = true,
 		char = "▎",
-	})
-end
-
-return M
+		space_char_blankline = " ",
+	},
+}

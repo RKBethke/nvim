@@ -38,6 +38,7 @@ opt.listchars = {
 	tab = "» ",
 	extends = "◣",
 	precedes = "◢",
+	space = "·",
 }
 opt.fillchars = {
 	foldopen = "",
