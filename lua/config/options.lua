@@ -56,7 +56,7 @@ opt.relativenumber = true
 opt.ruler = false
 
 -- disable nvim intro
-opt.shortmess:append("sI")
+opt.shortmess:append("sIT")
 
 -- disable mode
 opt.smd = false

@@ -8,6 +8,9 @@ local M = {
 }
 
 function M.config()
+	local ts_install = require("nvim-treesitter.install")
+	ts_install.compilers = { "clang" }
+
 	local ts_context = require("treesitter-context")
 	ts_context.setup({
 		enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
