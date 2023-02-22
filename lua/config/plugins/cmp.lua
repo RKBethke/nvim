@@ -72,35 +72,37 @@ function M.config()
 		},
 		formatting = {
 			format = function(entry, vim_item)
-				-- local icons = require("plugins.configs.lsp.lspkind_icons")
 				vim_item.kind = string.format("%s %s", M.icons[vim_item.kind], vim_item.kind)
 				vim_item.menu = menu_tags[entry.source.name]
 
 				return vim_item
 			end,
 		},
-		mapping = cmp.mapping.preset.insert({
-			["<C-b>"] = cmp.mapping.scroll_docs(-4),
+		mapping = {
+			["<C-p>"] = cmp.mapping.select_prev_item(),
+			["<C-n>"] = cmp.mapping.select_next_item(),
+			["<C-d>"] = cmp.mapping.scroll_docs(-4),
 			["<C-f>"] = cmp.mapping.scroll_docs(4),
+			["<C-Space>"] = cmp.mapping.complete(),
 			["<C-e>"] = cmp.mapping.close(),
-			["<C-y>"] = cmp.mapping(
-				cmp.mapping.confirm({
-					behavior = cmp.ConfirmBehavior.Insert,
-					select = true,
-				}),
-				{ "i", "c" }
-			),
-			["<C-space>"] = cmp.mapping(function(_)
+			["<CR>"] = cmp.mapping.confirm({
+				behavior = cmp.ConfirmBehavior.Replace,
+				select = false,
+			}),
+			["<Tab>"] = cmp.mapping(function(fallback)
+				-- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
 				if cmp.visible() then
-					cmp.confirm({
-						behavior = cmp.ConfirmBehavior.Insert,
-						select = true,
-					})
+					local entry = cmp.get_selected_entry()
+					if not entry then
+						cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+					else
+						cmp.confirm()
+					end
 				else
-					cmp.complete()
+					fallback()
 				end
-			end),
-		}),
+			end, { "i", "s", "c" }),
+		},
 		sources = {
 			{ name = "nvim_lua" },
 			{ name = "nvim_lsp" },

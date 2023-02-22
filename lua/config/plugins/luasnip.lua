@@ -10,19 +10,11 @@ local M = {
 
 function M.config()
 	local luasnip = require("luasnip")
-	local types = require("luasnip.util.types")
 
 	luasnip.config.setup({
 		history = true,
 		updateevents = "TextChanged,TextChangedI",
 		enable_autosnippets = true,
-		ext_opts = {
-			[types.choiceNode] = {
-				active = {
-					virt_text = { { " <- Current Choice", "NonTest" } },
-				},
-			},
-		},
 	})
 
 	-- Expansion Key:
