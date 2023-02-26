@@ -15,5 +15,6 @@ vim.api.nvim_create_autocmd("User", {
 		util.display_version()
 		require("config.autocmds")
 		require("config.mappings").defaults()
+		require("ui").setup()
 	end,
 })
