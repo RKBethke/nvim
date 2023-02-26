@@ -38,8 +38,6 @@ function M.setup(client, bufnr)
 		enable = false
 	end
 
-	-- util.info(client.name .. " " .. (enable and "yes" or "no"), "format")
-
 	client.server_capabilities.documentFormattingProvider = enable
 	-- Format on save
 	if client.server_capabilities.documentFormattingProvider then
