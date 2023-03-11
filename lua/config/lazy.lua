@@ -18,6 +18,7 @@ local opts = {
 		enabled = true,
 		notify = false,
 	},
+	lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",
 	performance = {
 		rtp = {
 			paths = {
