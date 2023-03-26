@@ -144,13 +144,6 @@ M.telescope = function()
 	map("n", "<leader><leader>", ":Telescope resume <CR>")
 end
 
-M.leap = function()
-	map({ "n", "x", "o" }, "<leader>s", "<Plug>(leap-forward)")
-	map({ "n", "x", "o" }, "<leader>S", "<Plug>(leap-backward)")
-	map("x", "<leader>x", "<Plug>(leap-forward-x)")
-	map("x", "<leader>X", "<Plug>(leap-backward-x)")
-end
-
 M.gitsigns = function(bufnr)
 	local gs = package.loaded.gitsigns
 
