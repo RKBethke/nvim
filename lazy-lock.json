@@ -30,6 +30,7 @@
   "nvim-web-devicons": { "branch": "master", "commit": "95b1e300699be8eb6b5be1758a9d4d69fe93cc7f" },
   "plenary.nvim": { "branch": "master", "commit": "253d34830709d690f013daf2853a9d21ad7accab" },
   "spellsync.nvim": { "branch": "main", "commit": "d6b245b468ca54c12a4ecb4339596183a27cea87" },
+  "telescope-project.nvim": { "branch": "master", "commit": "fa081e35ba7397e5147a51ece693aa3afda167fc" },
   "telescope.nvim": { "branch": "master", "commit": "942fe5faef47b21241e970551eba407bc10d9547" },
   "vim-matchup": { "branch": "master", "commit": "156367e4cbd123bc9a70eeabeaa16f7cf9239e12" }
 }
