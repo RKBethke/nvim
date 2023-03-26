@@ -132,7 +132,7 @@ M.nvimtree = function()
 end
 
 M.telescope = function()
-	map("n", "<leader>fb", ":Telescope buffers <CR>")
+	map("n", "<leader>bb", ":Telescope buffers <CR>")
 	map("n", "<leader>ff", ":Telescope find_files <CR>")
 	map("n", "<leader>fa", ":Telescope find_files no_ignore=true hidden=true <CR>")
 	map("n", "<leader>cm", ":Telescope git_commits <CR>")
