@@ -1,6 +1,10 @@
 local M = {
 	"nvim-telescope/telescope.nvim",
-	dependencies = { "nvim-lua/plenary.nvim" },
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		"nvim-telescope/telescope-project.nvim",
+		"direnv/direnv.vim",
+	},
 	cmd = "Telescope",
 	init = function()
 		require("config.mappings").telescope()
@@ -9,6 +13,12 @@ local M = {
 
 function M.config()
 	local telescope = require("telescope")
+	local project_actions = require("telescope._extensions.project.actions")
+	local base_dirs = {
+		"~/src/",
+		"~/.config/",
+	}
+	telescope.load_extension("project")
 	telescope.setup({
 		defaults = {
 			vimgrep_arguments = {
@@ -22,20 +32,18 @@ function M.config()
 			},
 			selection_caret = "  ",
 			sorting_strategy = "ascending",
-			layout_strategy = "horizontal",
+			-- Theme: Ivy
+			layout_strategy = "bottom_pane",
 			layout_config = {
-				horizontal = {
-					prompt_position = "top",
-					preview_width = 0.55,
-					results_width = 0.8,
-				},
-				vertical = {
-					mirror = false,
-				},
-				width = 0.87,
-				height = 0.50,
-				preview_cutoff = 120,
+				height = 25,
 			},
+			border = true,
+			borderchars = {
+				prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
+				results = { " " },
+				preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+			},
+			-- End Ivy Theme
 			mappings = {
 				i = {
 					["<ESC>"] = require("telescope.actions").close,
@@ -51,15 +59,28 @@ function M.config()
 			file_ignore_patterns = { "node_modules" },
 			path_display = { "truncate" },
 		},
-		pickers = {
-			find_files = {
+		extensions = {
+			project = {
+				base_dirs = base_dirs,
+				hidden_files = true,
 				theme = "ivy",
-			},
-			buffers = {
-				theme = "ivy",
+				order_by = "asc",
+				search_by = "title",
+				sync_with_nvim_tree = true,
+				on_project_selected = function(prompt_bufnr)
+					local cwd = vim.fn.getcwd()
+					local new_path = project_actions.get_selected_path(prompt_bufnr)
+					if new_path ~= cwd then
+						project_actions.change_working_directory(prompt_bufnr, false)
+					end
+				end,
 			},
 		},
 	})
+
+	vim.api.nvim_create_user_command("Reindex", function()
+		require("telescope._extensions.project.git").update_git_repos(base_dirs)
+	end, {})
 end
 
 return M

@@ -142,6 +142,7 @@ M.telescope = function()
 	map("n", "<leader>fo", ":Telescope oldfiles <CR>")
 	map("n", "<leader>tk", ":Telescope keymaps <CR>")
 	map("n", "<leader><leader>", ":Telescope resume <CR>")
+	map("n", "<leader>fp", ":Telescope project<CR>")
 end
 
 M.gitsigns = function(bufnr)
