@@ -64,8 +64,8 @@ M.defaults = function()
 	map("n", "H", ":bprev<CR>") -- previous buffer
 	map("n", "L", ":bnext<CR>") -- next buffer
 
-	map("n", "<leader>h", "<C-w>s") -- horizontal split
-	map("n", "<leader>v", "<C-w>v") -- vertical split
+	-- map("n", "<leader>h", "<C-w>s") -- horizontal split
+	-- map("n", "<leader>v", "<C-w>v") -- vertical split
 
 	-- center cursor when moving (goto_definition)
 	map("n", "<C-u>", "<C-u>zz")
