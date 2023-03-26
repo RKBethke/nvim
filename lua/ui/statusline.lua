@@ -90,23 +90,18 @@ function M.lsp_icon()
 end
 
 function M.current_pos()
-	local current_line = vim.fn.line(".")
-	local current_col = vim.fn.col(".")
+	local current_line = string.format("%3d", vim.fn.line("."))
+	local current_col = string.format("%3d", vim.fn.col("."))
 	local total_line = vim.fn.line("$")
 
+	local result, _ = string.format("%2d%% ", math.modf((current_line / total_line) * 100))
 	if current_line == 1 then
-		return "  " .. current_line .. ":" .. current_col .. "|" .. "Top "
+		result = "Top "
 	elseif current_line == vim.fn.line("$") then
-		return "  " .. current_line .. ":" .. current_col .. "|" .. "Bot "
-	end
-	local result, _ = math.modf((current_line / total_line) * 100)
-
-	local resultString = tostring(result)
-	if result < 10 then
-		resultString = " " .. resultString
+		result = "Bot "
 	end
 
-	return "  " .. current_line .. ":" .. current_col .. "|" .. resultString .. "%% "
+	return "  " .. current_line .. ":" .. current_col .. "|" .. result
 end
 
 return M
