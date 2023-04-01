@@ -2,6 +2,15 @@ local M = {
 	"sainnhe/gruvbox-material",
 	priority = 1000,
 	lazy = false,
+	keys = {
+		{
+			"<leader>td",
+			function()
+				vim.cmd("set background=dark")
+				vim.cmd.colorscheme("gruvbox-material")
+			end,
+		},
+	},
 	config = function()
 		vim.g.gruvbox_material_background = "medium"
 		vim.g.gruvbox_material_enable_bold = 1
@@ -10,7 +19,7 @@ local M = {
 		vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
 		vim.g.gruvbox_material_better_performance = 1
 		vim.g.gruvbox_material_ui_contrast = "hard"
-		vim.cmd([[colorscheme gruvbox-material]])
+		vim.cmd.colorscheme("gruvbox-material")
 
 		vim.api.nvim_create_user_command("Dark", "set background=dark", {})
 		vim.api.nvim_create_user_command("Light", "set background=light", {})
