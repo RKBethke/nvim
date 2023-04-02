@@ -196,4 +196,11 @@ M.gitsigns = function(bufnr)
 	buf_map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
 end
 
+M.fugitive = function()
+	map("n", "<leader>dgh", "<cmd>diffget //2<CR>")
+	map("n", "<leader>dgl", "<cmd>diffget //3<CR>")
+	map("v", "<leader>dp", "<cmd>diffput<CR>")
+	map("v", "<leader>dg", "<cmd>diffget<CR>")
+end
+
 return M
