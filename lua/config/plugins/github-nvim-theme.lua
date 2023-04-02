@@ -1,5 +1,5 @@
 local M = {
-	"morhetz/gruvbox",
+	"projekt0n/github-nvim-theme",
 	priority = 1000,
 	lazy = false,
 	keys = {
@@ -7,7 +7,9 @@ local M = {
 			"<leader>tl",
 			function()
 				vim.cmd("set background=light")
-				vim.cmd.colorscheme("gruvbox")
+				require("github-theme").setup({
+					theme_style = "light",
+				})
 			end,
 		},
 	},
