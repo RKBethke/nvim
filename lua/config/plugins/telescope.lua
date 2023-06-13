@@ -3,6 +3,7 @@ local M = {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope-project.nvim",
+		"nvim-telescope/telescope-file-browser.nvim",
 		"direnv/direnv.vim",
 	},
 	cmd = "Telescope",
@@ -18,6 +19,7 @@ function M.config()
 		"~/src/",
 		"~/.config/",
 	}
+	telescope.load_extension("file_browser")
 	telescope.load_extension("project")
 	telescope.setup({
 		defaults = {
@@ -74,6 +76,10 @@ function M.config()
 						project_actions.change_working_directory(prompt_bufnr, false)
 					end
 				end,
+			},
+			file_browser = {
+				theme = "ivy",
+				hijack_netrw = true,
 			},
 		},
 	})
