@@ -99,6 +99,7 @@ function M.config()
 	local servers = {
 		clangd = {},
 		nil_ls = {},
+		pyright = {},
 		bqnlsp = {},
 		rust_analyzer = {
 			settings = {
