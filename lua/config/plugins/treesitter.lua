@@ -11,6 +11,18 @@ function M.config()
 	local ts_install = require("nvim-treesitter.install")
 	ts_install.compilers = { "clang" }
 
+	local ts_parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+	ts_parser_config.bqn = {
+		install_info = {
+			url = "https://github.com/shnarazk/tree-sitter-bqn",
+			files = { "src/parser.c" },
+			branch = "main",
+			generate_requires_npm = false,
+			requires_generate_from_grammar = false,
+		},
+		filetype = "bqn",
+	}
+
 	local ts_context = require("treesitter-context")
 	ts_context.setup({
 		enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
