@@ -7,10 +7,19 @@ return {
 	config = function(plugin)
 		vim.opt.rtp:append(plugin.dir .. "/editors/vim")
 
-		-- Override highlighting for: "←⇐↩→" characters after plugin has loaded.
-		vim.api.nvim_create_autocmd("VimEnter", {
+		-- Override highlighting for: "←⇐↩→" characters.
+		local override_bqn_highlight = function()
+			vim.api.nvim_set_hl(0, "bqnarw", { link = "keyword" })
+		end
+
+		vim.api.nvim_create_autocmd("BufEnter", {
 			pattern = { "*.bqn" },
-			command = "hi link bqnarw keyword",
+			callback = override_bqn_highlight,
+		})
+
+		vim.api.nvim_create_autocmd("BufWinEnter", {
+			pattern = "*",
+			callback = override_bqn_highlight,
 		})
 	end,
 }
