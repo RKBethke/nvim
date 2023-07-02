@@ -49,9 +49,9 @@ function M.diagnostics()
 	local errors = (num_errors and num_errors > 0) and ("%#DiagnosticSignError#" .. " " .. num_errors .. " ") or ""
 	local warnings = (num_warnings and num_warnings > 0) and ("%#DiagnosticSignWarn#" .. "  " .. num_warnings .. " ")
 		or ""
-	local hints = (num_hints and num_hints > 0) and ("%#Yellow#" .. "ﯧ " .. num_hints .. " ") or ""
+	local hints = (num_hints and num_hints > 0) and ("%#Yellow#" .. " " .. num_hints .. " ") or ""
 	-- local hints = ""
-	local info = (num_info and num_info > 0) and ("%#DiagnosticSignInfo#" .. " " .. num_info .. " ") or ""
+	local info = (num_info and num_info > 0) and ("%#DiagnosticSignInfo#" .. " " .. num_info .. " ") or ""
 
 	return errors .. warnings .. hints .. info .. "%#StatusLine#"
 end

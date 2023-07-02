@@ -1,9 +1,9 @@
 local M = {}
 
 M.signs = {
-	Error = "",
-	Info = "",
-	Hint = "",
+	Error = "",
+	Info = "",
+	Hint = "",
 	Warn = "",
 }
 
