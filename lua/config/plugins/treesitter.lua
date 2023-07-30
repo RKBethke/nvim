@@ -62,10 +62,12 @@ function M.config()
 			"vim",
 			"comment",
 			"nix",
+			"org",
 		},
 		highlight = {
 			enable = true,
 			use_languagetree = true,
+			additional_vim_regex_highlighting = { "org" },
 		},
 		indent = {
 			enable = true,

@@ -107,6 +107,7 @@ function M.config()
 			{ name = "nvim_lua" },
 			{ name = "nvim_lsp" },
 			{ name = "luasnip" },
+			{ name = "orgmode" },
 			{
 				name = "buffer",
 				max_item_count = 5,
