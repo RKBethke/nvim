@@ -13,42 +13,42 @@ local M = {
 	},
 }
 
-M.icons = {
-	Text = "",
-	Method = "",
-	Function = "",
-	Constructor = "",
-	Field = "ﰠ",
-	Variable = "",
-	Class = "ﴯ",
-	Interface = "",
-	Module = "",
-	Property = "ﰠ",
-	Unit = "塞",
-	Value = "",
-	Enum = "",
-	Keyword = "",
-	Snippet = "",
-	Color = "",
-	File = "",
-	Reference = "",
-	Folder = "",
-	EnumMember = "",
-	Constant = "",
-	Struct = "פּ",
-	Event = "",
-	Operator = "",
-	TypeParameter = "",
-	Table = " ",
-	Object = "",
-	Tag = " ",
-	Array = " ",
-	Boolean = "蘒",
-	Number = "",
-	String = "",
-	Calendar = " ",
-	Watch = "",
-}
+-- M.icons = {
+-- 	Text = "󰬁",
+-- 	Method = "",
+-- 	Function = "",
+-- 	Constructor = "",
+-- 	Field = "ﰠ",
+-- 	Variable = "",
+-- 	Class = "ﴯ",
+-- 	Interface = "",
+-- 	Module = "",
+-- 	Property = "ﰠ",
+-- 	Unit = "塞",
+-- 	Value = "",
+-- 	Enum = "",
+-- 	Keyword = "",
+-- 	Snippet = "",
+-- 	Color = "",
+-- 	File = "",
+-- 	Reference = "",
+-- 	Folder = "",
+-- 	EnumMember = "",
+-- 	Constant = "",
+-- 	Struct = "פּ",
+-- 	Event = "",
+-- 	Operator = "",
+-- 	TypeParameter = "",
+-- 	Table = " ",
+-- 	Object = "",
+-- 	Tag = " ",
+-- 	Array = " ",
+-- 	Boolean = "蘒",
+-- 	Number = "",
+-- 	String = "",
+-- 	Calendar = " ",
+-- 	Watch = "",
+-- }
 
 function M.config()
 	vim.o.completeopt = "menuone,noselect,preview"
@@ -72,7 +72,7 @@ function M.config()
 		},
 		formatting = {
 			format = function(entry, vim_item)
-				vim_item.kind = string.format("%s %s", M.icons[vim_item.kind], vim_item.kind)
+				-- vim_item.kind = string.format("%s %s", M.icons[vim_item.kind], vim_item.kind)
 				vim_item.menu = menu_tags[entry.source.name]
 
 				return vim_item
@@ -118,6 +118,26 @@ function M.config()
 				},
 			},
 			{ name = "path" },
+		},
+	})
+	cmp.setup.cmdline(":", {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = cmp.config.sources({
+			{ name = "path" },
+			{ name = "cmdline_history" },
+		}, {
+			{
+				name = "cmdline",
+				option = {
+					ignore_cmds = { "Man", "!" },
+				},
+			},
+		}),
+	})
+	cmp.setup.cmdline("/", {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = {
+			{ name = "buffer" },
 		},
 	})
 end
