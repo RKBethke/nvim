@@ -46,6 +46,10 @@ opt.fillchars = {
 }
 opt.showbreak = "↪ "
 
+-- Enable concealing
+opt.conceallevel = 2
+opt.concealcursor = "nc"
+
 -- disable tilde on end of buffer: https://github.com/neovim/neovim/pull/8546#issuecomment-643643758
 opt.fillchars = { eob = " " }
 
@@ -80,7 +84,7 @@ opt.updatetime = 250
 opt.whichwrap:append("<>[]")
 
 -- auto-wrap comments, don't auto insert comment on o/O and enter
-opt.formatoptions:remove("cro")
+-- opt.formatoptions:remove("cro")
 
 -- Global editor variables:
 g.mapleader = " "
