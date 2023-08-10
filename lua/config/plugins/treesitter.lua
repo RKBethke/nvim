@@ -62,12 +62,11 @@ function M.config()
 			"vim",
 			"comment",
 			"nix",
-			"org",
+			"cpp",
 		},
 		highlight = {
 			enable = true,
 			use_languagetree = true,
-			additional_vim_regex_highlighting = { "org" },
 		},
 		indent = {
 			enable = true,
@@ -76,6 +75,14 @@ function M.config()
 			enable = true,
 		},
 	})
+
+	vim.g.markdown_fenced_languages = {
+		"sh",
+		"bash",
+		"rust",
+		"cpp",
+		"c",
+	}
 end
 
 return M
