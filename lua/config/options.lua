@@ -66,7 +66,7 @@ opt.shortmess:append("nosIT")
 opt.smd = false
 
 opt.signcolumn = "yes"
-opt.colorcolumn = "100,120"
+opt.colorcolumn = "+0,100,120"
 opt.splitbelow = true
 opt.splitright = true
 opt.scrolloff = 8
