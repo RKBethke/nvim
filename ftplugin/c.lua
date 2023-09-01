@@ -1,7 +1,6 @@
 -- Spacing
 vim.bo.expandtab = false
 vim.bo.tabstop = 8
-vim.bo.shiftwidth = 4
-vim.bo.softtabstop = 4
+vim.bo.shiftwidth = 8
 
-vim.bo.textwidth = 100
+vim.bo.textwidth = 80
