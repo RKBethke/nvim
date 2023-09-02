@@ -31,7 +31,7 @@ M.defaults = function()
 	map("v", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { silent = true })
 
 	-- Do not yank text on delete ( dd )
-	map({ "n", "v" }, "d", '"_d')
+	-- map({ "n", "v" }, "d", '"_d')
 
 	-- Reselect after indent
 	map("v", "<", "<gv")
