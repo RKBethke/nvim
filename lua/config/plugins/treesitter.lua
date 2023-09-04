@@ -63,6 +63,7 @@ function M.config()
 			"comment",
 			"nix",
 			"cpp",
+			"c",
 		},
 		highlight = {
 			enable = true,
