@@ -6,9 +6,9 @@ My personal Neovim configuration.
 
 ### Dependencies
 
-*  [neovim (v0.8+)](https://github.com/neovim/neovim/releases/tag/v0.8.0)
-*  [Nerd Font](https://www.nerdfonts.com/)
-*  [ripgrep](https://github.com/BurntSushi/ripgrep)
+- [neovim (v0.8+)](https://github.com/neovim/neovim/releases/tag/v0.8.0)
+- [Nerd Font](https://www.nerdfonts.com/)
+- [ripgrep](https://github.com/BurntSushi/ripgrep)
 
 ### Installation
 
@@ -30,6 +30,7 @@ nvim
 This project is licensed under the GNU General Public License - see the [LICENSE.md](LICENSE.md) file for details.
 
 ## Acknowledgments
+
 A huge thanks to the following individuals and groups:
 
-*  The wonderful Neovim project and its contributors
+- The wonderful Neovim project and its contributors

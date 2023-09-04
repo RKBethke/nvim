@@ -25,6 +25,9 @@ function M.setup(options)
 
 			-- Gitsigns
 			nls.builtins.code_actions.gitsigns,
+
+			-- Prose
+			nls.builtins.diagnostics.vale,
 		},
 	})
 end
