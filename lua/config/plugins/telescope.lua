@@ -14,6 +14,7 @@ local M = {
 
 function M.config()
 	local telescope = require("telescope")
+	local actions = require("telescope.actions")
 	local project_actions = require("telescope._extensions.project.actions")
 	local base_dirs = {
 		"~/src/",
@@ -48,18 +49,32 @@ function M.config()
 			-- End Ivy Theme
 			mappings = {
 				i = {
-					["<ESC>"] = require("telescope.actions").close,
-					["<C-j>"] = require("telescope.actions").move_selection_next,
-					["<C-k>"] = require("telescope.actions").move_selection_previous,
-					["<C-q>"] = require("telescope.actions").send_to_qflist,
+					["<ESC>"] = actions.close,
+					["<C-j>"] = actions.move_selection_next,
+					["<C-k>"] = actions.move_selection_previous,
+					["<C-q>"] = actions.send_to_qflist,
 				},
 				n = {
-					["<ESC>"] = require("telescope.actions").close,
-					["q"] = require("telescope.actions").close,
+					["<ESC>"] = actions.close,
+					["q"] = actions.close,
 				},
 			},
 			file_ignore_patterns = { "node_modules" },
 			path_display = { "truncate" },
+		},
+		pickers = {
+			buffers = {
+				show_all_buffers = true,
+				sort_lastused = true,
+				mappings = {
+					i = {
+						["<c-d>"] = actions.delete_buffer,
+					},
+					n = {
+						["d"] = actions.delete_buffer,
+					}
+				}
+			}
 		},
 		extensions = {
 			project = {
