@@ -4,12 +4,12 @@ local cmd = vim.cmd
 local M = {}
 
 ------------ [ Defaults ] ------------
--- Called during init
+-- Called during init               --
 --------------------------------------
 M.defaults = function()
 	-- [ General ] -- {{{
 	-- Easy quit
-	map("n", "<leader>qa", "<cmd>qall<CR>")
+	map("n", "<leader>qa", "<cmd>qall<CR>", { desc = "Quit all" })
 
 	-- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
 	-- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
@@ -44,28 +44,30 @@ M.defaults = function()
 	-- map("i", "<C-l>", "<Right>")
 	-- map("i", "<C-j>", "<Down>")
 	-- map("i", "<C-k>", "<Up>")
-	map("i", "<C-e>", "<End>") -- end of line
-	map("i", "<C-a>", "<ESC>^i") -- beginning of line
+	map("i", "<C-a>", "<ESC>^i", { desc = "Go to beginning of line" })
+	map("i", "<C-e>", "<End>", { desc = "Go to end of line" })
 
-	-- [ Within non-insert mode ]
-	map({ "n", "v" }, "gh", "^") -- beginning of line
-	map({ "n", "v" }, "gl", "$") -- end of line
+	-- [ Within non-insert mode ] --
+	map({ "n", "v" }, "gh", "^", { desc = "Go to beginning of line" })
+	map({ "n", "v" }, "gl", "$", { desc = "Go to end of line" })
 
 	-- [ Between windows ] --
-	map("n", "<C-h>", "<C-w>h")
-	map("n", "<C-l>", "<C-w>l")
-	map("n", "<C-k>", "<C-w>k")
-	map("n", "<C-j>", "<C-w>j")
+	map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
+	map("n", "<C-l>", "<C-w>l", { desc = "Go to lower window" })
+	map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
+	map("n", "<C-j>", "<C-w>j", { desc = "Go to right window" })
 
-	map("n", "<leader>x", ":lua require('util').close_buffer()<CR>") -- close buffer
-	map("n", "<S-t>", ":enew <CR>") -- new buffer
-	map("n", "<C-t>b", ":tabnew <CR>") -- new tabs
-	map("n", "<leader>n", ":set nu! <CR>") -- toggle line number
-	map("n", "H", ":bprev<CR>") -- previous buffer
-	map("n", "L", ":bnext<CR>") -- next buffer
+	map("n", "<leader>wh", "<C-w>s", { desc = "Horizonal split" })
+	map("n", "<leader>wv", "<C-w>v", { desc = "Vertical split" })
 
-	-- map("n", "<leader>h", "<C-w>s") -- horizontal split
-	-- map("n", "<leader>v", "<C-w>v") -- vertical split
+	map("n", "<leader>x", ":lua require('util').close_buffer()<CR>", { desc = "Close Buffer" })
+	map("n", "<S-t>", ":enew <CR>", { desc = "New buffer" })
+	map("n", "<C-t>b", ":tabnew <CR>", { desc = "New tab" })
+	map("n", "H", ":bprev<CR>", { desc = "Switch to previous buffer" })
+	map("n", "L", ":bnext<CR>", { desc = "Switch to next buffer" })
+
+	-- [ UI ] --
+	map("n", "<leader>un", ":set nu! <CR>", { desc = "Toggle line number" })
 
 	-- center cursor when moving (goto_definition)
 	map("n", "<C-u>", "<C-u>zz")
@@ -74,34 +76,53 @@ M.defaults = function()
 	map("n", "N", "Nzzzv")
 
 	-- [ Misc ] --
-	-- open url under cursor
 	if vim.loop.os_uname().sysname == "Darwin" then
-		map("n", "gx", ":execute 'silent! !open ' . shellescape(expand('<cWORD>'), 1)<cr>")
+		map(
+			"n",
+			"gx",
+			":execute 'silent! !open ' . shellescape(expand('<cWORD>'), 1)<cr>",
+			{ desc = "Open link under cursor" }
+		)
 	else
-		map("n", "gx", ":execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<cr>")
+		map(
+			"n",
+			"gx",
+			":execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<cr>",
+			{ desc = "Open link under cursor" }
+		)
 	end
 
 	-- }}}
 	-- [ Terminal] -- {{{
-	map("t", "jk", "<C-\\><C-n>") -- escape terminal mode
-	map("t", "JK", "<C-\\><C-n> :lua rb.close_buffer() <CR>") -- hide a termingal from within terminal mode
-	map("n", "<leader>H", ":execute 15 .. 'new +terminal' | let b:term_type = 'hori' | startinsert <CR>") -- new horizontal
-	map("n", "<leader>V", ":execute 'vnew +terminal' | let b:term_type = 'vert' | startinsert <CR>") -- new vertical
-	map("n", "<leader>W", ":execute 'terminal' | let b:term_type = 'wind' | startinsert <CR>") --  new window
+	map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter normal mode" })
+	map("t", "jk", "<C-\\><C-n>", { desc = "Enter normal mode"})
+	-- map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
+	-- map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
+	-- map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
+	-- map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
+	-- map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+	-- map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
+	-- map("t", "JK", "<C-\\><C-n> :lua rb.close_buffer() <CR>") -- hide a terminal from within terminal mode
+	map(
+		"n",
+		"<leader>th",
+		":execute 15 .. 'new +terminal' | let b:term_type = 'hori' | startinsert <CR>",
+		{ desc = "Open terminal (Horizontal)" }
+	)
+	map(
+		"n",
+		"<leader>tv",
+		":execute 'vnew +terminal' | let b:term_type = 'vert' | startinsert <CR>",
+		{ desc = "Open terminal (Vertical)" }
+	)
+	map("n", "<leader>W", ":execute 'terminal' | let b:term_type = 'wind' | startinsert <CR>", { desc = "Open new window" })
 	map("t", ":q!", "<C-\\><C-n>:q!<CR>") -- :q quits terminal
-	-- }}}
-	-- [ Commands ] -- {{{
-	cmd("silent! command CopyPath let @+ = expand('%:p')")
 	-- }}}
 end
 
 ------------ [ Plugins ] ------------
--- All plugin related mappings
+-- All plugin related mappings     --
 -------------------------------------
-M.comment = function()
-	map("n", "<leader>/", ":lua require('Comment.api').toggle.linewise.current()<CR>")
-	map("v", "<leader>/", ":lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
-end
 
 M.lsp = function(_, _) -- (client, bufnr)
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -124,84 +145,6 @@ M.lsp = function(_, _) -- (client, bufnr)
 	map("n", "<leader>fm", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>")
 
 	map("n", "<leader>fs", "<cmd>lua require('config.plugins.lsp.formatting').toggle()<CR>")
-end
-
-M.nvimtree = function()
-	map("n", "<C-n>", ":NvimTreeToggle <CR>")
-	map("n", "<leader>tf", ":NvimTreeFindFile <CR>")
-end
-
-M.telescope = function()
-	map("n", "<leader>bb", ":Telescope buffers<CR>")
-	map("n", "<leader>ff", ":Telescope find_files<CR>")
-	map("n", "<leader>fa", ":Telescope find_files no_ignore=true hidden=true<CR>")
-	map("n", "<leader>fb", ":Telescope file_browser<CR>")
-	map("n", "<leader>gcm", ":Telescope git_commits<CR>")
-	-- map("n", "<leader>gs", ":Telescope git_status<CR>")
-	map("n", "<leader>fh", ":Telescope help_tags<CR>")
-	map("n", "<leader>fw", ":Telescope live_grep<CR>")
-	map("n", "<leader>fo", ":Telescope oldfiles<CR>")
-	map("n", "<leader>tk", ":Telescope keymaps<CR>")
-	map("n", "<leader><leader>", ":Telescope resume<CR>")
-	map("n", "<leader>fp", ":Telescope project<CR>")
-end
-
-M.gitsigns = function(bufnr)
-	local gs = package.loaded.gitsigns
-
-	local function buf_map(mode, l, r, opts)
-		opts = opts or {}
-		opts.buffer = bufnr
-		vim.keymap.set(mode, l, r, opts)
-	end
-
-	-- Navigation
-	buf_map("n", "]c", function()
-		if vim.wo.diff then
-			return "]c"
-		end
-		vim.schedule(function()
-			gs.next_hunk()
-		end)
-		return "<Ignore>"
-	end, { expr = true })
-
-	buf_map("n", "[c", function()
-		if vim.wo.diff then
-			return "[c"
-		end
-		vim.schedule(function()
-			gs.prev_hunk()
-		end)
-		return "<Ignore>"
-	end, { expr = true })
-
-	-- Actions
-	buf_map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>")
-	buf_map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>")
-	buf_map("n", "<leader>ghS", gs.stage_buffer)
-	buf_map("n", "<leader>ghu", gs.undo_stage_hunk)
-	buf_map("n", "<leader>ghR", gs.reset_buffer)
-	buf_map("n", "<leader>ghp", gs.preview_hunk)
-	buf_map("n", "<leader>ghb", function()
-		gs.blame_line({ full = true })
-	end)
-	buf_map("n", "<leader>gb", gs.toggle_current_line_blame)
-	buf_map("n", "<leader>ghd", gs.diffthis)
-	buf_map("n", "<leader>ghD", function()
-		gs.diffthis("~")
-	end)
-	buf_map("n", "<leader>gtd", gs.toggle_deleted)
-
-	-- Text object
-	buf_map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
-end
-
-M.fugitive = function()
-	map("n", "<leader>dgh", "<cmd>diffget //2<CR>")
-	map("n", "<leader>dgl", "<cmd>diffget //3<CR>")
-	map("v", "<leader>dp", "<cmd>diffput<CR>")
-	map("v", "<leader>dg", "<cmd>diffget<CR>")
 end
 
 return M

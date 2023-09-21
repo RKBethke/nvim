@@ -1,7 +1,6 @@
 return {
-	"numToStr/Comment.nvim",
-	keys = { "gc", "gb" },
-	init = function()
-		require("config.mappings").comment()
-	end,
+	"echasnovski/mini.comment",
+	version = false,
+	event = "VeryLazy",
+	config = true
 }

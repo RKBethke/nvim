@@ -1,4 +1,9 @@
 local autocmd = vim.api.nvim_create_autocmd
+local user_command = vim.api.nvim_create_user_command
+
+user_command("Dark", "set background=dark", {})
+user_command("Light", "set background=light", {})
+user_command("CopyPath", "let @+ = expand('%:p')", {})
 
 -- Don't show any numbers inside terminals
 autocmd("TermOpen", {
@@ -9,9 +14,9 @@ autocmd("TermOpen", {
 	end,
 })
 
+-- Save the cursor position and important marks
 autocmd("BufWritePre", {
 	callback = function()
-		-- Keep the cursor position and these marks:
 		local original_cursor = vim.fn.getcurpos()
 		local first_changed = vim.fn.getpos("'[")
 		local last_changed = vim.fn.getpos("']")
@@ -22,18 +27,6 @@ autocmd("BufWritePre", {
 		vim.fn.setpos('.', original_cursor)
 	end,
 })
-
--- Fix luasnip jumping erratically when not in insert mode
--- autocmd("InsertLeave", {
--- 	callback = function()
--- 		if
--- 			require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
--- 			and not require("luasnip").session.jump_active
--- 		then
--- 			require("luasnip").unlink_current()
--- 		end
--- 	end,
--- })
 
 -- Uncomment this if you want to open nvim with a dir
 -- autocmd("BufEnter", {

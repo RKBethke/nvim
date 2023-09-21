@@ -4,11 +4,11 @@ local M = {
 	dependencies = {
 		"kyazdani42/nvim-web-devicons",
 	},
+	keys = {
+		{ "<leader>fe", "<cmd>NvimTreeToggle<CR>", desc = "File Explorer" },
+		{ "<leader>e", "<leader>fe", desc = "File Explorer", remap = true }
+	}
 }
-
-function M.init()
-	require("config.mappings").nvimtree()
-end
 
 function M.config()
 	local nvimtree = require("nvim-tree")

@@ -4,11 +4,12 @@ local M = {
 	lazy = false,
 	keys = {
 		{
-			"<leader>td",
+			"<leader>ud",
 			function()
 				vim.cmd("set background=dark")
 				vim.cmd.colorscheme("gruvbox-material")
 			end,
+			desc = "Dark colorscheme"
 		},
 	},
 	config = function()
@@ -20,9 +21,6 @@ local M = {
 		vim.g.gruvbox_material_better_performance = 1
 		vim.g.gruvbox_material_ui_contrast = "hard"
 		vim.cmd.colorscheme("gruvbox-material")
-
-		vim.api.nvim_create_user_command("Dark", "set background=dark", {})
-		vim.api.nvim_create_user_command("Light", "set background=light", {})
 	end,
 }
 

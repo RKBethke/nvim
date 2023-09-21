@@ -19,7 +19,7 @@ mv ~/.config/nvim ~/.config/nvim.bak
 git clone https://github.com/RKBethke/nvim ~/.config/nvim
 ```
 
-2. Open neovim. Packages should be installed automatically.
+2. Open neovim. Packages will install automatically.
 
 ```
 nvim
@@ -34,3 +34,4 @@ This project is licensed under the GNU General Public License - see the [LICENSE
 A huge thanks to the following individuals and groups:
 
 - The wonderful Neovim project and its contributors
+- The [LazyVim](https://github.com/LazyVim/LazyVim) project

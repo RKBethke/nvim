@@ -4,11 +4,12 @@ local M = {
 	lazy = false,
 	keys = {
 		{
-			"<leader>tl",
+			"<leader>ul",
 			function()
 				vim.cmd("set background=light")
 				vim.cmd.colorscheme("visual_studio_code")
 			end,
+			desc = "Light colorscheme"
 		},
 	},
 	opts = {
