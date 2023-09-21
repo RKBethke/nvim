@@ -41,11 +41,19 @@ function M.info(msg, name)
 	vim.notify(msg, vim.log.levels.INFO, { title = name or "init.lua" })
 end
 
+---@param fn fun()
+function M.on_very_lazy(fn)
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "VeryLazy",
+		callback = function()
+			fn()
+		end,
+	})
+end
+
 function M.map(mode, keys, command, opts)
 	local options = { noremap = true, silent = true }
-	if opts then
-		options = vim.tbl_extend("force", options, opts)
-	end
+	options = vim.tbl_extend("force", options, opts or {})
 
 	-- all valid modes allowed for mappings
 	-- :h map-modes
@@ -157,7 +165,7 @@ function M.get_root()
 	if not root then
 		path = path and vim.fs.dirname(path) or vim.loop.cwd()
 		---@type string?
-		root = vim.fs.find({".git", "lua"}, { path = path, upward = true })[1]
+		root = vim.fs.find({ ".git", "lua" }, { path = path, upward = true })[1]
 		root = root and vim.fs.dirname(root) or vim.loop.cwd()
 	end
 	---@cast root string

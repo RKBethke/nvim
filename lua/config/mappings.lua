@@ -1,5 +1,4 @@
 local map = require("util").map
-local cmd = vim.cmd
 
 local M = {}
 
@@ -124,6 +123,7 @@ end
 -- All plugin related mappings     --
 -------------------------------------
 
+-- TODO: Refactor into lsp subdirectory
 M.lsp = function(_, _) -- (client, bufnr)
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")

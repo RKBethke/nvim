@@ -9,12 +9,9 @@ local require = util.require
 require("config.options")
 require("config.lazy")
 
-vim.api.nvim_create_autocmd("User", {
-	pattern = "VeryLazy",
-	callback = function()
-		util.display_version()
-		require("config.autocmds")
-		require("config.mappings").defaults()
-		require("ui").setup()
-	end,
-})
+util.on_very_lazy(function()
+	util.display_version()
+	require("config.autocmds")
+	require("config.mappings").defaults()
+	require("ui").setup()
+end)
