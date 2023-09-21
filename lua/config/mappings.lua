@@ -36,6 +36,15 @@ M.defaults = function()
 	map("v", "<", "<gv")
 	map("v", ">", ">gv")
 
+	-- Print current date
+	map("n", "<leader>cd", "<cmd>put =strftime('%Y-%m-%d')<cr>", { desc = "Paste current date" })
+	map(
+		"n",
+		"<leader>cD",
+		"<cmd>put =strftime('%a %Y-%m-%d %H:%M:%S%z')<cr>",
+		{ desc = "Paste current date (verbose)" }
+	)
+
 	-- }}}
 	-- [ Navigation ] -- {{{
 	-- [ Within insert mode ]
@@ -94,7 +103,7 @@ M.defaults = function()
 	-- }}}
 	-- [ Terminal] -- {{{
 	map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter normal mode" })
-	map("t", "jk", "<C-\\><C-n>", { desc = "Enter normal mode"})
+	map("t", "jk", "<C-\\><C-n>", { desc = "Enter normal mode" })
 	-- map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
 	-- map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
 	-- map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
@@ -114,8 +123,13 @@ M.defaults = function()
 		":execute 'vnew +terminal' | let b:term_type = 'vert' | startinsert <CR>",
 		{ desc = "Open terminal (Vertical)" }
 	)
-	map("n", "<leader>W", ":execute 'terminal' | let b:term_type = 'wind' | startinsert <CR>", { desc = "Open new window" })
-	map("t", ":q!", "<C-\\><C-n>:q!<CR>") -- :q quits terminal
+	map(
+		"n",
+		"<leader>tw",
+		":execute 'terminal' | let b:term_type = 'wind' | startinsert <CR>",
+		{ desc = "Open new terminal window" }
+	)
+	map("t", ":q!", "<C-\\><C-n>:q!<CR>", { desc = "Quit terminal" })
 	-- }}}
 end
 
