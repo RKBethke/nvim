@@ -138,11 +138,16 @@ end
 -------------------------------------
 
 -- TODO: Refactor into lsp subdirectory
-M.lsp = function(_, _) -- (client, bufnr)
+M.lsp = function(_, bufnr) -- (client, bufnr)
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
+	local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
 	map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
 	map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-	map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+
+	if ft ~= "supercollider" then
+		map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+	end
+
 	map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
 	map("n", "gk", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
 	map("n", "<leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>")
