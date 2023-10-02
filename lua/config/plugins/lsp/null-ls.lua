@@ -20,7 +20,11 @@ function M.setup(options)
 			nls.builtins.formatting.rustfmt,
 
 			-- Shell
-			nls.builtins.formatting.shfmt,
+			nls.builtins.formatting.shfmt.with({
+				args = {},
+				filetypes = { "sh", "zsh" },
+			}),
+
 			nls.builtins.diagnostics.shellcheck.with({ diagnostics_format = "#{m} [#{c}]" }),
 
 			-- Gitsigns
