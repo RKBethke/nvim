@@ -32,12 +32,13 @@ vim.opt.joinspaces = false -- No double spaces with join after a dot
 opt.foldmethod = "marker"
 
 -- Show whitespace
-opt.list = true
+-- opt.list = true
 opt.listchars = {
 	trail = "_",
-	tab = "» ",
 	extends = "◣",
 	precedes = "◢",
+	-- tab = "▎ ",
+	-- tab = "┆ ",
 	-- space = "·",
 }
 opt.fillchars = {

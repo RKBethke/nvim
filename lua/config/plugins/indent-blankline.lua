@@ -21,5 +21,8 @@ return {
 				"nofile"
 			},
 		},
+		indent = {
+			char = "┆",
+		}
 	},
 }
