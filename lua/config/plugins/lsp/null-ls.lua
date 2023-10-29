@@ -9,21 +9,8 @@ function M.setup(options)
 		save_after_format = false,
 		on_attach = options.on_attach,
 		sources = {
-			nls.builtins.formatting.prettier.with({
-				filetypes = { "markdown" },
-			}),
-
-			-- Lua
-			nls.builtins.formatting.stylua,
-
 			-- Rust
 			nls.builtins.formatting.rustfmt,
-
-			-- Shell
-			nls.builtins.formatting.shfmt.with({
-				args = {},
-				filetypes = { "sh", "zsh" },
-			}),
 
 			nls.builtins.diagnostics.shellcheck.with({ diagnostics_format = "#{m} [#{c}]" }),
 
