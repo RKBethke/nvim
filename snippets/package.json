@@ -1,0 +1,11 @@
+{
+    "name": "Snippets",
+    "contributes": {
+        "snippets": [
+            {
+                "language": "bqn",
+                "path": "./bqn/snippets.json"
+            }
+        ]
+    }
+}
