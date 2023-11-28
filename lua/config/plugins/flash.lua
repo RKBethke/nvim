@@ -3,14 +3,11 @@ return {
 	event = "VeryLazy",
 	opts = {
 		modes = {
-			search = {
-				enabled = true,
-			},
 			char = {
 				highlight = {
 					backdrop = false
-				},
-			},
+				}
+			}
 		}
 	},
 	keys = {
