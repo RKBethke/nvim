@@ -1,0 +1,37 @@
+{
+  "Starter Template": {
+    "body": [
+	"#!/usr/bin/env cbqn",
+	""
+    ],
+    "prefix": ["st", "#!"]
+  },
+  "System Function: Show": {
+    "body": ["•Show"],
+    "prefix": ["show", "dbg"]
+  },
+  "System Function: Eval": {
+    "body": ["•BQN"],
+    "prefix": ["bqn", "eval"]
+  },
+  "System Function: Import": {
+    "body": ["•Import"],
+    "prefix": ["import"]
+  },
+  "System Function: Args": {
+    "body": ["•args"],
+    "prefix": ["args"]
+  },
+  "System Function: Exit": {
+    "body": ["•Exit"],
+    "prefix": ["exit"]
+  },
+  "System Function: Show": {
+    "body": ["•Show"],
+    "prefix": ["show", "dbg"]
+  },
+  "System Function: While": {
+    "body": ["${0:Fn}•_while_ ${1:Cond} ${2:arg}"],
+    "prefix": ["while", "loop"]
+  }
+}

@@ -4,7 +4,11 @@
         "snippets": [
             {
                 "language": "bqn",
-                "path": "./bqn/snippets.json"
+                "path": "./bqn/primitives.json"
+            },
+            {
+                "language": "bqn",
+                "path": "./bqn/idioms.json"
             }
         ]
     }
