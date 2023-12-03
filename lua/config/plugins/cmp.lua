@@ -13,52 +13,18 @@ local M = {
 	},
 }
 
--- M.icons = {
--- 	Text = "󰬁",
--- 	Method = "",
--- 	Function = "",
--- 	Constructor = "",
--- 	Field = "ﰠ",
--- 	Variable = "",
--- 	Class = "ﴯ",
--- 	Interface = "",
--- 	Module = "",
--- 	Property = "ﰠ",
--- 	Unit = "塞",
--- 	Value = "",
--- 	Enum = "",
--- 	Keyword = "",
--- 	Snippet = "",
--- 	Color = "",
--- 	File = "",
--- 	Reference = "",
--- 	Folder = "",
--- 	EnumMember = "",
--- 	Constant = "",
--- 	Struct = "פּ",
--- 	Event = "",
--- 	Operator = "",
--- 	TypeParameter = "",
--- 	Table = " ",
--- 	Object = "",
--- 	Tag = " ",
--- 	Array = " ",
--- 	Boolean = "蘒",
--- 	Number = "",
--- 	String = "",
--- 	Calendar = " ",
--- 	Watch = "",
--- }
-
 function M.config()
 	vim.o.completeopt = "menuone,noselect,preview"
 
 	local cmp = require("cmp")
 	local menu_tags = {
-		nvim_lsp = "[LSP]",
+		nvim_lsp = " ",
 		nvim_lua = "[api]",
-		path = "[path]",
-		luasnip = "[snip]",
+	}
+	local kind_tags = {
+		Snippet = " ",
+		File = "🗎 ",
+		Folder = " "
 	}
 
 	cmp.setup({
@@ -73,7 +39,15 @@ function M.config()
 		formatting = {
 			format = function(entry, vim_item)
 				-- vim_item.kind = string.format("%s %s", M.icons[vim_item.kind], vim_item.kind)
-				vim_item.menu = menu_tags[entry.source.name]
+				local kind_tag = kind_tags[vim_item.kind]
+				if kind_tag then
+					vim_item.kind = kind_tag
+				end
+
+				local menu_tag = menu_tags[entry.source.name]
+				if menu_tag then
+					vim_item.menu = menu_tag
+				end
 
 				return vim_item
 			end,
@@ -90,12 +64,14 @@ function M.config()
 				select = false,
 			}),
 			["<Tab>"] = cmp.mapping(function(fallback)
-				-- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
+				-- This little snippet will confirm with tab, and if no entry is selected,
+				-- will confirm the first item.
 				if cmp.visible() then
 					local entry = cmp.get_selected_entry()
-					if not entry then
-						cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+					if entry then
+						cmp.confirm()
 					else
+						cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 						cmp.confirm()
 					end
 				else
