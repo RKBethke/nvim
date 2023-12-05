@@ -36,11 +36,11 @@ M.defaults = function()
 	map("v", ">", ">gv")
 
 	-- Print current date
-	map("n", "<leader>cd", "<cmd>put =strftime('%Y-%m-%d')<cr>", { desc = "Paste current date" })
+	map("n", "<leader>cd", "\"=strftime('%Y-%m-%d')<cr>P", { desc = "Paste current date" })
 	map(
 		"n",
 		"<leader>cD",
-		"<cmd>put =strftime('%a %Y-%m-%d %H:%M:%S%z')<cr>",
+		"\"=strftime('%a %Y-%m-%d %H:%M:%S%z')<cr>P",
 		{ desc = "Paste current date (verbose)" }
 	)
 
