@@ -6,10 +6,6 @@
     ],
     "prefix": ["st", "#!"]
   },
-  "System Function: Show": {
-    "body": ["•Show"],
-    "prefix": ["show", "dbg"]
-  },
   "System Function: Eval": {
     "body": ["•BQN"],
     "prefix": ["bqn", "eval"]
@@ -27,11 +23,15 @@
     "prefix": ["exit"]
   },
   "System Function: Show": {
-    "body": ["•Show"],
+    "body": ["•Show "],
     "prefix": ["show", "dbg"]
   },
   "System Function: While": {
     "body": ["${0:Fn}•_while_ ${1:Cond} ${2:arg}"],
     "prefix": ["while", "loop"]
+  },
+  "Decrement By": {
+    "body": ["$0-˜"],
+    "prefix": ["dec", "minus"]
   }
 }
