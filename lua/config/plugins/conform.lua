@@ -15,7 +15,8 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			sh = { "shfmt" },
-			markdown = { "prettier" }
+			markdown = { "prettier" },
+			python = { "black" }
 		},
 		format = {
 			timeout_ms = 3000,
