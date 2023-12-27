@@ -1,32 +1,45 @@
 local M = {}
 
 M.on_attach = function(_, bufnr) -- (client, bufnr)
-	-- See `:help vim.lsp.*` for documentation on any of the below functions
+	-- See `:help vim.lsp.*` for documentation on any of the below functions.
 	local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
 	local map = require("util").map
-	map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
-	map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+	map("n", "gD", vim.lsp.buf.declaration)
+	map("n", "gd", vim.lsp.buf.definition)
 
 	if ft ~= "supercollider" then
-		map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+		map("n", "K", vim.lsp.buf.hover)
 	end
 
-	map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-	map("n", "gk", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
-	map("n", "<leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>")
-	map("n", "<leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>")
+	map("n", "gi", vim.lsp.buf.implementation)
+	map("n", "gk", vim.lsp.buf.signature_help)
+	map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder)
+	map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder)
 	map("n", "<leader>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>")
-	map("n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
-	map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename.float()<CR>")
-	map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-	map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
-	map("n", "ge", "<cmd>lua vim.diagnostic.open_float()<CR>")
-	map("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
-	map("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>")
-	map("n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>")
+	map("n", "<leader>D", vim.lsp.buf.type_definition)
+	map("n", "<leader>rn", vim.lsp.buf.rename)
+	map("n", "<leader>ca", vim.lsp.buf.code_action)
+	map("n", "gr", vim.lsp.buf.references)
+	map("n", "<leader>q", vim.diagnostic.setloclist)
+
+	-- Diagnostics
+	local diagnostic_goto = function(next, severity)
+		local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+		severity = severity and vim.diagnostic.severity[severity] or nil
+		return function()
+			go({ severity = severity })
+		end
+	end
+	map("n", "ge", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+	map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
+	map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
+	map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
+	map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
+	map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
+	map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+
+	-- Formatting now handled by conform.nvim.
 	-- map("n", "<leader>fm", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>")
-	--
-	-- map("n", "<leader>fs", "<cmd>lua require('config.plugins.lsp.formatting').toggle()<CR>")
 end
 
 return M
