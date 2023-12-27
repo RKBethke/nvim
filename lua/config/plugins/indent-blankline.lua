@@ -18,11 +18,11 @@ return {
 			},
 			buftypes = {
 				"terminal",
-				"nofile"
+				"nofile",
 			},
 		},
 		indent = {
 			char = "┆",
-		}
+		},
 	},
 }

@@ -9,7 +9,7 @@ local M = {
 				vim.cmd("set background=dark")
 				vim.cmd.colorscheme("gruvbox-material")
 			end,
-			desc = "Dark colorscheme"
+			desc = "Dark colorscheme",
 		},
 	},
 	config = function()

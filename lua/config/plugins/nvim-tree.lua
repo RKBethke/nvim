@@ -6,8 +6,8 @@ local M = {
 	},
 	keys = {
 		{ "<leader>fe", "<cmd>NvimTreeToggle<CR>", desc = "File Explorer" },
-		{ "<leader>e", "<leader>fe", desc = "File Explorer", remap = true }
-	}
+		{ "<leader>e", "<leader>fe", desc = "File Explorer", remap = true },
+	},
 }
 
 function M.config()

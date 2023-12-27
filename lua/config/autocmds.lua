@@ -24,7 +24,7 @@ autocmd("BufWritePre", {
 
 		vim.fn.setpos("']", last_changed)
 		vim.fn.setpos("'[", first_changed)
-		vim.fn.setpos('.', original_cursor)
+		vim.fn.setpos(".", original_cursor)
 	end,
 })
 

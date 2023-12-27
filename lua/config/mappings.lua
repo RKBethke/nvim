@@ -37,7 +37,12 @@ M.defaults = function()
 
 	-- Print current date
 	map("n", "<leader>cd", "\"=strftime('%Y-%m-%d')<cr>P", { desc = "Paste current date" })
-	map("n", "<leader>cD", "\"=strftime('%a %Y-%m-%d %H:%M:%S%z')<cr>P", { desc = "Paste current date (verbose)" })
+	map(
+		"n",
+		"<leader>cD",
+		"\"=strftime('%a %Y-%m-%d %H:%M:%S%z')<cr>P",
+		{ desc = "Paste current date (verbose)" }
+	)
 
 	-- Resize window using <ctrl> + arrow keys
 	map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })

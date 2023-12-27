@@ -24,7 +24,7 @@ function M.config()
 	local kind_tags = {
 		Snippet = " ",
 		File = "🗎 ",
-		Folder = " "
+		Folder = " ",
 	}
 
 	cmp.setup({

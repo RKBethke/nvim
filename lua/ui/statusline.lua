@@ -32,9 +32,14 @@ function M.git()
 		return ""
 	end
 
-	local added = (git_status.added and git_status.added ~= 0) and ("  " .. git_status.added) or ""
-	local changed = (git_status.changed and git_status.changed ~= 0) and ("  " .. git_status.changed) or ""
-	local removed = (git_status.removed and git_status.removed ~= 0) and ("  " .. git_status.removed) or ""
+	local added = (git_status.added and git_status.added ~= 0) and ("  " .. git_status.added)
+		or ""
+	local changed = (git_status.changed and git_status.changed ~= 0)
+			and ("  " .. git_status.changed)
+		or ""
+	local removed = (git_status.removed and git_status.removed ~= 0)
+			and ("  " .. git_status.removed)
+		or ""
 	local branch_name = "   " .. git_status.head .. " "
 
 	return branch_name .. added .. changed .. removed
@@ -46,12 +51,18 @@ function M.diagnostics()
 	local num_hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
 	local num_info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
 
-	local errors = (num_errors and num_errors > 0) and ("%#DiagnosticSignError#" .. " " .. num_errors .. " ") or ""
-	local warnings = (num_warnings and num_warnings > 0) and ("%#DiagnosticSignWarn#" .. "  " .. num_warnings .. " ")
+	local errors = (num_errors and num_errors > 0)
+			and ("%#DiagnosticSignError#" .. " " .. num_errors .. " ")
 		or ""
-	local hints = (num_hints and num_hints > 0) and ("%#Yellow#" .. " " .. num_hints .. " ") or ""
+	local warnings = (num_warnings and num_warnings > 0)
+			and ("%#DiagnosticSignWarn#" .. "  " .. num_warnings .. " ")
+		or ""
+	local hints = (num_hints and num_hints > 0) and ("%#Yellow#" .. " " .. num_hints .. " ")
+		or ""
 	-- local hints = ""
-	local info = (num_info and num_info > 0) and ("%#DiagnosticSignInfo#" .. " " .. num_info .. " ") or ""
+	local info = (num_info and num_info > 0)
+			and ("%#DiagnosticSignInfo#" .. " " .. num_info .. " ")
+		or ""
 
 	return errors .. warnings .. hints .. info .. "%#StatusLine#"
 end
@@ -73,7 +84,13 @@ function M.lsp_progress()
 	local frame = math.floor(ms / 120) % #spinners
 
 	if percentage >= 70 then
-		return string.format(" %%<%s %s %s (%s%%%%) ", success_icon[frame + 1], title, msg, percentage)
+		return string.format(
+			" %%<%s %s %s (%s%%%%) ",
+			success_icon[frame + 1],
+			title,
+			msg,
+			percentage
+		)
 	end
 
 	return string.format(" %%<%s %s %s (%s%%%%) ", spinners[frame + 1], title, msg, percentage)

@@ -18,7 +18,11 @@ local M = {
 		{ "<leader>ff", util.telescope("files"), desc = "Find Files (root dir)" },
 		{ "<leader>fF", util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
 		{ "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
-		{ "<leader>fR", util.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
+		{
+			"<leader>fR",
+			util.telescope("oldfiles", { cwd = vim.loop.cwd() }),
+			desc = "Recent (cwd)",
+		},
 		-- git
 		{ "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
 		-- { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "status" },
@@ -39,11 +43,28 @@ local M = {
 		{ "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
 		{ "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
 		{ "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
-		{ "<leader>sw", util.telescope("grep_string", { word_match = "-w" }), desc = "Word (root dir)" },
-		{ "<leader>sW", util.telescope("grep_string", { cwd = false, word_match = "-w" }), desc = "Word (cwd)" },
+		{
+			"<leader>sw",
+			util.telescope("grep_string", { word_match = "-w" }),
+			desc = "Word (root dir)",
+		},
+		{
+			"<leader>sW",
+			util.telescope("grep_string", { cwd = false, word_match = "-w" }),
+			desc = "Word (cwd)",
+		},
 		{ "<leader>sw", util.telescope("grep_string"), mode = "v", desc = "Selection (root dir)" },
-		{ "<leader>sW", util.telescope("grep_string", { cwd = false }), mode = "v", desc = "Selection (cwd)" },
-		{ "<leader>uC", util.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
+		{
+			"<leader>sW",
+			util.telescope("grep_string", { cwd = false }),
+			mode = "v",
+			desc = "Selection (cwd)",
+		},
+		{
+			"<leader>uC",
+			util.telescope("colorscheme", { enable_preview = true }),
+			desc = "Colorscheme with preview",
+		},
 		{
 			"<leader>ss",
 			util.telescope("lsp_document_symbols", {

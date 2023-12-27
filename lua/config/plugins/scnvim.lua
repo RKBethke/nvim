@@ -36,7 +36,7 @@ return {
 			},
 			snippet = {
 				engine = {
-					name = 'luasnip',
+					name = "luasnip",
 					options = {
 						descriptions = true,
 					},

@@ -1,5 +1,6 @@
 return {
 	"stevearc/conform.nvim",
+	event = "BufWritePre",
 	cmd = "ConformInfo",
 	keys = {
 		{
@@ -8,7 +9,7 @@ return {
 				require("conform").format()
 			end,
 			mode = { "n", "v" },
-			desc = "Format languages",
+			desc = "Format buffer",
 		},
 	},
 	opts = {
@@ -16,7 +17,7 @@ return {
 			lua = { "stylua" },
 			sh = { "shfmt" },
 			markdown = { "prettier" },
-			python = { "black" }
+			python = { "black" },
 		},
 		format = {
 			timeout_ms = 3000,
@@ -24,7 +25,6 @@ return {
 			quiet = false, -- not recommended to change
 		},
 		format_on_save = {
-			-- These options will be passed to conform.format()
 			timeout_ms = 500,
 			lsp_fallback = true,
 		},

@@ -1,5 +1,5 @@
 local M = {
-    "askfiy/visual_studio_code",
+	"askfiy/visual_studio_code",
 	priority = 100,
 	lazy = false,
 	keys = {
@@ -9,12 +9,12 @@ local M = {
 				vim.cmd("set background=light")
 				vim.cmd.colorscheme("visual_studio_code")
 			end,
-			desc = "Light colorscheme"
+			desc = "Light colorscheme",
 		},
 	},
 	opts = {
-		mode = "light"
-	}
+		mode = "light",
+	},
 }
 
 M.colors = {

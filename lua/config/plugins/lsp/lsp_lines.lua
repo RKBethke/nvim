@@ -12,7 +12,7 @@ return {
 					vim.g.lsp_lines_enabled = true
 				end
 			end,
-			desc = "Toggle lsp lines"
+			desc = "Toggle lsp lines",
 		},
 	},
 	config = true,
