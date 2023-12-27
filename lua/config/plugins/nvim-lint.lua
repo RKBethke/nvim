@@ -23,7 +23,7 @@ return {
 		vim.api.nvim_create_autocmd(opts.events, {
 			group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
 			callback = function()
-				require("lint").try_lint()
+				require("lint").try_lint(nil, { ignore_errors = true })
 			end,
 		})
 		require("lint").try_lint()
