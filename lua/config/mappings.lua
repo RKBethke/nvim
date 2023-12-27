@@ -37,20 +37,55 @@ M.defaults = function()
 
 	-- Print current date
 	map("n", "<leader>cd", "\"=strftime('%Y-%m-%d')<cr>P", { desc = "Paste current date" })
-	map(
-		"n",
-		"<leader>cD",
-		"\"=strftime('%a %Y-%m-%d %H:%M:%S%z')<cr>P",
-		{ desc = "Paste current date (verbose)" }
-	)
+	map("n", "<leader>cD", "\"=strftime('%a %Y-%m-%d %H:%M:%S%z')<cr>P", { desc = "Paste current date (verbose)" })
+
+	-- Resize window using <ctrl> + arrow keys
+	map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+	map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+	map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+	map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+
+	-- keywordprg
+	map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
+
+	-- Quickfix and Location lists
+	map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
+	map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
+
+	map("n", "[q", vim.cmd.cprev, { desc = "Previous quickfix" })
+	map("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
+
+	-- Readline mappings (à la vim-rsi)
+	-- TODO: Translate to lua
+	-- inoremap        <C-A> <C-O>^
+	-- inoremap   <C-X><C-A> <C-A>
+	-- cnoremap        <C-A> <Home>
+	-- cnoremap   <C-X><C-A> <C-A>
+	--
+	-- inoremap <expr> <C-B> getline('.')=~'^\s*$'&&col('.')>strlen(getline('.'))?"0\<Lt>C-D>\<Lt>Esc>kJs":"\<Lt>Left>"
+	-- cnoremap        <C-B> <Left>
+	--
+	-- inoremap <expr> <C-D> col('.')>strlen(getline('.'))?"\<Lt>C-D>":"\<Lt>Del>"
+	-- cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())?"\<Lt>C-D>":"\<Lt>Del>"
+	--
+	-- inoremap <expr> <C-E> col('.')>strlen(getline('.'))<bar><bar>pumvisible()?"\<Lt>C-E>":"\<Lt>End>"
+	--
+	-- inoremap <expr> <C-F> col('.')>strlen(getline('.'))?"\<Lt>C-F>":"\<Lt>Right>"
+	-- cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
+	-- function! s:MapMeta() abort
+	--   noremap!        <M-b> <S-Left>
+	--   noremap!        <M-f> <S-Right>
+	--   noremap!        <M-d> <C-O>dw
+	--   cnoremap        <M-d> <S-Right><C-W>
+	--   noremap!        <M-n> <Down>
+	--   noremap!        <M-p> <Up>
+	--   noremap!        <M-BS> <C-W>
+	--   noremap!        <M-C-h> <C-W>
+	-- endfunction
 
 	-- }}}
 	-- [ Navigation ] -- {{{
 	-- [ Within insert mode ]
-	-- map("i", "<C-h>", "<Left>")
-	-- map("i", "<C-l>", "<Right>")
-	-- map("i", "<C-j>", "<Down>")
-	-- map("i", "<C-k>", "<Up>")
 	map("i", "<C-a>", "<ESC>^i", { desc = "Go to beginning of line" })
 	map("i", "<C-e>", "<End>", { desc = "Go to end of line" })
 
@@ -99,17 +134,18 @@ M.defaults = function()
 		)
 	end
 
+	-- Show highlight groups under cursor
+	map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
+
 	-- }}}
 	-- [ Terminal] -- {{{
 	map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter normal mode" })
 	map("t", "jk", "<C-\\><C-n>", { desc = "Enter normal mode" })
-	-- map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
-	-- map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
-	-- map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
-	-- map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
-	-- map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
-	-- map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
-	-- map("t", "JK", "<C-\\><C-n> :lua rb.close_buffer() <CR>") -- hide a terminal from within terminal mode
+	map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
+	map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
+	map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
+	map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
+	map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 	map(
 		"n",
 		"<leader>th",
