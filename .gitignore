@@ -1,1 +1,2 @@
 .direnv
+lua/config/plugins/vim-fubitive.lua
