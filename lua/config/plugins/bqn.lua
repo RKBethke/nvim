@@ -12,7 +12,7 @@ return {
 			vim.api.nvim_set_hl(0, "bqnarw", { link = "keyword" })
 		end
 
-		vim.api.nvim_create_autocmd("BufEnter", {
+		vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertLeave" }, {
 			pattern = { "*.bqn" },
 			callback = override_bqn_highlight,
 		})
