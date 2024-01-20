@@ -5,7 +5,7 @@ return {
 		events = { "BufReadPost", "BufWritePost", "InsertLeave" },
 		linters_by_ft = {
 			sh = { "shellcheck" },
-			markdown = { "vale" },
+			-- markdown = { "vale" },
 		},
 		linters = {},
 	},
