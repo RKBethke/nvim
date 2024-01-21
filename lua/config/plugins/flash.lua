@@ -8,6 +8,9 @@ return {
 					backdrop = false,
 				},
 			},
+			search = {
+				enabled = false,
+			},
 		},
 	},
 	keys = {
