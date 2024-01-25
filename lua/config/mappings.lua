@@ -61,14 +61,14 @@ M.defaults = function()
 	map("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
 
 	-- Readline mappings (à la vim-rsi)
+	map("i", "<C-A>", "<C-O>^")
+	map("i", "<C-X><C-A>", "<C-A>")
+	map("c", "<C-A>", "<Home>")
+	map("c", "<C-X><C-A>", "<C-A>")
+
 	-- TODO: Translate to lua
-	-- inoremap        <C-A> <C-O>^
-	-- inoremap   <C-X><C-A> <C-A>
-	-- cnoremap        <C-A> <Home>
-	-- cnoremap   <C-X><C-A> <C-A>
-	--
 	-- inoremap <expr> <C-B> getline('.')=~'^\s*$'&&col('.')>strlen(getline('.'))?"0\<Lt>C-D>\<Lt>Esc>kJs":"\<Lt>Left>"
-	-- cnoremap        <C-B> <Left>
+	map("c", "<C-B>", "<Left>")
 	--
 	-- inoremap <expr> <C-D> col('.')>strlen(getline('.'))?"\<Lt>C-D>":"\<Lt>Del>"
 	-- cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())?"\<Lt>C-D>":"\<Lt>Del>"
@@ -77,16 +77,16 @@ M.defaults = function()
 	--
 	-- inoremap <expr> <C-F> col('.')>strlen(getline('.'))?"\<Lt>C-F>":"\<Lt>Right>"
 	-- cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
-	-- function! s:MapMeta() abort
-	--   noremap!        <M-b> <S-Left>
-	--   noremap!        <M-f> <S-Right>
-	--   noremap!        <M-d> <C-O>dw
-	--   cnoremap        <M-d> <S-Right><C-W>
-	--   noremap!        <M-n> <Down>
-	--   noremap!        <M-p> <Up>
-	--   noremap!        <M-BS> <C-W>
-	--   noremap!        <M-C-h> <C-W>
-	-- endfunction
+
+	-- Map meta
+	map("i", "<M-b>", "<S-Left>")
+	map({ "n", "v", "o" }, "<M-f>", "<S-Right>")
+	map({ "n", "v", "o" }, "<M-d>", "<C-O>dw")
+	map("c", "<M-d>", "<S-Right><C-W>")
+	map({ "n", "v", "o" }, "<M-n>", "<Down>")
+	map({ "n", "v", "o" }, "<M-p>", "<Up>")
+	map({ "n", "v", "o" }, "<M-BS>", "<C-W>")
+	map({ "n", "v", "o" }, "<M-C-h>", "<C-W>")
 
 	-- }}}
 	-- [ Navigation ] -- {{{
