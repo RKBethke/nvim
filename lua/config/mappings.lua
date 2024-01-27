@@ -11,20 +11,20 @@ M.defaults = function()
 
 	-- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
 	-- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
-	-- empty mode is same as using :map
-	-- also don't use g[j|k] when in operator pending mode, so it doesn't alter d, y or c behaviour
+	-- Empty mode is same as using :map
+	-- Also don't use g[j|k] when in operator pending mode, so it doesn't alter d, y or c behaviour.
 	map({ "n", "x", "o" }, "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
 	map({ "n", "x", "o" }, "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
 	map("", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
 	map("", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
 
-	-- use ESC to turn off search highlighting
+	-- Use ESC to turn off search highlighting.
 	map("n", "<Esc>", ":noh <CR>")
 
-	-- copy entire file
+	-- Copy entire file.
 	map("n", "<C-c>", ":%y+ <CR>")
 
-	-- Do not copy the replaced text after pasting in visual mode
+	-- Do not copy the replaced text after pasting in visual mode.
 	-- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
 	map("v", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { silent = true })
 
@@ -44,7 +44,25 @@ M.defaults = function()
 		{ desc = "Paste current date (verbose)" }
 	)
 
-	-- Resize window using <ctrl> + arrow keys
+	-- Smart dd, only yank the line if it's not empty.
+	vim.keymap.set("v", "<C-r>", function()
+		local function get_visual()
+			local _, ls, cs = unpack(vim.fn.getpos("v"))
+			local _, le, ce = unpack(vim.fn.getpos("."))
+			return vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
+		end
+		local pattern = table.concat(get_visual())
+		-- Escape regex and line endings.
+		pattern = vim.fn.substitute(vim.fn.escape(pattern, "^$.*\\/~[]"), "\n", "\\n", "g")
+		-- Send substitute command to vim command line.
+		vim.api.nvim_input("<Esc>:%s/" .. pattern .. "//g<Left><Left>")
+	end)
+
+	map("n", "dd", function()
+		return vim.fn.getline(".") == "" and '"_dd' or "dd"
+	end, { expr = true })
+
+	-- Resize window using <ctrl> + arrow keys.
 	map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
 	map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 	map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
@@ -60,21 +78,21 @@ M.defaults = function()
 	map("n", "[q", vim.cmd.cprev, { desc = "Previous quickfix" })
 	map("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
 
+	-- }}}
+	-- [ Navigation ] -- {{{
 	-- Readline mappings (à la vim-rsi)
-	map("i", "<C-A>", "<C-O>^")
-	map("i", "<C-X><C-A>", "<C-A>")
-	map("c", "<C-A>", "<Home>")
-	map("c", "<C-X><C-A>", "<C-A>")
+	map({ "n", "v" }, "<C-A>", "^", { desc = "Go to beginning of line" })
+	map("c", "<C-A>", "<Home>", { desc = "Go to beginning of line" })
+	map("i", "<C-A>", "<C-O>^", { desc = "Go to beginning of line" })
+	map({ "i", "n", "c", "v" }, "<C-E>", "<End>", { desc = "Go to end of line" })
+	map({ "i", "c" }, "<C-B>", "<Left>")
+	map({ "i", "c" }, "<C-F>", "<Right>")
 
 	-- TODO: Translate to lua
 	-- inoremap <expr> <C-B> getline('.')=~'^\s*$'&&col('.')>strlen(getline('.'))?"0\<Lt>C-D>\<Lt>Esc>kJs":"\<Lt>Left>"
-	map("c", "<C-B>", "<Left>")
-	--
 	-- inoremap <expr> <C-D> col('.')>strlen(getline('.'))?"\<Lt>C-D>":"\<Lt>Del>"
 	-- cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())?"\<Lt>C-D>":"\<Lt>Del>"
-	--
 	-- inoremap <expr> <C-E> col('.')>strlen(getline('.'))<bar><bar>pumvisible()?"\<Lt>C-E>":"\<Lt>End>"
-	--
 	-- inoremap <expr> <C-F> col('.')>strlen(getline('.'))?"\<Lt>C-F>":"\<Lt>Right>"
 	-- cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
 
@@ -87,16 +105,6 @@ M.defaults = function()
 	map({ "n", "v", "o" }, "<M-p>", "<Up>")
 	map({ "n", "v", "o" }, "<M-BS>", "<C-W>")
 	map({ "n", "v", "o" }, "<M-C-h>", "<C-W>")
-
-	-- }}}
-	-- [ Navigation ] -- {{{
-	-- [ Within insert mode ]
-	map("i", "<C-a>", "<ESC>^i", { desc = "Go to beginning of line" })
-	map("i", "<C-e>", "<End>", { desc = "Go to end of line" })
-
-	-- [ Within non-insert mode ] --
-	map({ "n", "v" }, "gh", "^", { desc = "Go to beginning of line" })
-	map({ "n", "v" }, "gl", "$", { desc = "Go to end of line" })
 
 	-- [ Between windows ] --
 	map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
