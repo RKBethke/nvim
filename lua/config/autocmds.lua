@@ -1,9 +1,9 @@
 local autocmd = vim.api.nvim_create_autocmd
-local user_command = vim.api.nvim_create_user_command
+local usrcmd = vim.api.nvim_create_user_command
 
-user_command("Dark", "set background=dark", {})
-user_command("Light", "set background=light", {})
-user_command("CopyPath", "let @+ = expand('%:p')", {})
+usrcmd("Dark", "set background=dark", {})
+usrcmd("Light", "set background=light", {})
+usrcmd("CopyPath", "let @+ = expand('%:p')", {})
 
 -- Don't show any numbers inside terminals.
 autocmd("TermOpen", {
