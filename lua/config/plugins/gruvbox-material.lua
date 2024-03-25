@@ -11,6 +11,14 @@ local M = {
 			end,
 			desc = "Dark colorscheme",
 		},
+		{
+			"<leader>ul",
+			function()
+				vim.cmd("set background=light")
+				vim.cmd.colorscheme("gruvbox-material")
+			end,
+			desc = "Light colorscheme",
+		},
 	},
 	config = function()
 		vim.g.gruvbox_material_background = "medium"

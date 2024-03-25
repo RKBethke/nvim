@@ -5,12 +5,7 @@ opt.confirm = true
 opt.laststatus = 3
 opt.title = true
 opt.clipboard = "unnamedplus" -- Use the clipboard for all operations
-
-if vim.version().minor > 7 then
-	opt.cmdheight = 0
-else
-	opt.cmdheight = 1
-end
+opt.cmdheight = 0
 
 opt.cul = true -- cursor line
 opt.hidden = true

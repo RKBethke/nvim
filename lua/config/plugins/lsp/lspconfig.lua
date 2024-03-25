@@ -124,6 +124,7 @@ return {
 		-- [[ Keymaps ]] --
 		on_attach(function(client, buffer)
 			require("config.plugins.lsp.lsp_mappings").on_attach(client, buffer)
+			client.server_capabilities.semanticTokensProvider = nil
 		end)
 
 		local register_capability = vim.lsp.handlers["client/registerCapability"]
