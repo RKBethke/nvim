@@ -1,38 +1,43 @@
 local opt = vim.opt
 local g = vim.g
 
+-- [[ Global ]] --
+g.mapleader = " "
+
+-- [[ Options ]] --
 opt.confirm = true
 opt.laststatus = 3
 opt.title = true
 opt.clipboard = "unnamedplus" -- Use the clipboard for all operations
 opt.cmdheight = 0
 
-opt.cul = true -- cursor line
+opt.cul = true -- Cursor line
 opt.hidden = true
 opt.ignorecase = true
 opt.smartcase = true
 opt.mouse = "a"
 
--- Indentline
+-- Indent
 opt.expandtab = false
 opt.tabstop = 8
 opt.softtabstop = 4
 opt.shiftwidth = 4
 opt.smartindent = true
 
-vim.opt.wildmode = "longest:full,full" -- Command-line completion mode
-vim.opt.joinspaces = false -- No double spaces with join after a dot
+opt.wildmode = "longest:full,full" -- Command-line completion mode
+opt.joinspaces = false -- No double spaces with join after a dot
 
 -- Folds
 opt.foldmethod = "marker"
 
--- Show whitespace
+-- Whitespace
 -- opt.list = true
 opt.listchars = {
 	trail = "_",
-	extends = "◣",
-	precedes = "◢",
-	-- tab = "▎ ",
+	extends = "»",
+	precedes = "«",
+	tab = "^ ",
+	-- tab = "▎ "
 	-- tab = "┆ ",
 	-- space = "·",
 }
@@ -46,7 +51,7 @@ opt.showbreak = "↪ "
 opt.conceallevel = 2
 opt.concealcursor = "nc"
 
--- disable tilde on end of buffer: https://github.com/neovim/neovim/pull/8546#issuecomment-643643758
+-- Disable tilde on end of buffer
 opt.fillchars = { eob = " " }
 
 -- Numbers
@@ -55,10 +60,10 @@ opt.numberwidth = 2
 opt.relativenumber = true
 opt.ruler = false
 
--- disable nvim intro
+-- Disable nvim intro
 opt.shortmess:append("nosIT")
 
--- disable mode
+-- Disable mode
 opt.smd = false
 
 opt.signcolumn = "yes"
@@ -68,10 +73,10 @@ opt.splitright = true
 opt.scrolloff = 8
 
 opt.termguicolors = true
-opt.timeoutlen = 800
+opt.timeoutlen = 300
 opt.undofile = true
 
--- interval for writing swap file to disk, also used by gitsigns
+-- Interval for writing swap file to disk, also used by gitsigns
 opt.updatetime = 250
 
 -- Allow specified keys that move the cursor left/right to move to the
@@ -82,5 +87,6 @@ opt.whichwrap:append("<>[]")
 -- auto-wrap comments, don't auto insert comment on o/O and enter
 -- opt.formatoptions:remove("cro")
 
--- Global editor variables:
-g.mapleader = " "
+-- Diffs
+opt.diffopt:append("algorithm:histogram")
+opt.diffopt:append("indent-heuristic")
