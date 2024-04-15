@@ -4,13 +4,10 @@ return {
 	opts = {
 		modes = {
 			char = {
-				highlight = {
-					backdrop = false,
-				},
-			},
-			search = {
 				enabled = false,
+				highlight = { backdrop = false },
 			},
+			search = { enabled = false },
 		},
 	},
 	keys = {
