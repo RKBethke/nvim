@@ -28,6 +28,9 @@ M.defaults = function()
 	-- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
 	map("v", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { silent = true })
 
+	-- Format pasted text automatically.
+	map("n", "p", "p=`]", { silent = true })
+
 	-- Do not yank text on delete ( dd )
 	-- map({ "n", "v" }, "d", '"_d')
 
