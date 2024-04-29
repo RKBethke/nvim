@@ -31,9 +31,6 @@ M.defaults = function()
 	-- Format pasted text automatically.
 	map("n", "p", "p=`]", { silent = true })
 
-	-- Do not yank text on delete ( dd )
-	-- map({ "n", "v" }, "d", '"_d')
-
 	-- Reselect after indent
 	map("v", "<", "<gv")
 	map("v", ">", ">gv")
@@ -47,7 +44,7 @@ M.defaults = function()
 		{ desc = "Paste current date (verbose)" }
 	)
 
-	-- Smart dd, only yank the line if it's not empty.
+	-- Smart dd: Only yank the line if it's not empty.
 	vim.keymap.set("v", "<C-r>", function()
 		local function get_visual()
 			local _, ls, cs = unpack(vim.fn.getpos("v"))
@@ -80,6 +77,8 @@ M.defaults = function()
 
 	map("n", "[q", vim.cmd.cprev, { desc = "Previous quickfix" })
 	map("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
+	map("n", "[l", vim.cmd.cprev, { desc = "Previous loclist" })
+	map("n", "]l", vim.cmd.cnext, { desc = "Next loclist" })
 
 	-- }}}
 	-- [ Navigation ] -- {{{
@@ -114,9 +113,6 @@ M.defaults = function()
 	map("n", "<C-l>", "<C-w>l", { desc = "Go to lower window" })
 	map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
 	map("n", "<C-j>", "<C-w>j", { desc = "Go to right window" })
-
-	map("n", "<leader>wh", "<C-w>s", { desc = "Horizonal split" })
-	map("n", "<leader>wv", "<C-w>v", { desc = "Vertical split" })
 
 	map("n", "<leader>x", ":lua require('util').close_buffer()<CR>", { desc = "Close Buffer" })
 	map("n", "<S-t>", ":enew <CR>", { desc = "New buffer" })

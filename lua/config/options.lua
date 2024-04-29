@@ -76,7 +76,7 @@ opt.termguicolors = true
 opt.timeoutlen = 300
 opt.undofile = true
 
--- Interval for writing swap file to disk, also used by gitsigns
+-- Interval for writing swap file to disk; also used by gitsigns.
 opt.updatetime = 250
 
 -- Allow specified keys that move the cursor left/right to move to the
