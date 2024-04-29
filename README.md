@@ -14,7 +14,7 @@ My personal Neovim configuration.
 
 1. Clone this repository.
 
-```
+```[sh]
 mv ~/.config/nvim ~/.config/nvim.bak
 git clone https://github.com/RKBethke/nvim ~/.config/nvim
 ```
@@ -23,7 +23,7 @@ git clone https://github.com/RKBethke/nvim ~/.config/nvim
 
 ## License
 
-This project is licensed under the GNU General Public License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the GNU General Public License. See the [LICENSE.md](LICENSE.md) file for details.
 
 ## Acknowledgments
 
