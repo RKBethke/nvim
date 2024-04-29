@@ -145,9 +145,9 @@ return {
 			Hint = "",
 			Warn = "",
 		}
-		for type, icon in pairs(diagnostic_icons) do
+		for type, _ in pairs(diagnostic_icons) do
 			local hl = "DiagnosticSign" .. type
-			vim.fn.sign_define(hl, { text = icon, numhl = "", texthl = hl })
+			vim.fn.sign_define(hl, { texthl = hl, numhl = hl })
 		end
 
 		local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint

@@ -50,9 +50,6 @@ M.colors = {
 	magenta = "#d3869b",
 	orange = "#e78a4e",
 	cyan = "#89b482",
-	ViMode = {
-		Normal = "#89b482",
-	},
 }
 
 return M

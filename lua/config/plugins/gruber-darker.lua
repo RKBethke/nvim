@@ -6,34 +6,43 @@ local M = {
 		local gruber = require("gruber-darker")
 		gruber.setup({
 			bold = false,
+			underline = true,
 			undercurl = false,
+			italic = {
+				strings = false,
+				operators = false,
+				comments = true,
+				folds = true,
+			},
 		})
 		vim.cmd.colorscheme("gruber-darker")
 	end,
 }
 
--- TODO: Replace with correct colors.
 M.colors = {
-	fg = "#ddc7a1",
-	bg = "#1d2021",
-	bg_statusline = "#282828",
-	accent = "#89b482",
-	lightbg = "#282828",
-	fgfaded = "#a89984",
-	grey = "#928374",
-	light_grey = "#a89984",
-	dark_grey = "#383432",
-	bright = "#fbf1c7",
-	red = "#ea6962",
-	green = "#a9b665",
-	blue = "#7daea3",
-	yellow = "#d8a657",
-	magenta = "#d3869b",
-	orange = "#e78a4e",
-	cyan = "#89b482",
-	ViMode = {
-		Normal = "#89b482",
-	},
+	none = "NONE",
+	fg = "#e4e4e4",
+	["fg+1"] = "#f4f4ff",
+	["fg+2"] = "#f5f5f5",
+	white = "#ffffff",
+	black = "#000000",
+	["bg-1"] = "#101010",
+	bg = "#181818",
+	["bg+1"] = "#282828",
+	["bg+2"] = "#453d41",
+	["bg+3"] = "#484848",
+	["bg+4"] = "#52494e",
+	["red-1"] = "#c73c3f",
+	red = "#f43841",
+	["red+1"] = "#ff4f58",
+	green = "#73d936",
+	yellow = "#ffdd33",
+	brown = "#cc8c3c",
+	quartz = "#95a99f",
+	["niagara-2"] = "#303540",
+	["niagara-1"] = "#565f73",
+	niagara = "#96a6c8",
+	wisteria = "#9e95c7",
 }
 
 return M
