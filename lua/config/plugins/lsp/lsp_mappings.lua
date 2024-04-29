@@ -11,16 +11,26 @@ M.on_attach = function(_, bufnr) -- (client, bufnr)
 		map("n", "K", vim.lsp.buf.hover)
 	end
 
-	map("n", "gi", vim.lsp.buf.implementation)
-	map("n", "gk", vim.lsp.buf.signature_help)
-	map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder)
-	map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder)
-	map("n", "<leader>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>")
-	map("n", "<leader>D", vim.lsp.buf.type_definition)
-	map("n", "<leader>rn", vim.lsp.buf.rename)
-	map("n", "<leader>ca", vim.lsp.buf.code_action)
-	map("n", "gr", vim.lsp.buf.references)
-	map("n", "<leader>q", vim.diagnostic.setloclist)
+	map("n", "gi", vim.lsp.buf.implementation, { desc = "Implementation" })
+	map("n", "gk", vim.lsp.buf.signature_help, { desc = "Signature Help" })
+	map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { desc = "Add Workspace Folder" })
+	map(
+		"n",
+		"<leader>wr",
+		vim.lsp.buf.remove_workspace_folder,
+		{ desc = "Remove Workspace Folder" }
+	)
+	map(
+		"n",
+		"<leader>wl",
+		"<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
+		{ desc = "List Workspace Folders" }
+	)
+	map("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "Type Definition" })
+	map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
+	map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+	map("n", "gr", vim.lsp.buf.references, { desc = "References" })
+	map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Set loclist" })
 
 	-- Diagnostics
 	local diagnostic_goto = function(next, severity)
@@ -38,8 +48,16 @@ M.on_attach = function(_, bufnr) -- (client, bufnr)
 	map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 	map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
-	-- Formatting now handled by conform.nvim.
+	-- Note: Formatting handled by conform.nvim.
 	-- map("n", "<leader>fm", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>")
+
+	-- Note: Loclist population handled by trouble.nvim
+	-- vim.api.nvim_create_autocmd("DiagnosticChanged", {
+	-- 	callback = function()
+	-- 		vim.diagnostic.setloclist({ open = false })
+	-- 		vim.diagnostic.setqflist({ open = false })
+	-- 	end,
+	-- })
 end
 
 return M
