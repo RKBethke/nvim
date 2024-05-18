@@ -51,34 +51,6 @@ function M.on_very_lazy(fn)
 	})
 end
 
-function M.map(mode, keys, command, opts)
-	local options = { noremap = true, silent = true }
-	options = vim.tbl_extend("force", options, opts or {})
-	vim.keymap.set(mode, keys, command, opts)
-end
-
-function M.close_buffer(force)
-	if vim.bo.buftype == "terminal" then
-		force = force or vim.api.nvim_list_wins() < 2 and ":bd!"
-		local swap = force and vim.api.nvim_list_bufs() > 1 and ":bp | bd!" .. vim.fn.bufnr()
-		return vim.cmd(swap or force or "hide")
-	end
-
-	local fileExists = vim.fn.filereadable(vim.fn.expand("%p"))
-	local modified = vim.api.nvim_buf_get_option(vim.fn.bufnr(), "modified")
-
-	-- if file doesnt exist & its modified
-	if fileExists == 0 and modified then
-		print("no file name? add it now!")
-		return
-	end
-
-	force = force or not vim.bo.buflisted or vim.bo.buftype == "nofile"
-	-- if not force, change to prev buf and then close current
-	local close_cmd = force and ":bd!" or ":bp | bd" .. vim.fn.bufnr()
-	vim.cmd(close_cmd)
-end
-
 -- (From LazyVim)
 -- Returns the root directory based on:
 -- * lsp workspace folders
@@ -146,7 +118,7 @@ function M.telescope(builtin, opts)
 
 		if opts.cwd and opts.cwd ~= vim.loop.cwd() then
 			opts.attach_mappings = function(_, map)
-				map("i", "<a-c>", function()
+				vim.keymap.set("i", "<a-c>", function()
 					local action_state = require("telescope.actions.state")
 					local line = action_state.get_current_line()
 					M.telescope(
