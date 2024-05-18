@@ -17,6 +17,8 @@ opt.ignorecase = true
 opt.smartcase = true
 opt.mouse = "a"
 
+opt.inccommand = "split"
+
 -- Indent
 opt.expandtab = false
 opt.tabstop = 8
