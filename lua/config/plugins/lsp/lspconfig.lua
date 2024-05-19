@@ -4,7 +4,6 @@ return {
 	lazy = false,
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
-		"jose-elias-alvarez/null-ls.nvim",
 		"nvim-lua/plenary.nvim",
 	},
 	opts = {
