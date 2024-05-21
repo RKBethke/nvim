@@ -70,14 +70,14 @@ end
 
 function M.lsp_progress()
 	local width = vim.api.nvim_win_get_width(0)
-	local Lsp = vim.lsp.util.get_progress_messages()[1]
-	if width <= 80 or not Lsp then
+	local status = vim.lsp.status()[1]
+	if width <= 80 or not status then
 		return ""
 	end
 
-	local msg = Lsp.message or ""
-	local percentage = Lsp.percentage or 0
-	local title = Lsp.title or ""
+	local msg = status.message or ""
+	local percentage = status.percentage or 0
+	local title = status.title or ""
 	local spinners = { "", "", "" }
 	local success_icon = { "", "", "" }
 

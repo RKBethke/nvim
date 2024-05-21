@@ -21,7 +21,7 @@ return {
 			-- },
 		},
 		inlay_hint = {
-			enabled = true,
+			enabled = false, -- Toggle mapping provided.
 		},
 		capabilities = {},
 		-- Options for vim.lsp.buf.format
@@ -153,7 +153,7 @@ return {
 		if opts.inlay_hint.enabled and inlay_hint then
 			on_attach(function(client, buffer)
 				if client.supports_method("textDocument/inlayHint") then
-					inlay_hint(buffer, true)
+					vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
 				end
 			end)
 		end
