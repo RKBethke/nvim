@@ -88,9 +88,8 @@ return {
 						workspace = {
 							-- Make the server aware of Neovim runtime files.
 							library = {
-								vim.api.nvim_get_runtime_file("", true),
-								[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-								[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+								vim.fn.expand("$VIMRUNTIME/lua"),
+								vim.fn.expand("$VIMRUNTIME/lua/vim/lsp"),
 							},
 							maxPreload = 100000,
 							preloadFileSize = 10000,
