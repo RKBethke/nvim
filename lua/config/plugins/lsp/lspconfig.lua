@@ -23,7 +23,13 @@ return {
 		inlay_hint = {
 			enabled = false, -- Toggle mapping provided.
 		},
-		capabilities = {},
+		capabilities = {
+			workspace = {
+				didChangeWatchedFiles = {
+					dynamicRegistration = true,
+				},
+			},
+		},
 		-- Options for vim.lsp.buf.format
 		format = {
 			formatting_options = nil,
@@ -54,6 +60,7 @@ return {
 			nil_ls = {},
 			pyright = {},
 			bqnlsp = {},
+			sourcekit = {},
 			rust_analyzer = {
 				settings = {
 					["rust-analyzer"] = {

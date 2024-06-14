@@ -18,6 +18,7 @@ return {
 			sh = { "shfmt" },
 			markdown = { "prettier" },
 			python = { "black" },
+			swift = { "swiftformat" },
 		},
 		format = {
 			timeout_ms = 3000,
