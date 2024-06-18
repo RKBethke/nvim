@@ -6,7 +6,7 @@ return {
 		{
 			"<leader>fm",
 			function()
-				require("conform").format({ lsp_fallback = true })
+				require("conform").format({ lsp_format = "fallback" })
 			end,
 			mode = { "n", "v" },
 			desc = "Format buffer",
@@ -22,12 +22,12 @@ return {
 		},
 		format = {
 			timeout_ms = 3000,
-			async = false, -- not recommended to change
-			quiet = false, -- not recommended to change
+			async = false, -- Not recommended to change
+			quiet = false, -- Not recommended to change
 		},
 		format_on_save = {
 			timeout_ms = 500,
-			lsp_fallback = true,
+			lsp_format = "fallback",
 		},
 	},
 }
