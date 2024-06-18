@@ -114,21 +114,13 @@ M.defaults = function()
 	set("n", "<M->>", "<C-W>5+")
 	set("n", "<M-<>", "<C-W>5-")
 
-	set("n", "<M-j>", function()
-		if vim.opt.diff:get() then
-			vim.cmd([[normal! ]c]])
-		else
-			vim.cmd([[m .+1<CR>==]])
-		end
-	end)
-
-	set("n", "<M-k>", function()
-		if vim.opt.diff:get() then
-			vim.cmd([[normal! [c]])
-		else
-			vim.cmd([[m .-2<CR>==]])
-		end
-	end)
+	-- Bubble lines
+	set("x", "<M-j>", ":move '>+1<CR>gv-gv")
+	set("x", "<M-k>", ":move '<-2<CR>gv-gv")
+	set("n", "<M-j>", ":m .+1<CR>==")
+	set("n", "<M-k>", ":m .-2<CR>==")
+	set("i", "<M-j>", "<Esc>:m .+1<CR>==gi")
+	set("i", "<M-k>", "<Esc>:m .-2<CR>==gi")
 
 	set("n", "<S-t>", ":enew <CR>", { desc = "New buffer" })
 	set("n", "<C-t>b", ":tabnew <CR>", { desc = "New tab" })
