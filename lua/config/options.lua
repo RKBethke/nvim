@@ -18,6 +18,8 @@ opt.smartcase = true
 opt.mouse = "a"
 
 opt.inccommand = "split"
+opt.jumpoptions = "view"
+opt.smoothscroll = true
 
 -- Indent
 opt.expandtab = false
@@ -28,6 +30,7 @@ opt.smartindent = true
 
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.joinspaces = false -- No double spaces with join after a dot
+opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
 
 -- Folds
 opt.foldmethod = "marker"
@@ -85,6 +88,7 @@ opt.updatetime = 250
 -- previous/next line when the cursor is on the first/last character in
 -- the line.
 opt.whichwrap:append("<>[]")
+opt.linebreak = true -- Wrap lines at convenient points
 
 -- auto-wrap comments, don't auto insert comment on o/O and enter
 -- opt.formatoptions:remove("cro")
