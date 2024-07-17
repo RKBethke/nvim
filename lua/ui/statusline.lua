@@ -19,11 +19,7 @@ function M.file_info()
 	local parent = vim.fn.expand("%:p:h:t")
 	local filename = vim.fn.expand("%:t")
 	local display_path = string.format("%s/%s", parent, filename)
-	local extension = vim.fn.expand("%:e")
-	local icon = require("nvim-web-devicons").get_icon(filename, extension)
-	if icon == nil then
-		icon = ""
-	end
+	local icon = require("mini.icons").get("file", filename) or ""
 	return " " .. icon .. " " .. display_path
 end
 
@@ -98,13 +94,11 @@ function M.lsp_progress()
 end
 
 function M.lsp_icon()
-	if next(vim.lsp.buf_get_clients()) ~= nil then
-		local lsp_name = vim.lsp.get_active_clients()[1].name
-
-		return "  " .. lsp_name .. " "
-	else
+	if next(vim.lsp.get_clients()) == nil then
 		return " "
 	end
+	local lsp_name = vim.lsp.get_clients()[1].name
+	return "  " .. lsp_name .. " "
 end
 
 function M.current_pos()
@@ -123,12 +117,12 @@ function M.current_pos()
 end
 
 function M.extra_mode_status()
-	-- recording macros
+	-- Recording macros
 	local reg_recording = vim.fn.reg_recording()
 	if reg_recording ~= "" then
 		return "  @" .. reg_recording
 	end
-	-- executing macros
+	-- Executing macros
 	local reg_executing = vim.fn.reg_executing()
 	if reg_executing ~= "" then
 		return "  @" .. reg_executing
