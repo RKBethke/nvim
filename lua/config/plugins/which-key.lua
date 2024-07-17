@@ -3,29 +3,29 @@ return {
 	event = "VeryLazy",
 	opts = {
 		plugins = { spelling = true },
-		defaults = {
-			mode = { "n", "v" },
-			["g"] = { name = "+goto" },
-			["gz"] = { name = "+surround" },
-			["]"] = { name = "+next" },
-			["["] = { name = "+prev" },
-			["<leader><tab>"] = { name = "+tabs" },
-			["<leader>b"] = { name = "+buffer" },
-			["<leader>c"] = { name = "+code" },
-			["<leader>f"] = { name = "+file/find" },
-			["<leader>g"] = { name = "+git" },
-			["<leader>gh"] = { name = "+hunks", ["_"] = "which_key_ignore" },
-			["<leader>q"] = { name = "+quit/session" },
-			["<leader>s"] = { name = "+search" },
-			["<leader>u"] = { name = "+ui" },
-			["<leader>t"] = { name = "+terminal" },
-			["<leader>w"] = { name = "+windows" },
-			["<leader>x"] = { name = "+diagnostics/quickfix" },
+		spec = {
+			{
+				mode = { "n", "v" },
+				{ "<leader><tab>", group = "tabs" },
+				{ "<leader>b", group = "buffer" },
+				{ "<leader>c", group = "code" },
+				{ "<leader>f", group = "file/find" },
+				{ "<leader>g", group = "git" },
+				{ "<leader>gh", group = "hunks" },
+				{ "<leader>gh_", hidden = true },
+				{ "<leader>q", group = "quit/session" },
+				{ "<leader>s", group = "search" },
+				{ "<leader>t", group = "terminal" },
+				{ "<leader>u", group = "ui" },
+				{ "<leader>w", group = "windows" },
+				{ "<leader>x", group = "diagnostics/quickfix" },
+				{ "[", group = "prev" },
+				{ "]", group = "next" },
+				{ "g", group = "goto" },
+			},
 		},
 	},
 	config = function(_, opts)
-		local wk = require("which-key")
-		wk.setup(opts)
-		wk.register(opts.defaults)
+		require("which-key").setup(opts)
 	end,
 }
