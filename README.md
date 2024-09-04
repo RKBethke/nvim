@@ -6,7 +6,7 @@ My personal Neovim configuration.
 
 ### Dependencies
 
-- [neovim (v0.9+)](https://github.com/neovim/neovim/releases/tag/v0.9.0)
+- [Neovim (v0.10+)](https://github.com/neovim/neovim/releases/)
 - [Nerd Font](https://www.nerdfonts.com/)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 
@@ -14,7 +14,7 @@ My personal Neovim configuration.
 
 1. Clone this repository.
 
-```[sh]
+```sh
 mv ~/.config/nvim ~/.config/nvim.bak
 git clone https://github.com/RKBethke/nvim ~/.config/nvim
 ```
