@@ -45,7 +45,7 @@ M.defaults = function()
 	)
 
 	-- Smart dd: Only yank the line if it's not empty.
-	vim.keymap.set("v", "<C-r>", function()
+	set("v", "<C-r>", function()
 		local function get_visual()
 			local _, ls, cs = unpack(vim.fn.getpos("v"))
 			local _, le, ce = unpack(vim.fn.getpos("."))
@@ -73,6 +73,15 @@ M.defaults = function()
 	set("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
 	set("n", "[l", vim.cmd.cprev, { desc = "Previous loclist" })
 	set("n", "]l", vim.cmd.cnext, { desc = "Next loclist" })
+
+	-- Colorscheme
+	set("n", "<leader>ul", function()
+		vim.cmd("set background=light")
+	end, { desc = "Light background" })
+
+	set("n", "<leader>ud", function()
+		vim.cmd("set background=dark")
+	end, { desc = "Dark background" })
 
 	-- }}}
 	-- [ Navigation ] -- {{{
