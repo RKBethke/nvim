@@ -1,7 +1,6 @@
 local M = {
 	"cideM/yui",
-	priority = 1100,
-	lazy = false,
+	lazy = true,
 	config = function()
 		vim.cmd("set background=light")
 		vim.cmd.colorscheme("yui")
