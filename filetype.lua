@@ -3,5 +3,6 @@ vim.filetype.add({
 		nix = "nix",
 		bqn = "bqn",
 		k = "k",
+		ro = "rho",
 	},
 })
