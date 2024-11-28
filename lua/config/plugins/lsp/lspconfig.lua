@@ -129,8 +129,8 @@ return {
 		local function on_attach(on_attach_fn)
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(args)
-					local buffer = args.buf
 					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					local buffer = args.buf
 					on_attach_fn(client, buffer)
 				end,
 			})
@@ -148,12 +148,21 @@ return {
 		local register_capability = vim.lsp.handlers["client/registerCapability"]
 		vim.lsp.handlers["client/registerCapability"] = function(err, res, ctx)
 			local ret = register_capability(err, res, ctx)
-			local client_id = ctx.client_id
-			---@type lsp.Client
-			local client = vim.lsp.get_client_by_id(client_id)
+			local client = vim.lsp.get_client_by_id(ctx.client_id)
 			local buffer = vim.api.nvim_get_current_buf()
 			require("config.plugins.lsp.lsp_mappings").on_attach(client, buffer)
 			return ret
+		end
+
+		--  https://github.com/neovim/neovim/pull/31345
+		for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) do
+			local default_diagnostic_handler = vim.lsp.handlers[method]
+			vim.lsp.handlers[method] = function(err, result, context, config)
+				if err ~= nil and err.code == -32802 then
+					return
+				end
+				return default_diagnostic_handler(err, result, context, config)
+			end
 		end
 
 		-- [[ Diagnostics ]] --
@@ -165,12 +174,12 @@ return {
 		}
 		for type, _ in pairs(diagnostic_icons) do
 			local hl = "DiagnosticSign" .. type
-			vim.fn.sign_define(hl, { texthl = hl, numhl = hl })
+			vim.fn.sign_define(hl, { texthl = hl, numhl = hl, text = "" })
 		end
 
 		local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
 		if opts.inlay_hint.enabled and inlay_hint then
-			on_attach(function(client, buffer)
+			on_attach(function(client, _)
 				if client.supports_method("textDocument/inlayHint") then
 					vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
 				end
