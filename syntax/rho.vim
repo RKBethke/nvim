@@ -1,4 +1,4 @@
-if exists('b:current_syntax')|fini|en|sy clear|sy case match |sy sync fromstart |if&l:syn==#'k'|setl com=:/ isk=a-z,A-Z,48-57|en
+if exists('b:current_syntax')|fini|en|sy clear|sy case match |sy sync fromstart |if&l:syn==#'rho'|setl com=:/ isk=a-z,A-Z,48-57|en
 sy match  k_e  /\k\+\|\S/
 sy match  k_s  /\c`\([a-zа-яё][a-zа-яё0-9]*\)\=/                nextgroup=@k_vw                         |hi link k_s       constant
 sy match  k_w  /[\\\/']:\=/                                     nextgroup=k_w   contained               |hi link k_w       operator
@@ -37,4 +37,4 @@ sy region k_comment matchgroup=k_comment start=/^\/$/   end=/^\\$/
 sy region k_comment matchgroup=k_comment start=/^\\\\$/ end=/^\%$/
 sy cluster k_vw contains=k_v,k_w
 sy cluster k_k  contains=k_e,k_s,k_u,k_w,k_c0,k_i,k_x,k_comment,k_n,k_string,k_g,k_ar,k_br,k_cr,k_dr,k_t
-let b:current_syntax='k'
+let b:current_syntax='rho'

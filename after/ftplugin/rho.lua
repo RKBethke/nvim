@@ -7,3 +7,5 @@ vim.bo.textwidth = 80
 
 vim.bo.comments = ":/"
 vim.bo.commentstring = "/ %s"
+vim.bo.makeprg = "rho %"
+vim.bo.errorformat = "%m"
