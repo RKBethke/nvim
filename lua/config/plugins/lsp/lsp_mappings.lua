@@ -31,14 +31,9 @@ M.on_attach = function(_, bufnr) -- (client, bufnr)
 	set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 	set("n", "gr", vim.lsp.buf.references, { desc = "References" })
 	set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Set loclist" })
-	set(
-		"n",
-		"<leader>h",
-		function()
-			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-		end,
-		{ desc = "Toggle Inlay Hint" }
-	)
+	set("n", "<leader>h", function()
+		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+	end, { desc = "Toggle Inlay Hint" })
 
 	-- Diagnostics
 	local diagnostic_goto = function(next, severity)

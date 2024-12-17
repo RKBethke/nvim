@@ -1,5 +1,58 @@
 local util = require("util")
 
+local live_multigrep = function(opts)
+	local pickers = require("telescope.pickers")
+	local finders = require("telescope.finders")
+	local make_entry = require("telescope.make_entry")
+	local conf = require("telescope.config").values
+
+	opts = opts or {}
+	opts.cwd = opts.cwd or vim.uv.cwd()
+
+	local finder = finders.new_async_job({
+		command_generator = function(prompt)
+			if not prompt or prompt == "" then
+				return nil
+			end
+
+			local pieces = vim.split(prompt, "  ")
+			local args = { "rg" }
+			if pieces[1] then
+				table.insert(args, "-e")
+				table.insert(args, pieces[1])
+			end
+
+			if pieces[2] then
+				table.insert(args, "-g")
+				table.insert(args, pieces[2])
+			end
+
+			---@diagnostic disable-next-line: deprecated
+			return vim.tbl_flatten({
+				args,
+				{
+					"--color=never",
+					"--no-heading",
+					"--with-filename",
+					"--line-number",
+					"--column",
+					"--smart-case",
+				},
+			})
+		end,
+		entry_maker = make_entry.gen_from_vimgrep(opts),
+		cwd = opts.cwd,
+	})
+	pickers
+		.new(opts, {
+			prompt_title = "Multi Grep",
+			finder = finder,
+			previewer = conf.grep_previewer(opts),
+			sorter = require("telescope.sorters").empty(),
+		})
+		:find()
+end
+
 local M = {
 	"nvim-telescope/telescope.nvim",
 	dependencies = {
@@ -7,15 +60,17 @@ local M = {
 		"nvim-telescope/telescope-project.nvim",
 		"nvim-telescope/telescope-file-browser.nvim",
 		"direnv/direnv.vim",
+		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	},
 	keys = {
 		{ "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
-		{ "<leader>/", util.telescope("live_grep"), desc = "Grep (root dir)" },
+		{ "<leader>/", live_multigrep, desc = "Grep (root dir)" },
 		{ "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
 		{ "<leader><space>", util.telescope("files"), desc = "Find Files (root dir)" },
-		-- find
+		{ "<leader>?", "<cmd>Telescope resume<cr>", desc = "Resume" },
+
+		-- Find
 		{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-		{ "<leader>ff", util.telescope("files"), desc = "Find Files (root dir)" },
 		{ "<leader>fF", util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
 		{ "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
 		{
@@ -23,10 +78,11 @@ local M = {
 			util.telescope("oldfiles", { cwd = vim.loop.cwd() }),
 			desc = "Recent (cwd)",
 		},
-		-- git
+
+		-- Git
 		{ "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
-		-- { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "status" },
-		-- search
+
+		-- Search
 		{ '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },
 		{ "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
 		{ "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
@@ -34,15 +90,12 @@ local M = {
 		{ "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
 		{ "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document Diagnostics" },
 		{ "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics" },
-		{ "<leader>sg", util.telescope("live_grep"), desc = "Grep (root dir)" },
-		{ "<leader>sG", util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
 		{ "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
 		{ "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
 		{ "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
 		{ "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
 		{ "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
 		{ "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
-		{ "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
 		{
 			"<leader>sw",
 			util.telescope("grep_string", { word_match = "-w" }),
@@ -108,12 +161,10 @@ function M.config()
 	local telescope = require("telescope")
 	local actions = require("telescope.actions")
 	local project_actions = require("telescope._extensions.project.actions")
-	local base_dirs = {
-		"~/src/",
-		"~/.config/",
-	}
+	local base_dirs = { "~/src/", "~/.config/" }
 	telescope.load_extension("file_browser")
 	telescope.load_extension("project")
+	telescope.load_extension("fzf")
 	telescope.setup({
 		defaults = {
 			vimgrep_arguments = {
@@ -129,9 +180,7 @@ function M.config()
 			sorting_strategy = "ascending",
 			-- Theme: Ivy
 			layout_strategy = "bottom_pane",
-			layout_config = {
-				height = 25,
-			},
+			layout_config = { height = 25 },
 			border = true,
 			borderchars = {
 				prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
@@ -177,9 +226,8 @@ function M.config()
 				search_by = "title",
 				sync_with_nvim_tree = true,
 				on_project_selected = function(prompt_bufnr)
-					local cwd = vim.fn.getcwd()
 					local new_path = project_actions.get_selected_path(prompt_bufnr)
-					if new_path ~= cwd then
+					if new_path ~= vim.fn.getcwd() then
 						project_actions.change_working_directory(prompt_bufnr, false)
 					end
 				end,
@@ -188,6 +236,7 @@ function M.config()
 				theme = "ivy",
 				hijack_netrw = true,
 			},
+			fzf = {},
 		},
 	})
 
