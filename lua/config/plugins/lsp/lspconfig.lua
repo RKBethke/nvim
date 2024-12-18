@@ -1,6 +1,7 @@
 local util = require("util")
 return {
 	"neovim/nvim-lspconfig",
+	dependencies = { 'saghen/blink.cmp' },
 	lazy = false,
 	opts = {
 		-- Options for vim.diagnostic.config()
