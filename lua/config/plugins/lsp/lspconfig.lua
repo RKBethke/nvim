@@ -1,11 +1,7 @@
-local Util = require("util")
+local util = require("util")
 return {
 	"neovim/nvim-lspconfig",
 	lazy = false,
-	dependencies = {
-		"hrsh7th/cmp-nvim-lsp",
-		"nvim-lua/plenary.nvim",
-	},
 	opts = {
 		-- Options for vim.diagnostic.config()
 		diagnostics = {
@@ -14,11 +10,6 @@ return {
 			underline = true,
 			update_in_insert = true,
 			virtual_text = false,
-			-- virtual_text = {
-			-- 	spacing = 4,
-			-- 	source = "if_many",
-			-- 	prefix = "●",
-			-- },
 		},
 		inlay_hint = {
 			enabled = false, -- Toggle mapping provided.
@@ -42,7 +33,7 @@ return {
 					cmd = { "bqnlsp" },
 					cmd_env = {},
 					filetypes = { "bqn" },
-					root_dir = Util.get_root,
+					root_dir = util.get_root,
 					single_file_support = false,
 				},
 				docs = {
@@ -50,7 +41,7 @@ return {
 			BQN Language Server
 					]],
 					default_config = {
-						root_dir = [[Util.get_root]],
+						root_dir = [[util.get_root]],
 					},
 				},
 			},
@@ -94,7 +85,6 @@ return {
 				},
 			},
 			lua_ls = {
-				single_file_support = true,
 				settings = {
 					Lua = {
 						runtime = {
@@ -113,19 +103,18 @@ return {
 							},
 							maxPreload = 100000,
 							preloadFileSize = 10000,
+							checkThirdParty = false,
 						},
-						telemetry = {
-							enable = false,
-						},
+						codeLens = { enable = true },
+						telemetry = { enable = false },
+						completion = { callSnippet = "Replace" },
 					},
 				},
 			},
 		},
-		setup = {
-			-- Perform additional lsp server setup here.
-		},
 	},
 	config = function(_, opts)
+		-- Keymaps
 		local function on_attach(on_attach_fn)
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(args)
@@ -135,11 +124,7 @@ return {
 				end,
 			})
 		end
-		-- [[ Autoformat ]] --
-		-- TODO
-		-- Util.format.register(Util.lsp.formatter())
 
-		-- [[ Keymaps ]] --
 		on_attach(function(client, buffer)
 			require("config.plugins.lsp.lsp_mappings").on_attach(client, buffer)
 			client.server_capabilities.semanticTokensProvider = nil
@@ -154,18 +139,7 @@ return {
 			return ret
 		end
 
-		--  https://github.com/neovim/neovim/pull/31345
-		for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) do
-			local default_diagnostic_handler = vim.lsp.handlers[method]
-			vim.lsp.handlers[method] = function(err, result, context, config)
-				if err ~= nil and err.code == -32802 then
-					return
-				end
-				return default_diagnostic_handler(err, result, context, config)
-			end
-		end
-
-		-- [[ Diagnostics ]] --
+		-- Diagnostics
 		local diagnostic_icons = {
 			Error = "",
 			Info = "",
@@ -177,56 +151,33 @@ return {
 			vim.fn.sign_define(hl, { texthl = hl, numhl = hl, text = "" })
 		end
 
-		local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-		if opts.inlay_hint.enabled and inlay_hint then
-			on_attach(function(client, _)
+		-- https://github.com/neovim/neovim/pull/31345
+		for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) do
+			local default_diagnostic_handler = vim.lsp.handlers[method]
+			vim.lsp.handlers[method] = function(err, result, context, config)
+				if err ~= nil and err.code == -32802 then
+					return
+				end
+				return default_diagnostic_handler(err, result, context, config)
+			end
+		end
+
+		-- Inlay Hints
+		if opts.inlay_hint.enabled then
+			on_attach(function(client, buffer)
 				if client.supports_method("textDocument/inlayHint") then
-					vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
+					vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
 				end
 			end)
 		end
 
 		vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
-		-- [[ Servers ]] --
-		local configs = opts.configs
-		for config, config_opts in pairs(configs) do
-			if config_opts then
-				require("lspconfig.configs")[config] = config_opts
-			end
-		end
-
-		local servers = opts.servers
-		local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-		local capabilities = vim.tbl_deep_extend(
-			"force",
-			{},
-			vim.lsp.protocol.make_client_capabilities(),
-			has_cmp and cmp_nvim_lsp.default_capabilities() or {},
-			opts.capabilities or {}
-		)
-
-		local function setup_server(server)
-			local server_opts = vim.tbl_deep_extend("force", {
-				capabilities = vim.deepcopy(capabilities),
-			}, servers[server] or {})
-
-			if opts.setup[server] then
-				if opts.setup[server](server, server_opts) then
-					return
-				end
-			elseif opts.setup["*"] then
-				if opts.setup["*"](server, server_opts) then
-					return
-				end
-			end
-			require("lspconfig")[server].setup(server_opts)
-		end
-
-		for server, server_opts in pairs(servers) do
-			if server_opts then
-				setup_server(server)
-			end
+		local lspconfig = require("lspconfig")
+		local blink_cmp = require("blink.cmp")
+		for server, config in pairs(opts.servers) do
+			config.capabilities = blink_cmp.get_lsp_capabilities(config.capabilities)
+			lspconfig[server].setup(config)
 		end
 	end,
 }

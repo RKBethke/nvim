@@ -1,35 +1,22 @@
 local M = {}
 
-M.on_attach = function(_, bufnr) -- (client, bufnr)
-	-- See `:help vim.lsp.*` for documentation on any of the below functions.
-	local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+M.on_attach = function(_, bufnr)
+	local ft = vim.api.nvim_get_option_info2("filetype", { buf = bufnr })
 	local set = vim.keymap.set
-	set("n", "gD", vim.lsp.buf.declaration)
-	set("n", "gd", vim.lsp.buf.definition)
 
-	if ft ~= "supercollider" then
-		set("n", "K", vim.lsp.buf.hover)
-	end
-
+	set("n", "<leader>cl", "<cmd>LspInfo<cr>", { desc = "Lsp Info" })
+	set("n", "gd", vim.lsp.buf.definition, { desc = "Goto Definition" })
+	set("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
+	set("n", "gr", vim.lsp.buf.references, { desc = "References" })
 	set("n", "gi", vim.lsp.buf.implementation, { desc = "Implementation" })
 	set("n", "gk", vim.lsp.buf.signature_help, { desc = "Signature Help" })
-	set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { desc = "Add Workspace Folder" })
-	set(
-		"n",
-		"<leader>wr",
-		vim.lsp.buf.remove_workspace_folder,
-		{ desc = "Remove Workspace Folder" }
-	)
-	set(
-		"n",
-		"<leader>wl",
-		"<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
-		{ desc = "List Workspace Folders" }
-	)
+	if ft ~= "supercollider" then
+		set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
+	end
 	set("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "Type Definition" })
 	set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
 	set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
-	set("n", "gr", vim.lsp.buf.references, { desc = "References" })
+	set("n", "<leader>cc", vim.lsp.codelens.run, { desc = "Code Lens" })
 	set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Set loclist" })
 	set("n", "<leader>h", function()
 		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
