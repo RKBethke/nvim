@@ -13,7 +13,7 @@ return {
 			default = { "lsp", "path", "snippets", "buffer" },
 		},
 		-- experimental signature help support
-		-- signature = { enabled = true }
+		signature = { enabled = true },
 		completion = {
 			accept = {
 				-- experimental auto-brackets support
@@ -31,8 +31,5 @@ return {
 				auto_show_delay_ms = 200,
 			},
 		},
-		-- allows extending the providers array elsewhere in your config
-		-- without having to redefine it
-		opts_extend = { "sources.default" },
 	},
 }
