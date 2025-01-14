@@ -18,7 +18,6 @@ sy match  k_g  /:/                                                              
 sy region k_ar matchgroup=k_a start=/(/                 end=/)/ nextgroup=@k_vw contains=@k_k,k_aj,k_ae |hi link k_a       text
 sy region k_br matchgroup=k_b start=/\[/                end=/]/ nextgroup=@k_vw contains=@k_k,k_bj,k_be |hi link k_b       k_a
 sy region k_cr matchgroup=k_c start=/{\(\[[^\]]*\]\)\=/ end=/}/ nextgroup=@k_vw contains=@k_k,k_cj,k_ce |hi link k_c       special
-sy region k_dr matchgroup=k_d start=/[\$:]\[/           end=/]/ nextgroup=@k_vw contains=@k_k,k_dj,k_be |hi link k_d       conditional
 sy region k_str matchgroup=k_str start=/"/ skip=/\\"/   end=/"/ nextgroup=@k_vw contains=k_q            |hi link k_str     string
 sy match  k_ae /[]}]/                                                           contained               |hi link k_ae      k_e
 sy match  k_be /[})]/                                                           contained               |hi link k_be      k_e
