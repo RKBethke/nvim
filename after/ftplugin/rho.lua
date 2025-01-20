@@ -9,3 +9,13 @@ vim.bo.comments = ":/"
 vim.bo.commentstring = "/ %s"
 vim.bo.makeprg = "rho %"
 vim.bo.errorformat = "%m"
+
+-- Workaround for telescope's colorscheme picker disabling Vim's regex syntax highlighting.
+local autocmd = vim.api.nvim_create_autocmd
+autocmd({ "BufReadPost", "BufWritePost", "InsertLeave" }, {
+	pattern = { "*.ro" },
+	callback = function()
+		vim.cmd("syntax enable")
+		vim.cmd("syntax on")
+	end,
+})

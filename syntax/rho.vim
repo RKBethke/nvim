@@ -10,7 +10,8 @@ sy match  k_u  /[+\-*%!&|<>=~,^#_$?@.\x80-\U000fffff:]:\=/      nextgroup=k_w   
 sy match  k_v  /[+\-*%!&|<>=~,^#_$?@.\x80-\U000fffff]:\=/       nextgroup=k_w   contained               |hi link k_v       type
 sy match  k_n  /\v-=\d+([bNnwf]|(\.\d+)=(e-=\d+)=)=/            nextgroup=@k_vw                         |hi link k_n       number
 sy match  k_i  /\c[a-zа-яё][a-zа-яё0-9]*\(\.[a-zа-яё][a-zа-яё0-9]*\)*/ nextgroup=@k_vw                  |hi link k_i       variable
-sy match  k_x  /[oxyz]/                                         nextgroup=@k_vw                         |hi link k_x       special
+sy match  k_x  /[xyz]/                                          nextgroup=@k_vw                         |hi link k_x       special
+sy match  k_o  /\<[o]\>/                                        nextgroup=@k_vw                         |hi link k_o       special
 sy match  k_str /\<0x\(\x\x\)*\>/                               nextgroup=@k_vw
 sy match  k_u  /\d::\=/                                         nextgroup=k_w
 sy match  k_v  /\s*\d::\=/                                      nextgroup=k_w   contained
@@ -33,5 +34,5 @@ sy match  k_comment / \+\/.*/
 sy region k_comment matchgroup=k_comment start=/^\/$/   end=/^\\$/
 sy region k_comment matchgroup=k_comment start=/^\\\\$/ end=/^\%$/
 sy cluster k_vw contains=k_v,k_w
-sy cluster k_k  contains=k_e,k_s,k_u,k_w,k_c0,k_i,k_x,k_comment,k_n,k_str,k_g,k_ar,k_br,k_cr,k_dr,k_t
+sy cluster k_k  contains=k_e,k_s,k_u,k_w,k_c0,k_i,k_x,k_o,k_comment,k_n,k_str,k_g,k_ar,k_br,k_cr,k_dr,k_t
 let b:current_syntax='rho'

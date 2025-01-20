@@ -68,6 +68,7 @@ function M.config()
 		highlight = {
 			enable = true,
 			use_languagetree = true,
+			additional_vim_regex_highlighting = { "rho", "k" },
 		},
 		indent = {
 			enable = true,
