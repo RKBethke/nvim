@@ -87,10 +87,10 @@ function M.get_root()
 	---@type string?
 	local root = roots[1]
 	if not root then
-		path = path and vim.fs.dirname(path) or vim.loop.cwd()
+		path = path and vim.fs.dirname(path) or vim.uv.cwd()
 		---@type string?
 		root = vim.fs.find({ ".git", "lua" }, { path = path, upward = true })[1]
-		root = root and vim.fs.dirname(root) or vim.loop.cwd()
+		root = root and vim.fs.dirname(root) or vim.uv.cwd()
 	end
 	---@cast root string
 	return root
@@ -108,7 +108,7 @@ function M.telescope(builtin, opts)
 
 		opts = vim.tbl_deep_extend("force", { cwd = M.get_root() }, opts or {})
 		if builtin == "files" then
-			if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git") then
+			if vim.uv.fs_stat((opts.cwd or vim.uv.cwd()) .. "/.git") then
 				opts.show_untracked = true
 				builtin = "git_files"
 			else
@@ -116,8 +116,8 @@ function M.telescope(builtin, opts)
 			end
 		end
 
-		if opts.cwd and opts.cwd ~= vim.loop.cwd() then
-			opts.attach_mappings = function(_, map)
+		if opts.cwd and opts.cwd ~= vim.uv.cwd() then
+			opts.attach_mappings = function(_, _)
 				vim.keymap.set("i", "<a-c>", function()
 					local action_state = require("telescope.actions.state")
 					local line = action_state.get_current_line()

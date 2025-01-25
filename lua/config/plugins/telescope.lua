@@ -64,7 +64,13 @@ local M = {
 	},
 	keys = {
 		{ "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
-		{ "<leader>/", live_multigrep, desc = "Grep (root dir)" },
+		{
+			"<leader>/",
+			function()
+				live_multigrep({ cwd = util.get_root() })
+			end,
+			desc = "Grep (root dir)",
+		},
 		{ "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
 		{ "<leader><space>", util.telescope("files"), desc = "Find Files (root dir)" },
 		{ "<leader>?", "<cmd>Telescope resume<cr>", desc = "Resume" },
@@ -75,7 +81,7 @@ local M = {
 		{ "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
 		{
 			"<leader>fR",
-			util.telescope("oldfiles", { cwd = vim.loop.cwd() }),
+			util.telescope("oldfiles", { cwd = vim.uv.cwd() }),
 			desc = "Recent (cwd)",
 		},
 
