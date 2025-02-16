@@ -22,7 +22,7 @@ opt.jumpoptions = "view"
 opt.smoothscroll = true
 
 -- Indent
-opt.expandtab = false
+opt.expandtab = true
 opt.tabstop = 8
 opt.softtabstop = 4
 opt.shiftwidth = 4

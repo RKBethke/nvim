@@ -4,6 +4,7 @@ local M = {
 	event = "BufReadPost",
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter-context",
+		"nvim-treesitter/nvim-treesitter-textobjects",
 	},
 }
 
@@ -75,6 +76,51 @@ function M.config()
 		},
 		matchup = {
 			enable = true,
+		},
+		textobjects = {
+			select = {
+				enable = true,
+				lookahead = true,
+				keymaps = {
+					["af"] = "@function.outer",
+					["if"] = "@function.inner",
+					["ac"] = "@class.outer",
+					["ic"] = "@class.inner",
+					["as"] = {
+						query = "@local.scope",
+						query_group = "locals",
+						desc = "Select language scope",
+					},
+				},
+				selection_modes = {
+					["@parameter.outer"] = "v", -- charwise
+					["@function.outer"] = "V", -- linewise
+					["@class.outer"] = "<c-v>", -- blockwise
+				},
+			},
+			move = {
+				enable = true,
+				goto_next_start = {
+					["]f"] = "@function.outer",
+					["]c"] = "@class.outer",
+					["]a"] = "@parameter.inner",
+				},
+				goto_next_end = {
+					["]F"] = "@function.outer",
+					["]C"] = "@class.outer",
+					["]A"] = "@parameter.inner",
+				},
+				goto_previous_start = {
+					["[f"] = "@function.outer",
+					["[c"] = "@class.outer",
+					["[a"] = "@parameter.inner",
+				},
+				goto_previous_end = {
+					["[F"] = "@function.outer",
+					["[C"] = "@class.outer",
+					["[A"] = "@parameter.inner",
+				},
+			},
 		},
 	})
 
