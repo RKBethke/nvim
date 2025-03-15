@@ -1,0 +1,47 @@
+return {
+	"mrcjkb/rustaceanvim",
+	version = "^5", -- Recommended,
+	lazy = false,
+	config = function()
+		vim.g.rustaceanvim = {
+			server = {
+				on_attach = function(client, bufnr)
+					-- Default lsp mappings.
+					require("config.plugins.lsp.lsp_mappings").on_attach(client, bufnr)
+
+					-- rustaceanvim keymaps.
+					local set = vim.keymap.set
+					local bufopts = { noremap = true, silent = true, buffer = bufnr }
+					set("n", "K", ":RustLsp hover actions<CR>", bufopts)
+					set("n", "<leader>rd", ":RustLsp renderDiagnostic<CR>", bufopts)
+					set("n", "J", ":RustLsp joinLines<CR>", bufopts)
+					set("n", "<leader>ca", ":RustLsp codeAction<CR>", bufopts)
+					set("n", "<leader>dbg", ":RustLsp debuggables<CR>", bufopts)
+				end, -- on_attach
+				default_settings = {
+					["rust-analyzer"] = {
+						assist = {
+							importEnforceGranularity = true,
+							importPrefix = "crate",
+						},
+						cargo = {
+							allFeatures = true,
+						},
+						checkOnSave = {
+							command = "clippy",
+							extraArgs = { "--no-deps" },
+							allTargets = false,
+						},
+						inlayHints = { locationLinks = false },
+						diagnostics = {
+							enable = true,
+							experimental = {
+								enable = true,
+							},
+						},
+					},
+				},
+			},
+		}
+	end,
+}
