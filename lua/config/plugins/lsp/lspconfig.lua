@@ -4,17 +4,6 @@ return {
 	dependencies = { "saghen/blink.cmp" },
 	lazy = false,
 	opts = {
-		-- Options for vim.diagnostic.config()
-		diagnostics = {
-			severity_sort = true,
-			signs = true,
-			underline = true,
-			update_in_insert = true,
-			virtual_text = false,
-		},
-		inlay_hint = {
-			enabled = false, -- Toggle mapping provided.
-		},
 		capabilities = {
 			workspace = {
 				didChangeWatchedFiles = {
@@ -63,14 +52,9 @@ return {
 			lua_ls = {
 				settings = {
 					Lua = {
-						runtime = {
-							-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim).
-							version = "LuaJIT",
-						},
-						diagnostics = {
-							-- Get the language server to recognize the `vim` global.
-							globals = { "vim", "use" },
-						},
+						runtime = { version = "LuaJIT" },
+						-- Get the language server to recognize the `vim` global.
+						diagnostics = { globals = { "vim", "use" } },
 						workspace = {
 							-- Make the server aware of Neovim runtime files.
 							library = {
@@ -90,21 +74,39 @@ return {
 		},
 	},
 	config = function(_, opts)
-		-- Keymaps
-		local function on_attach(on_attach_fn)
-			vim.api.nvim_create_autocmd("LspAttach", {
-				callback = function(args)
-					local client = vim.lsp.get_client_by_id(args.data.client_id)
-					local buffer = args.buf
-					on_attach_fn(client, buffer)
-				end,
-			})
-		end
+		vim.diagnostic.config({
+			severity_sort = true,
+			underline = true,
+			update_in_insert = true,
+			virtual_text = false,
+			virtual_lines = false,
+			signs = {
+				numhl = {
+					[vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+					[vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+					[vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+					[vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+				},
+				text = {
+					[vim.diagnostic.severity.ERROR] = "",
+					[vim.diagnostic.severity.WARN] = "",
+					[vim.diagnostic.severity.INFO] = "",
+					[vim.diagnostic.severity.HINT] = "",
+				},
+			},
+		})
 
-		on_attach(function(client, buffer)
-			require("config.plugins.lsp.lsp_mappings").on_attach(client, buffer)
-			client.server_capabilities.semanticTokensProvider = nil
-		end)
+		-- Keymaps
+		vim.api.nvim_create_autocmd("LspAttach", {
+			callback = function(ev)
+				local client = vim.lsp.get_client_by_id(ev.data.client_id)
+				local buffer = ev.buf
+				require("config.plugins.lsp.lsp_mappings").on_attach(client, buffer)
+				if client:supports_method("textDocument/completion") then
+					vim.lsp.completion.enable(true, client.id, buffer, { autotrigger = true })
+				end
+			end,
+		})
 
 		local register_capability = vim.lsp.handlers["client/registerCapability"]
 		vim.lsp.handlers["client/registerCapability"] = function(err, res, ctx)
@@ -115,44 +117,9 @@ return {
 			return ret
 		end
 
-		-- Diagnostics
-		local diagnostic_icons = {
-			Error = "",
-			Info = "",
-			Hint = "",
-			Warn = "",
-		}
-		for type, _ in pairs(diagnostic_icons) do
-			local hl = "DiagnosticSign" .. type
-			vim.fn.sign_define(hl, { texthl = hl, numhl = hl, text = "" })
-		end
-
-		-- https://github.com/neovim/neovim/pull/31345
-		for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) do
-			local default_diagnostic_handler = vim.lsp.handlers[method]
-			vim.lsp.handlers[method] = function(err, result, context, config)
-				if err ~= nil and err.code == -32802 then
-					return
-				end
-				return default_diagnostic_handler(err, result, context, config)
-			end
-		end
-
-		-- Inlay Hints
-		if opts.inlay_hint.enabled then
-			on_attach(function(client, buffer)
-				if client.supports_method("textDocument/inlayHint") then
-					vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
-				end
-			end)
-		end
-
-		vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
-
 		local lspconfig = require("lspconfig")
-		local blink_cmp = require("blink.cmp")
 		for server, config in pairs(opts.servers) do
-			config.capabilities = blink_cmp.get_lsp_capabilities(config.capabilities)
+			config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
 			lspconfig[server].setup(config)
 		end
 	end,

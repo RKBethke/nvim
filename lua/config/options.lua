@@ -42,9 +42,6 @@ opt.listchars = {
 	extends = "»",
 	precedes = "«",
 	tab = "^ ",
-	-- tab = "▎ "
-	-- tab = "┆ ",
-	-- space = "·",
 }
 opt.fillchars = {
 	foldopen = "",
@@ -71,7 +68,8 @@ opt.shortmess:append("nosIT")
 -- Disable mode
 opt.smd = false
 
-opt.signcolumn = "yes"
+opt.signcolumn = "yes:1"
+opt.numberwidth = 3
 opt.colorcolumn = "+0,100,120"
 opt.splitbelow = true
 opt.splitright = true

@@ -23,20 +23,18 @@ M.on_attach = function(_, bufnr)
 	end, { desc = "Toggle Inlay Hint" })
 
 	-- Diagnostics
-	local diagnostic_goto = function(next, severity)
-		local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-		severity = severity and vim.diagnostic.severity[severity] or nil
+	local diagnostic_jump = function(next, severity)
 		return function()
-			go({ severity = severity })
+			vim.diagnostic.jump({ count = next and 1 or -1, float = true, severity = severity })
 		end
 	end
 	set("n", "ge", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-	set("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
-	set("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
-	set("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
-	set("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
-	set("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
-	set("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+	set("n", "]d", diagnostic_jump(true), { desc = "Next Diagnostic" })
+	set("n", "[d", diagnostic_jump(false), { desc = "Prev Diagnostic" })
+	set("n", "]e", diagnostic_jump(true, "ERROR"), { desc = "Next Error" })
+	set("n", "[e", diagnostic_jump(false, "ERROR"), { desc = "Prev Error" })
+	set("n", "]w", diagnostic_jump(true, "WARN"), { desc = "Next Warning" })
+	set("n", "[w", diagnostic_jump(false, "WARN"), { desc = "Prev Warning" })
 
 	-- Note: Formatting handled by conform.nvim.
 	-- set("n", "<leader>fm", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>")

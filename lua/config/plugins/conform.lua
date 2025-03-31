@@ -19,6 +19,7 @@ return {
 			markdown = { "prettier" },
 			python = { "black" },
 			swift = { "swiftformat" },
+			rust = { "rustfmt" },
 		},
 		format = {
 			timeout_ms = 3000,
