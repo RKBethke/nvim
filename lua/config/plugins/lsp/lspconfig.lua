@@ -102,9 +102,9 @@ return {
 				local client = vim.lsp.get_client_by_id(ev.data.client_id)
 				local buffer = ev.buf
 				require("config.plugins.lsp.lsp_mappings").on_attach(client, buffer)
-				if client:supports_method("textDocument/completion") then
-					vim.lsp.completion.enable(true, client.id, buffer, { autotrigger = true })
-				end
+				-- if client:supports_method("textDocument/completion") then
+				-- 	-- vim.lsp.completion.enable(true, client.id, buffer, { autotrigger = true })
+				-- end
 			end,
 		})
 
