@@ -7,28 +7,49 @@ return {
 		end,
 	},
 	config = function()
-		local luasnip = require("luasnip")
+		local ls = require("luasnip")
+		local types = require("luasnip.util.types")
 
-		luasnip.config.setup({
+		ls.config.setup({
 			history = true,
 			updateevents = "TextChanged,TextChangedI",
+			-- Visual indicator for active snippet nodes.
 			enable_autosnippets = true,
+			ext_opts = {
+				[types.insertNode] = {
+					active = {
+						virt_text = { { "", "DiagnosticHint" } },
+					},
+				},
+				[types.choiceNode] = {
+					active = {
+						virt_text = { { "", "DiagnosticWarn" } },
+					},
+				},
+			},
 		})
 
-		-- Expansion Key:
-		-- Expand the current item or jump to the next item within the snippet.
-		vim.keymap.set({ "i", "s" }, "<M-j>", function()
-			if luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
+		vim.keymap.set({ "i", "s" }, "<Tab>", function()
+			if ls.expand_or_jumpable() then
+				ls.expand_or_jump()
+			else
+				vim.api.nvim_feedkeys(
+					vim.api.nvim_replace_termcodes("<Tab>", true, true, true),
+					"n",
+					true
+				)
 			end
 		end, { silent = true })
 
-		-- Jump backwards key:
-		-- Moves to the previous item within the snippet
-		vim.keymap.set({ "i", "s" }, "<M-k>", function()
-			if luasnip.jumpable(-1) then
-				luasnip.jump(-1)
+		vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
+			if ls.jumpable(-1) then
+				ls.jump(-1)
 			end
+		end, { silent = true })
+
+		-- Exit snippet mode cleanly
+		vim.keymap.set({ "i", "s" }, "<C-s>", function()
+			ls.unlink_current()
 		end, { silent = true })
 	end,
 }
