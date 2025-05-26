@@ -3,6 +3,7 @@ local g = vim.g
 
 -- [[ Global ]] --
 g.mapleader = " "
+g.maplocalleader = ","
 
 -- [[ Options ]] --
 opt.confirm = true
