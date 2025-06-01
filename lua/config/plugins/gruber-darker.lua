@@ -1,7 +1,6 @@
 local M = {
 	"blazkowolf/gruber-darker.nvim",
 	priority = 1000,
-	lazy = false,
 	config = function()
 		local gruber = require("gruber-darker")
 		gruber.setup({
