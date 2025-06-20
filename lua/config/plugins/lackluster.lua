@@ -12,8 +12,14 @@ return {
 				["Visual"] = {
 					link = "CursorLine",
 				},
+				["@lsp.mod.documentation"] = {
+					italic = true,
+				},
+			},
+			tweak_ui = {
+				disable_undercurl = true,
 			},
 		})
-		vim.cmd.colorscheme("lackluster-hack")
+		vim.cmd.colorscheme("lackluster-night")
 	end,
 }
