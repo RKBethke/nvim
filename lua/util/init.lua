@@ -139,4 +139,14 @@ function M.telescope(builtin, opts)
 	end
 end
 
+function M.is_dark_mode()
+	if vim.loop.os_uname().sysname == "Darwin" then
+		if vim.fn.executable('defaults') ~= 0 then
+			local style = vim.fn.system({"defaults", "read", "-g", "AppleInterfaceStyle"})
+			return style:find("Dark")
+		end
+	end
+	return false
+end
+
 return M

@@ -1,6 +1,6 @@
 return {
 	"morhetz/gruvbox",
-	lazy = true,
+	lazy = false,
 	config = function()
 		vim.g.gruvbox_contrast_dark = "medium"
 		vim.g.gruvbox_contrast_light = "medium"
