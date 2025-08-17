@@ -24,14 +24,8 @@ return {
 							importEnforceGranularity = true,
 							importPrefix = "crate",
 						},
-						cargo = {
-							allFeatures = true,
-						},
-						checkOnSave = {
-							command = "clippy",
-							extraArgs = { "--no-deps" },
-							allTargets = false,
-						},
+						cargo = { allFeatures = true },
+						check = { command = "clippy" },
 						inlayHints = { locationLinks = false },
 						diagnostics = {
 							enable = true,
