@@ -114,9 +114,8 @@ return {
 			return ret
 		end
 
-		local lspconfig = require("lspconfig")
 		for server, config in pairs(opts.servers) do
-			lspconfig[server].setup(config)
+			vim.lsp.config(server, config)
 		end
 	end,
 }
