@@ -5,4 +5,4 @@ vim.bo.shiftwidth = 4
 vim.bo.softtabstop = 4
 
 vim.bo.textwidth = 100
-vim.bo.makeprg = "swiftc -swift-version 6 % -o %-o && ./%-o"
+vim.bo.makeprg = 'swiftc -swift-version 6 "%" -o "%:r" && ./"%:r" && rm "%:r"'
