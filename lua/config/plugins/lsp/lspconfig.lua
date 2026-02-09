@@ -41,7 +41,11 @@ return {
 			nil_ls = {},
 			pyright = {},
 			bqnlsp = {},
-			sourcekit = {},
+			sourcekit = {
+				cmd = { "xcrun", "sourcekit-lsp" },
+				filetypes = { "swift", "objective-c", "objective-cpp" },
+				root_markers = { "Package.swift", ".git" },
+			},
 			hls = {
 				settings = {
 					haskell = {
@@ -116,6 +120,7 @@ return {
 
 		for server, config in pairs(opts.servers) do
 			vim.lsp.config(server, config)
+			vim.lsp.enable(server)
 		end
 	end,
 }
