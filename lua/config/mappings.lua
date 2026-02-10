@@ -1,4 +1,5 @@
 local set = vim.keymap.set
+local util = require("util")
 local M = {}
 
 ------------ [ Defaults ] ------------
@@ -170,7 +171,7 @@ M.defaults = function()
 	set("n", "N", "Nzzzv")
 
 	-- [ Misc ] --
-	if vim.uv.os_uname().sysname == "Darwin" then
+	if util.is_darwin() then
 		set(
 			"n",
 			"gx",

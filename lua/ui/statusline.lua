@@ -23,20 +23,19 @@ function M.file_info()
 	return " " .. icon .. " " .. display_path
 end
 
+local function git_stat(count, icon)
+	return (count and count ~= 0) and (icon .. " " .. count) or ""
+end
+
 function M.git()
 	local git_status = vim.b.gitsigns_status_dict
 	if git_status == nil then
 		return ""
 	end
 
-	local added = (git_status.added and git_status.added ~= 0) and ("  " .. git_status.added)
-		or ""
-	local changed = (git_status.changed and git_status.changed ~= 0)
-			and ("  " .. git_status.changed)
-		or ""
-	local removed = (git_status.removed and git_status.removed ~= 0)
-			and ("  " .. git_status.removed)
-		or ""
+	local added = git_stat(git_status.added, " ")
+	local changed = git_stat(git_status.changed, " ")
+	local removed = git_stat(git_status.removed, " ")
 	local branch_name = "   " .. git_status.head .. " "
 
 	return branch_name .. added .. changed .. removed

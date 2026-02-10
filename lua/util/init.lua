@@ -29,17 +29,15 @@ function M.display_version()
 	end
 end
 
-function M.warn(msg, name)
-	vim.notify(msg, vim.log.levels.WARN, { title = name or "init.lua" })
+local function notify(level)
+	return function(msg, name)
+		vim.notify(msg, vim.log.levels[level], { title = name or "init.lua" })
+	end
 end
 
-function M.error(msg, name)
-	vim.notify(msg, vim.log.levels.ERROR, { title = name or "init.lua" })
-end
-
-function M.info(msg, name)
-	vim.notify(msg, vim.log.levels.INFO, { title = name or "init.lua" })
-end
+M.warn = notify("WARN")
+M.error = notify("ERROR")
+M.info = notify("INFO")
 
 ---@param fn fun()
 function M.on_very_lazy(fn)
@@ -103,9 +101,6 @@ end
 function M.telescope(builtin, opts)
 	local params = { builtin = builtin, opts = opts }
 	return function()
-		builtin = params.builtin
-		opts = params.opts
-
 		opts = vim.tbl_deep_extend("force", { cwd = M.get_root() }, opts or {})
 		if builtin == "files" then
 			if vim.uv.fs_stat((opts.cwd or vim.uv.cwd()) .. "/.git") then
@@ -139,8 +134,12 @@ function M.telescope(builtin, opts)
 	end
 end
 
+function M.is_darwin()
+	return vim.uv.os_uname().sysname == "Darwin"
+end
+
 function M.is_dark_mode()
-	if vim.uv.os_uname().sysname == "Darwin" then
+	if M.is_darwin() then
 		if vim.fn.executable("defaults") ~= 0 then
 			local style = vim.fn.system({ "defaults", "read", "-g", "AppleInterfaceStyle" })
 			return style:find("Dark")

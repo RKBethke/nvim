@@ -1,9 +1,10 @@
 local util = require("util")
 return {
-	"neovim/nvim-lspconfig",
-	dependencies = { "saghen/blink.cmp" },
-	lazy = false,
-	opts = {
+	{
+		"neovim/nvim-lspconfig",
+		dependencies = { "saghen/blink.cmp" },
+		lazy = false,
+		opts = {
 		capabilities = {
 			workspace = {
 				didChangeWatchedFiles = {
@@ -123,4 +124,10 @@ return {
 			vim.lsp.enable(server)
 		end
 	end,
+	},
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "InsertEnter",
+		opts = {},
+	},
 }
