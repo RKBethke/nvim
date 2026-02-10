@@ -37,7 +37,6 @@ opt.virtualedit = "block" -- Allow cursor to move where there is no text in visu
 opt.foldmethod = "marker"
 
 -- Whitespace
--- opt.list = true
 opt.listchars = {
 	trail = "_",
 	extends = "»",
@@ -87,9 +86,6 @@ opt.updatetime = 250
 -- the line.
 opt.whichwrap:append("<>[]")
 opt.linebreak = true -- Wrap lines at convenient points
-
--- auto-wrap comments, don't auto insert comment on o/O and enter
--- opt.formatoptions:remove("cro")
 
 -- Diffs
 opt.diffopt:append("algorithm:histogram")

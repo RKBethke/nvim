@@ -56,7 +56,6 @@ function M.diagnostics()
 		or ""
 	local hints = (num_hints and num_hints > 0) and ("%#Yellow#" .. " " .. num_hints .. " ")
 		or ""
-	-- local hints = ""
 	local info = (num_info and num_info > 0)
 			and ("%#DiagnosticSignInfo#" .. " " .. num_info .. " ")
 		or ""

@@ -35,17 +35,6 @@ M.on_attach = function(_, bufnr)
 	set("n", "[e", diagnostic_jump(false, "ERROR"), { desc = "Prev Error" })
 	set("n", "]w", diagnostic_jump(true, "WARN"), { desc = "Next Warning" })
 	set("n", "[w", diagnostic_jump(false, "WARN"), { desc = "Prev Warning" })
-
-	-- Note: Formatting handled by conform.nvim.
-	-- set("n", "<leader>fm", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>")
-
-	-- Note: Loclist population handled by trouble.nvim
-	-- vim.api.nvim_create_autocmd("DiagnosticChanged", {
-	-- 	callback = function()
-	-- 		vim.diagnostic.setloclist({ open = false })
-	-- 		vim.diagnostic.setqflist({ open = false })
-	-- 	end,
-	-- })
 end
 
 return M

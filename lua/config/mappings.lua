@@ -89,17 +89,41 @@ M.defaults = function()
 	set({ "n", "v" }, "<C-A>", "^", { desc = "Go to beginning of line" })
 	set("c", "<C-A>", "<Home>", { desc = "Go to beginning of line" })
 	set("i", "<C-A>", "<C-O>^", { desc = "Go to beginning of line" })
-	set({ "i", "n", "c", "v" }, "<C-E>", "<End>", { desc = "Go to end of line" })
-	set({ "i", "c" }, "<C-B>", "<Left>")
-	set({ "i", "c" }, "<C-F>", "<Right>")
 
-	-- TODO: Translate to lua
-	-- inoremap <expr> <C-B> getline('.')=~'^\s*$'&&col('.')>strlen(getline('.'))?"0\<Lt>C-D>\<Lt>Esc>kJs":"\<Lt>Left>"
-	-- inoremap <expr> <C-D> col('.')>strlen(getline('.'))?"\<Lt>C-D>":"\<Lt>Del>"
-	-- cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())?"\<Lt>C-D>":"\<Lt>Del>"
-	-- inoremap <expr> <C-E> col('.')>strlen(getline('.'))<bar><bar>pumvisible()?"\<Lt>C-E>":"\<Lt>End>"
-	-- inoremap <expr> <C-F> col('.')>strlen(getline('.'))?"\<Lt>C-F>":"\<Lt>Right>"
-	-- cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
+	-- Enhanced readline-style mappings with expression logic.
+	set("i", "<C-B>", function()
+		local line = vim.fn.getline(".")
+		local col = vim.fn.col(".")
+		if line:match("^%s*$") and col > #line then
+			return "0<C-D><Esc>kJs"
+		else
+			return "<Left>"
+		end
+	end, { expr = true })
+
+	set("c", "<C-B>", "<Left>")
+
+	set("i", "<C-D>", function()
+		return vim.fn.col(".") > #vim.fn.getline(".") and "<C-D>" or "<Del>"
+	end, { expr = true })
+
+	set("c", "<C-D>", function()
+		return vim.fn.getcmdpos() > #vim.fn.getcmdline() and "<C-D>" or "<Del>"
+	end, { expr = true })
+
+	set("i", "<C-E>", function()
+		return vim.fn.col(".") > #vim.fn.getline(".") or vim.fn.pumvisible() == 1 and "<C-E>" or "<End>"
+	end, { expr = true, desc = "Go to end of line" })
+
+	set({ "n", "c", "v" }, "<C-E>", "<End>", { desc = "Go to end of line" })
+
+	set("i", "<C-F>", function()
+		return vim.fn.col(".") > #vim.fn.getline(".") and "<C-F>" or "<Right>"
+	end, { expr = true })
+
+	set("c", "<C-F>", function()
+		return vim.fn.getcmdpos() > #vim.fn.getcmdline() and vim.o.cedit or "<Right>"
+	end, { expr = true })
 
 	-- Map meta
 	set("i", "<M-b>", "<S-Left>")
