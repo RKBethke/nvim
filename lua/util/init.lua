@@ -61,7 +61,7 @@ end
 function M.get_root()
 	---@type string?
 	local path = vim.api.nvim_buf_get_name(0)
-	path = path ~= "" and vim.loop.fs_realpath(path) or nil
+	path = path ~= "" and vim.uv.fs_realpath(path) or nil
 	---@type string[]
 	local roots = {}
 	if path then
@@ -74,7 +74,7 @@ function M.get_root()
 				or client.config.root_dir and { client.config.root_dir }
 				or {}
 			for _, p in ipairs(paths) do
-				local r = vim.loop.fs_realpath(p)
+				local r = vim.uv.fs_realpath(p)
 				if path:find(r, 1, true) then
 					roots[#roots + 1] = r
 				end
@@ -140,7 +140,7 @@ function M.telescope(builtin, opts)
 end
 
 function M.is_dark_mode()
-	if vim.loop.os_uname().sysname == "Darwin" then
+	if vim.uv.os_uname().sysname == "Darwin" then
 		if vim.fn.executable("defaults") ~= 0 then
 			local style = vim.fn.system({ "defaults", "read", "-g", "AppleInterfaceStyle" })
 			return style:find("Dark")

@@ -146,7 +146,7 @@ M.defaults = function()
 	set("n", "N", "Nzzzv")
 
 	-- [ Misc ] --
-	if vim.loop.os_uname().sysname == "Darwin" then
+	if vim.uv.os_uname().sysname == "Darwin" then
 		set(
 			"n",
 			"gx",

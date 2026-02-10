@@ -77,7 +77,7 @@ function M.lsp_progress()
 	local spinners = { "", "", "" }
 	local success_icon = { "", "", "" }
 
-	local ms = vim.loop.hrtime() / 1000000
+	local ms = vim.uv.hrtime() / 1000000
 	local frame = math.floor(ms / 120) % #spinners
 
 	if percentage >= 70 then
