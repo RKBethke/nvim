@@ -1,6 +1,6 @@
 return {
 	"slugbyte/lackluster.nvim",
-	lazy = false,
+	lazy = true,
 	priority = 1100,
 	config = function()
 		local ll = require("lackluster")
@@ -20,6 +20,5 @@ return {
 				disable_undercurl = true,
 			},
 		})
-		vim.cmd.colorscheme("lackluster-night")
 	end,
 }

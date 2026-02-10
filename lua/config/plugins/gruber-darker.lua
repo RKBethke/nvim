@@ -1,5 +1,6 @@
 local M = {
 	"blazkowolf/gruber-darker.nvim",
+	lazy = true,
 	priority = 1000,
 	config = function()
 		local gruber = require("gruber-darker")
@@ -14,7 +15,6 @@ local M = {
 				folds = true,
 			},
 		})
-		vim.cmd.colorscheme("gruber-darker")
 	end,
 }
 

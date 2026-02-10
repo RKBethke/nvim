@@ -9,7 +9,6 @@ local M = {
 		vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
 		vim.g.gruvbox_material_better_performance = 1
 		vim.g.gruvbox_material_ui_contrast = "hard"
-		vim.cmd.colorscheme("gruvbox-material")
 	end,
 }
 
