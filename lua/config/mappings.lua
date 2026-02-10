@@ -71,8 +71,8 @@ M.defaults = function()
 
 	set("n", "[q", vim.cmd.cprev, { desc = "Previous quickfix" })
 	set("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
-	set("n", "[l", vim.cmd.cprev, { desc = "Previous loclist" })
-	set("n", "]l", vim.cmd.cnext, { desc = "Next loclist" })
+	set("n", "[l", vim.cmd.lprev, { desc = "Previous loclist" })
+	set("n", "]l", vim.cmd.lnext, { desc = "Next loclist" })
 
 	-- Colorscheme
 	set("n", "<leader>ul", function()
