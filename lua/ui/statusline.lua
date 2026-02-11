@@ -1,5 +1,6 @@
 local M = {}
 
+---@return string
 M.run = function()
 	return table.concat({
 		"%#StatusLine#",
@@ -15,6 +16,7 @@ M.run = function()
 	})
 end
 
+---@return string
 function M.file_info()
 	local parent = vim.fn.expand("%:p:h:t")
 	local filename = vim.fn.expand("%:t")
@@ -23,10 +25,14 @@ function M.file_info()
 	return " " .. icon .. " " .. display_path
 end
 
+---@param count number?
+---@param icon string
+---@return string
 local function git_stat(count, icon)
 	return (count and count ~= 0) and (icon .. " " .. count) or ""
 end
 
+---@return string
 function M.git()
 	local git_status = vim.b.gitsigns_status_dict
 	if git_status == nil then
@@ -41,6 +47,7 @@ function M.git()
 	return branch_name .. added .. changed .. removed
 end
 
+---@return string
 function M.diagnostics()
 	local num_errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
 	local num_warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
@@ -62,6 +69,7 @@ function M.diagnostics()
 	return errors .. warnings .. hints .. info .. "%#StatusLine#"
 end
 
+---@return string
 function M.lsp_progress()
 	local width = vim.api.nvim_win_get_width(0)
 	local status = vim.lsp.status()[1]
@@ -91,6 +99,7 @@ function M.lsp_progress()
 	return string.format(" %%<%s %s %s (%s%%%%) ", spinners[frame + 1], title, msg, percentage)
 end
 
+---@return string
 function M.lsp_icon()
 	if next(vim.lsp.get_clients()) == nil then
 		return " "
@@ -99,6 +108,7 @@ function M.lsp_icon()
 	return "  " .. lsp_name .. " "
 end
 
+---@return string
 function M.current_pos()
 	local current_line = string.format("%3d", vim.fn.line("."))
 	local current_col = string.format("%3d", vim.fn.col("."))
@@ -114,6 +124,7 @@ function M.current_pos()
 	return "  " .. current_line .. ":" .. current_col .. "|" .. result
 end
 
+---@return string
 function M.extra_mode_status()
 	-- Recording macros
 	local reg_recording = vim.fn.reg_recording()

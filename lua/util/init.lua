@@ -1,10 +1,15 @@
 local M = {}
 
+---@param mod string
+---@return any?
 function M.require(mod)
 	local ok, ret = M.try(require, mod)
 	return ok and ret
 end
 
+---@param fn function
+---@param ... any
+---@return boolean, any?
 function M.try(fn, ...)
 	local args = { ... }
 
@@ -22,6 +27,7 @@ function M.try(fn, ...)
 	end, error_handler)
 end
 
+---@return nil
 function M.display_version()
 	local v = vim.version()
 	if v then
@@ -29,6 +35,8 @@ function M.display_version()
 	end
 end
 
+---@param level string
+---@return fun(msg: string, name: string?): nil
 local function notify(level)
 	return function(msg, name)
 		vim.notify(msg, vim.log.levels[level], { title = name or "init.lua" })
@@ -98,6 +106,9 @@ end
 -- this will return a function that calls telescope.
 -- cwd will default to lazyvim.util.get_root
 -- for `files`, git_files or find_files will be chosen depending on .git
+---@param builtin string
+---@param opts table?
+---@return function
 function M.telescope(builtin, opts)
 	local params = { builtin = builtin, opts = opts }
 	return function()
@@ -134,10 +145,12 @@ function M.telescope(builtin, opts)
 	end
 end
 
+---@return boolean
 function M.is_darwin()
 	return vim.uv.os_uname().sysname == "Darwin"
 end
 
+---@return boolean
 function M.is_dark_mode()
 	if M.is_darwin() then
 		if vim.fn.executable("defaults") ~= 0 then
