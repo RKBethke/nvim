@@ -3,13 +3,19 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
       in
       {
-        formatter = pkgs.nixpkgs-fmt;
+        formatter = pkgs.nixfmt-tree;
         devShell = pkgs.mkShell {
           nativeBuildInputs = [
             pkgs.bashInteractive
@@ -20,5 +26,6 @@
             nil
           ];
         };
-      });
+      }
+    );
 }
